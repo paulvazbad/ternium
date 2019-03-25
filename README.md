@@ -1,9 +1,9 @@
 # Front-End Ternium
 ## Folder structure
-components -- Common components
-constants -- Paths && string consants in the app.
-pages -- Pages components (Home,Dashboard,etc...)
-redux -- All the code for redux 
+components -- Common components <br>
+constants -- Paths && string consants in the app. <br>
+pages -- Pages components (Home,Dashboard,etc...) <br>
+redux -- All the code for redux <br>
 styles -- custom css
 
 ## CREATE REACT APP INFO
