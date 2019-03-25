@@ -1,4 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#Front-End Ternium
+##Folder structure
+components -- Common components
+constants -- Paths && string consants in the app.
+pages -- Pages components (Home,Dashboard,etc...)
+redux -- All the code for redux 
+styles -- custom css
+
+##CREATE REACT APP INFO
 
 ## Available Scripts
 
