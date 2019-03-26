@@ -1,6 +1,7 @@
 import {LOGIN, LOGOUT} from '../../constants/index';
 const defaultState = {
-    user:null,
+    username:null,
+    id:null,
     area:null,
     rol:null,
     team:null
@@ -10,7 +11,7 @@ const  authReducer = (state=defaultState,action) =>{
         case LOGIN:
             return{...state,  ...action.payload};
         case LOGOUT:
-            return{...state,user:null,area:null,rol:null,team:null};
+            return defaultState;
         default:
             return state;
     }

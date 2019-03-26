@@ -12,7 +12,7 @@ class LoginPage extends Component{
     componentWillMount(){
         //Checkc if redirect to dashboard needed
         //get cookie
-        const cachedUser = localStorage.getItem("username");
+        const cachedUser = sessionStorage.getItem("username");
         console.log(cachedUser)
         if(cachedUser){
             let JSONUSer = JSON.parse(cachedUser);
@@ -24,7 +24,7 @@ class LoginPage extends Component{
     {
         if(this.state.username){
             //delete cookie
-            localStorage.removeItem("username");
+            sessionStorage.removeItem("username");
             this.setState({logged:"LOG IN", username:null});
         }
         else{
