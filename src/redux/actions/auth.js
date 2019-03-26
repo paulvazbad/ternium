@@ -4,7 +4,7 @@ export const logIn = (/*Optional parameter*/ ) =>{
     return ({dispatch,geState}) => {
         //dummy user
         const user ={
-            user:"abc",
+            username:"abc",
             area:"aceria",
             rol:"eljefe",
             team:"lol"
