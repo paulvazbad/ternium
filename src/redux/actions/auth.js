@@ -1,28 +1,40 @@
-import {LOGIN, LOGOUT} from '../../constants/index';
+import { LOGIN, LOGOUT, LOAD_USER } from "../../constants/index";
 
-export const logIn = (/*Optional parameter*/ ) =>{
-    return ({dispatch,geState}) => {
-        //dummy user
-        const user ={
-            username:"abc",
-            area:"aceria",
-            rol:"eljefe",
-            team:"lol"
-        }
-        //store in cookies
-        dispatch({
-            type:LOGIN,
-            payload:user
-        })
-    }
-}
-
-export const logOut = (/*Optional parameter*/ ) =>{
-    return ({dispatch,geState}) => {
-        //dummy user
-        //remove from in cookies
-        dispatch({
-            type:LOGOUT
-        })
-    }
-}
+export const logIn = (/*Optional parameter*/) => {
+  return ( dispatch, geState ) => {
+    //dummy user
+    const newUser = {
+      username: "abc",
+      id: "A00819877",
+      area: "aceria",
+      rol: "eljefe",
+      team: "lol"
+    };
+    //cookie
+    sessionStorage.setItem("username", JSON.stringify(newUser));
+    dispatch({
+      type: LOGIN,
+      payload: newUser
+    });
+  };
+};
+export const loadUser = user => {
+  return dispatch => {
+    const cachedUser = sessionStorage.getItem("username");
+      let JSONUSer = JSON.parse(cachedUser);
+      //Dispatch loadUser
+      
+      dispatch({
+          type:LOAD_USER,
+          payload:JSONUSer
+      });
+  };
+};
+export const logOut = (/*Optional parameter*/) => {
+  return ({ dispatch, geState }) => {
+    sessionStorage.removeItem("username");
+    dispatch({
+      type: LOGOUT
+    });
+  };
+};

@@ -1,52 +1,37 @@
-import React,{Component} from 'react';
+import React, { Component } from "react";
+import {connect } from "react-redux";
+import {logIn} from "../redux/actions/auth";
+import {withRouter} from "react-router-dom";
+class LoginPage extends Component {
+  componentDidMount() {
+    //Checkc if redirect to dashboard needed
+    //get cookie
+    console.log("Creating Login Page")
+    console.log(this.props.auth);
+    if(this.props.auth.username){
+        this.props.history.push("/Dashboard");
+    }
+   
+  }
 
 
-class LoginPage extends Component{
-    state={
-     username:null, 
-     password:null,
-     token:null,
-     logged:"Log In"      
-    }
-
-    componentWillMount(){
-        //Checkc if redirect to dashboard needed
-        //get cookie
-        const cachedUser = sessionStorage.getItem("username");
-        console.log(cachedUser)
-        if(cachedUser){
-            let JSONUSer = JSON.parse(cachedUser);
-            this.setState({username:JSONUSer.username, logged:"LOG OUT"});
-        }
-        
-    }
-    toggleLog = () =>
-    {
-        if(this.state.username){
-            //delete cookie
-            sessionStorage.removeItem("username");
-            this.setState({logged:"LOG IN", username:null});
-        }
-        else{
-            const newUser ={
-                username:"abc",
-                area:"aceria",
-                rol:"eljefe",
-                team:"lol"
-            }
-            //cookie
-            localStorage.setItem("username", JSON.stringify(newUser));
-
-            this.setState({logged:"LOG OUT", username:newUser.username});
-            //delete cookie
-        }
-    }
-    render(){
-        return(
-            <button onClick={this.toggleLog}>{this.state.logged}</button>
-        );
-    }
+  render() {
+    return(
+        <div>
+        <p>Login page</p>
+        <button onClick={()=>this.props.logIn()}>LogIN</button>
+        </div>
+    );
+  }
 }
-
-
-export default (LoginPage);
+const mapStateToProps = (state) => ({
+    auth:state.auth
+});
+const mapDispatchToProps = (dispatch) => {
+    return(
+        {
+            logIn: () => dispatch(logIn())
+        }
+    );
+}
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPage));
