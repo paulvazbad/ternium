@@ -1,37 +1,44 @@
 import React, { Component } from "react";
-import {connect } from "react-redux";
-import {logIn} from "../redux/actions/auth";
-import {withRouter} from "react-router-dom";
+import { connect } from "react-redux";
+import { logIn } from "../redux/actions/auth";
+import { withRouter } from "react-router-dom";
+
 class LoginPage extends Component {
   componentDidMount() {
     //Checkc if redirect to dashboard needed
     //get cookie
-    console.log("Creating Login Page")
+    console.log("Creating Login Page");
     console.log(this.props.auth);
-    if(this.props.auth.username){
-        this.props.history.push("/Dashboard");
+    if (this.props.auth.username) {
+      this.props.history.push("/Dashboard");
     }
-   
   }
-
-
+  redirectOnLogIn = () => {
+    this.props.logIn();
+    this.props.history.push("/Dashboard");
+  };
   render() {
-    return(
-        <div>
+    return (
+      <div>
         <p>Login page</p>
-        <button onClick={()=>this.props.logIn()}>LogIN</button>
-        </div>
+        <button onClick={() => this.redirectOnLogIn()}>LogIN</button>
+      </div>
     );
   }
 }
-const mapStateToProps = (state) => ({
-    auth:state.auth
+const mapStateToProps = state => ({
+  auth: state.auth
 });
-const mapDispatchToProps = (dispatch) => {
-    return(
-        {
-            logIn: () => dispatch(logIn())
-        }
-    );
-}
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginPage));
+const mapDispatchToProps = dispatch => {
+  return {
+    logIn: () => {
+      dispatch(logIn());
+    }
+  };
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(LoginPage)
+);

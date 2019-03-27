@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import {connect } from "react-redux";
 //import Navbar from "./components/Navbar";
-import LoginPage from './pages/LoginPage';
+import {DashboardPage, LoginPage} from "./pages";
 import ProtectedRoute from './components/ProtectedRoute';
 import { loadUser } from "./redux/actions/auth";
+import { DASHBOARD } from "./constants/routes";
+
 
 class App extends Component {
   componentWillMount(){
@@ -18,6 +20,7 @@ class App extends Component {
           <div>
             <Switch>
               <Route exact path='/' component={LoginPage}/>
+              <ProtectedRoute exact path={DASHBOARD} component={DashboardPage}/>
             </Switch>
           </div>
         </BrowserRouter>

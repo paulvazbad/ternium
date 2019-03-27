@@ -23,7 +23,7 @@ export const loadUser = user => {
     const cachedUser = sessionStorage.getItem("username");
       let JSONUSer = JSON.parse(cachedUser);
       //Dispatch loadUser
-      
+
       dispatch({
           type:LOAD_USER,
           payload:JSONUSer
@@ -31,7 +31,7 @@ export const loadUser = user => {
   };
 };
 export const logOut = (/*Optional parameter*/) => {
-  return ({ dispatch, geState }) => {
+  return ( dispatch, geState ) => {
     sessionStorage.removeItem("username");
     dispatch({
       type: LOGOUT

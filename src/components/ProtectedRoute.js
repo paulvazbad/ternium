@@ -1,31 +1,27 @@
-import React from "react";
+import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
-import auth from "../utils/auth";
+import { connect } from "react-redux";
 
-export const ProtectedRoute = ({
-  component: Component,
-  ...rest
-}) => {
-  return (
-    <Route
-      {...rest}
-      render={props => {
-          //Add first case if logged in but not allowed to see the content.
-        if (auth.isAuthenticated()) { //Checks reduxStore
-          return <Component {...props} />;
-        } else {
-          return (
-            <Redirect
-              to={{
-                pathname: "/",
-                state: {
-                  from: props.location
-                }
-              }}
-            />
-          );
-        }
-      }}
-    />
-  );
-};
+class ProtectedRoute extends Component {
+  constructor(props) {
+    super(props);
+    let { Component, ...rest } = this.props;
+    this.component = Component;
+    this.rest = rest;
+    console.log(this.props);
+  }
+  render() {
+    if (this.props.auth.username) {
+      return (
+        <Route {...this.rest} render={props => <Component {...props} />} />
+      );
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+}
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(ProtectedRoute);
