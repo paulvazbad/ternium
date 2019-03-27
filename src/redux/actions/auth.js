@@ -1,9 +1,10 @@
 import { LOGIN, LOGOUT, LOAD_USER } from "../../constants/index";
-
+import jwt from "jwt-simple";
+const secret = process.env.REACT_APP_JWT_COOKIE;
 export const logIn = (/*Optional parameter*/) => {
-  return ( dispatch, geState ) => {
+  return (dispatch, geState) => {
     //dummy user
-    const newUser = {
+    let newUser = {
       username: "abc",
       id: "A00819877",
       area: "aceria",
@@ -11,7 +12,8 @@ export const logIn = (/*Optional parameter*/) => {
       team: "lol"
     };
     //cookie
-    sessionStorage.setItem("username", JSON.stringify(newUser));
+    let cookie = jwt.encode(newUser, secret);
+    sessionStorage.setItem("username", cookie);
     dispatch({
       type: LOGIN,
       payload: newUser
@@ -20,18 +22,24 @@ export const logIn = (/*Optional parameter*/) => {
 };
 export const loadUser = user => {
   return dispatch => {
-    const cachedUser = sessionStorage.getItem("username");
-      let JSONUSer = JSON.parse(cachedUser);
-      //Dispatch loadUser
+    let cookie = "";
+    let JSONUSer = {};
+    cookie = sessionStorage.getItem("username");
+    if (cookie) {
+      const cachedUser = jwt.decode(cookie, secret);
+      JSONUSer = cachedUser;
+    }
 
-      dispatch({
-          type:LOAD_USER,
-          payload:JSONUSer
-      });
+    //Dispatch loadUser
+
+    dispatch({
+      type: LOAD_USER,
+      payload: JSONUSer
+    });
   };
 };
 export const logOut = (/*Optional parameter*/) => {
-  return ( dispatch, geState ) => {
+  return (dispatch, geState) => {
     sessionStorage.removeItem("username");
     dispatch({
       type: LOGOUT

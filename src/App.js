@@ -12,7 +12,7 @@ class App extends Component {
   componentWillMount(){
     this.props.loadUser();
   }
-   notLoaded = (<p>Loading</p>);
+   notLoaded = (<p>Loading stored session</p>);
   render() {
     if(this.props.auth.loaded){
       return (

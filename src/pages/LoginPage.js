@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logIn } from "../redux/actions/auth";
 import { withRouter } from "react-router-dom";
+import { DASHBOARD } from "../constants/routes";
 
 class LoginPage extends Component {
   componentDidMount() {
@@ -10,12 +11,12 @@ class LoginPage extends Component {
     console.log("Creating Login Page");
     console.log(this.props.auth);
     if (this.props.auth.username) {
-      this.props.history.push("/Dashboard");
+      this.props.history.push(DASHBOARD);
     }
   }
   redirectOnLogIn = () => {
     this.props.logIn();
-    this.props.history.push("/Dashboard");
+    this.props.history.push(DASHBOARD);
   };
   render() {
     return (
