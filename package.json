@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
+    "install": "^0.12.2",
     "jwt-simple": "^0.5.5",
     "react": "^16.8.4",
     "react-dev-utils": "^8.0.0",

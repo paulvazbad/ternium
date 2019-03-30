@@ -6,23 +6,26 @@ import {DashboardPage, LoginPage} from "./pages";
 import ProtectedRoute from './components/ProtectedRoute';
 import { loadUser } from "./redux/actions/auth";
 import { DASHBOARD } from "./constants/routes";
-
+import Layout from './components/Layout';
+//import {styles} from './styles/MainStyles'; 
 
 class App extends Component {
   componentWillMount(){
     this.props.loadUser();
+    
   }
+
    notLoaded = (<p>Loading stored session</p>);
   render() {
     if(this.props.auth.loaded){
       return (
         <BrowserRouter>
-          <div>
+        <Layout>
             <Switch>
               <Route exact path='/' component={LoginPage}/>
               <ProtectedRoute exact path={DASHBOARD} component={DashboardPage}/>
             </Switch>
-          </div>
+        </Layout>
         </BrowserRouter>
       );
     }
@@ -41,4 +44,4 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({
   auth:state.auth
 });
-export default connect (mapStateToProps,mapDispatchToProps)(App);
+export default (connect (mapStateToProps,mapDispatchToProps)(App));
