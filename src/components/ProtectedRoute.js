@@ -12,6 +12,7 @@ class ProtectedRoute extends Component {
   }
   render() {
     if (this.props.auth.username) {
+      console.log("ALLOWED");
       return (
         <Route {...this.rest} render={props => <Component {...props} />} />
       );

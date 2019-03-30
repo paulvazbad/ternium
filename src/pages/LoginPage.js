@@ -14,14 +14,19 @@ class LoginPage extends Component {
       this.props.history.push(DASHBOARD);
     }
   }
-  redirectOnLogIn = () => {
+   redirectOnLogIn = () => {
     this.props.logIn();
-    this.props.history.push(DASHBOARD);
   };
+  componentDidUpdate(){
+    if(this.props.auth.username){
+      this.props.history.push(DASHBOARD);
+    }
+  }
   render() {
     return (
       <div>
         <p>Login page</p>
+        {this.props.auth.failed && <p>Invalid Credentials</p>}
         <button onClick={() => this.redirectOnLogIn()}>LogIN</button>
       </div>
     );
