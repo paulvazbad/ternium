@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import {connect } from "react-redux";
 //import Navbar from "./components/Navbar";
-import {DashboardPage, LoginPage} from "./pages";
+import {DashboardPage, LoginPage, HistoryPage,NewSessionPage} from "./pages";
 import ProtectedRoute from './components/ProtectedRoute';
 import { loadUser } from "./redux/actions/auth";
-import { DASHBOARD } from "./constants/routes";
+import { DASHBOARD, HISTORY, NEWSESSION } from "./constants/routes";
 import Layout from './components/Layout';
 //import {styles} from './styles/MainStyles'; 
 
@@ -24,6 +24,8 @@ class App extends Component {
             <Switch>
               <Route exact path='/' component={LoginPage}/>
               <ProtectedRoute exact path={DASHBOARD} component={DashboardPage}/>
+              <ProtectedRoute exact path={HISTORY} component={HistoryPage}/>
+              <ProtectedRoute exact path={NEWSESSION} component={NewSessionPage}/>
             </Switch>
         </Layout>
         </BrowserRouter>

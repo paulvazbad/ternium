@@ -1,4 +1,5 @@
 import LoginPage from './LoginPage';
 import DashboardPage from './DashboardPage';
-
-export {LoginPage, DashboardPage};
+import HistoryPage from './HistoryPage';
+import NewSessionPage from './NewSessionPage';
+export {LoginPage, DashboardPage, HistoryPage, NewSessionPage};

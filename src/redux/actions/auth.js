@@ -54,6 +54,10 @@ export const loadUser = () => {
         .then(response => {
           console.log("YES");
           JSONUSer = response.data;
+          dispatch({
+            type: LOAD_USER,
+            payload: response.data
+          })
         })
         .catch(response =>
           dispatch({
