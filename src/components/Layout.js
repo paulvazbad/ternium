@@ -22,6 +22,9 @@ const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1
   },
+  grow: {
+    flexGrow: 1,
+  },
   menuButton: {
     marginRight: 20,
     [theme.breakpoints.up("sm")]: {
@@ -53,7 +56,7 @@ class Layout extends React.Component {
   render() {
     const { classes, children, auth } = this.props;
     let drawer = [{}];
-    if (auth.rol != "SU" && auth.rol) {
+    if (auth.rol !== "SU" && auth.rol) {
       drawer = [
         {
           name: "Dashboard",
@@ -76,6 +79,7 @@ class Layout extends React.Component {
             menuButton={classes.menuButton}
             handleDrawerToggle={this.handleDrawerToggle}
             auth = {auth}
+            grow= {classes.grow}
           />
           {auth.rol !== "SU" && auth.username && (
             <ResponsiveDrawer

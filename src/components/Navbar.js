@@ -5,9 +5,11 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
-import { Link } from "react-router-dom";
-import * as routes from "../constants/routes";
+import { Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
+import { logOut } from "../redux/actions/auth";
+import { connect } from "react-redux";
+
 const styles = () => ({
   appBar: {
     flexGrow: 1,
@@ -15,20 +17,11 @@ const styles = () => ({
   }
 });
 class Navbar extends Component {
-  renderOptions = () => {
-    const { rol, username } = this.props.auth;
-    switch (rol) {
-      case "SS":
-      case "SA":
-        return (
-          <Button component={Link} to={routes.DASHBOARD}>
-            Dashboard
-          </Button>
-        );
-      case "SU":
-      default:
-    }
+  redirectOnLogOut = () => {
+    this.props.logOut();
+    return(<Redirect to={"/pero"}/>)
   };
+
   render() {
     return (
       <AppBar
@@ -47,14 +40,36 @@ class Navbar extends Component {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant="title" color="inherit" noWrap>
+          <Typography
+            variant="title"
+            color="inherit"
+            className={this.props.grow}
+            noWrap
+          >
             Ternium Gas Viewer
           </Typography>
-          {this.props.rol && this.renderOptions}
+
+          {
+            this.props.auth.username &&
+            <Button color="inherit" onClick={() => this.redirectOnLogOut()}>
+              Exit
+            </Button>
+          }
         </Toolbar>
       </AppBar>
     );
   }
 }
-
-export default withStyles(styles)(Navbar);
+const mapDispatchToProps = dispatch => {
+  return {
+    logOut: () => {
+      dispatch(logOut());
+    }
+  };
+};
+export default withStyles(styles)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(Navbar)
+);

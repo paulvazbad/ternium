@@ -13,9 +13,13 @@ export const logIn = (/*Optional parameter*/) => {
       password: "good"
     };
     //validate user
-  
+
     axios
-      .post(linkPost + (newUser.password==="good"?"/auth/login":"/auth/loginbad"), newUser)
+      .post(
+        linkPost +
+          (newUser.password === "good" ? "/auth/login" : "/auth/loginbad"),
+        newUser
+      )
       .then(response => {
         let cookie = jwt.encode(newUser, secret);
         sessionStorage.setItem("user", cookie);
@@ -38,15 +42,31 @@ export const loadUser = () => {
     let JSONUSer = {};
     cookie = sessionStorage.getItem("user");
     if (cookie) {
+      console.log("FOUND A USER");
       const cachedUser = jwt.decode(cookie, secret);
       JSONUSer = cachedUser;
-      axios.post(linkPost + (JSONUSer.password==="good"?"/auth/login":"/auth/loginbad"), JSONUSer).then(response => {
-        dispatch({
-          type: LOAD_USER,
-          payload: response.data
-        });
-      })
-    }    
+      axios
+        .post(
+          linkPost +
+            (JSONUSer.password === "good" ? "/auth/login" : "/auth/loginbad"),
+          JSONUSer
+        )
+        .then(response => {
+          console.log("YES");
+          JSONUSer = response.data;
+        })
+        .catch(response =>
+          dispatch({
+            type: FAILED_LOGIN
+          })
+        );
+    } else {
+      dispatch({
+        type: LOAD_USER,
+        payload: {}
+      });
+    }
+
     //Dispatch loadUser
   };
 };
