@@ -21,7 +21,7 @@ export const logIn = (/*Optional parameter*/) => {
         sessionStorage.setItem("user", cookie);
         dispatch({
           type: LOGIN,
-          payload: newUser
+          payload: response.data
         });
       })
       .catch(error =>

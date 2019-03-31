@@ -20,7 +20,7 @@ class App extends Component {
     if(this.props.auth.loaded){
       return (
         <BrowserRouter>
-        <Layout>
+        <Layout auth={this.props.auth}>
             <Switch>
               <Route exact path='/' component={LoginPage}/>
               <ProtectedRoute exact path={DASHBOARD} component={DashboardPage}/>
