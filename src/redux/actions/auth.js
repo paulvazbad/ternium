@@ -5,23 +5,23 @@ import jwt from "jwt-simple";
 const linkPost = "https://d31e1bb5-30af-411e-9746-26902dd9fc3a.mock.pstmn.io";
 const secret = process.env.REACT_APP_JWT_COOKIE;
 
-export const logIn = (/*Optional parameter*/) => {
+export const logIn = (userInfo) => {
   return dispatch => {
     //dummy user
-    let newUser = {
+    /*let newUser = {
       username: "A00819877",
       password: "good"
-    };
+    };*/
     //validate user
 
     axios
       .post(
         linkPost +
-          (newUser.password === "good" ? "/auth/login" : "/auth/loginbad"),
-        newUser
+          (userInfo.password === "good" ? "/auth/login" : "/auth/loginbad"),
+        userInfo
       )
       .then(response => {
-        let cookie = jwt.encode(newUser, secret);
+        let cookie = jwt.encode(userInfo, secret);
         sessionStorage.setItem("user", cookie);
         dispatch({
           type: LOGIN,
