@@ -40,12 +40,14 @@ export const loadUser = () => {
     if (cookie) {
       const cachedUser = jwt.decode(cookie, secret);
       JSONUSer = cachedUser;
-    }
+      axios.post(linkPost + (JSONUSer.password==="good"?"/auth/login":"/auth/loginbad"), JSONUSer).then(response => {
+        dispatch({
+          type: LOAD_USER,
+          payload: response.data
+        });
+      })
+    }    
     //Dispatch loadUser
-    dispatch({
-      type: LOAD_USER,
-      payload: JSONUSer
-    });
   };
 };
 

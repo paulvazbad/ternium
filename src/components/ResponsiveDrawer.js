@@ -1,14 +1,14 @@
 import React from 'react';
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Dashboard from "@material-ui/icons/Dashboard";
-import History from "@material-ui/icons/History";
+import Add from "@material-ui/icons/Add";
 import Divider from "@material-ui/core/Divider";
+import { NavLink } from 'react-router-dom'
+import { NEWSESSION } from '../constants/routes';
 
 class ResponsiveDrawer extends React.Component{ 
       componentWillMount(){
@@ -23,7 +23,7 @@ render(){
     <Divider />
     <List>{
         this.props.drawer && this.props.drawer.map((element, index) => (
-          <ListItem button key={element.name}>
+          <ListItem button component={NavLink} to={element.route} key={element.name}>
             <ListItemIcon>
               {element.icon}
             </ListItemIcon>
@@ -35,9 +35,9 @@ render(){
     <Divider />
     <List>
       {this.props.monitoreo && (
-        <ListItem button key={"Iniciar Monitoreo"}>
+        <ListItem button component={NavLink} to={NEWSESSION} key={"Iniciar Monitoreo"}>
           <ListItemIcon>
-           <History/>
+           <Add/>
           </ListItemIcon>
           <ListItemText primary={"Iniciar Monitoreo"} />
         </ListItem>
