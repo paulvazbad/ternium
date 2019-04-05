@@ -46,7 +46,7 @@ render(){
   </div>);
     return(
         <nav className={this.props.classes.drawer}>
-            <Hidden smUp implementation="css">
+            <Hidden xsUp implementation="css">
               <Drawer
                 container={this.props.container}
                 variant="temporary"

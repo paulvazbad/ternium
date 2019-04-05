@@ -13,16 +13,36 @@ import { DASHBOARD } from "../constants/routes";
 import NewSessionForm from '../components/NewSessionForm';
 
 class NewSessionPage extends React.Component {
+  
   state = {
-    activeStep: 0
+    activeStep: 0,
+    width:0,
+    orientation: 'horizontal'
   };
+  componentWillMount(){
+    this.updateWindowSize();
+    window.addEventListener('resize',this.updateWindowSize);
 
-  componentDidMount() {
-    console.log("NewSession!");
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowSize);
+  }
+  updateWindowSize = () =>{
+    this.setState({ width: window.innerWidth});
+
+    if(window.innerWidth<750){
+      this.setState({orientation:'vertical'});
+    }
+    else{
+      this.setState({orientation:'horizontal'});
+    }
+  }
+  componentDidUpdate(){
+    console.log(this.state.width);
   }
   step0 = (
       <div>
-    <Typography style={{paddingBottom:"10%"}}>
+    <Typography style={{padding:"2%"}}>
       Introduce la información del wearable y del usuario
     </Typography>
     <NewSessionForm/>
@@ -65,7 +85,7 @@ class NewSessionPage extends React.Component {
     return (
         
       <Paper style={{width:"80%", flex:1, margin:"auto"}}>
-        <Stepper activeStep={activeStep}>
+        <Stepper activeStep={activeStep} orientation={this.state.orientation}>
           {steps.map((label, index) => {
             return (
               <Step key={label}>
