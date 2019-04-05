@@ -11,6 +11,9 @@ import {
 } from "@material-ui/core";
 import { DASHBOARD } from "../constants/routes";
 import NewSessionForm from '../components/NewSessionForm';
+import Loading from '../components/Loading';
+import Grow from '@material-ui/core/Grow';
+
 
 class NewSessionPage extends React.Component {
   
@@ -41,20 +44,26 @@ class NewSessionPage extends React.Component {
     console.log(this.state.width);
   }
   step0 = (
+    <Grow in={true}>
       <div>
     <Typography style={{padding:"2%"}}>
       Introduce la información del wearable y del usuario
     </Typography>
     <NewSessionForm/>
     </div>
+    </Grow>
   );
+  
+  step1 = (
 
+      <Loading withIcon={true} redirect={"TBD"}/>
+  );
   getStepContent = step => {
     switch (step) {
       case 0:
         return this.step0;
       case 1:
-        return;
+        return this.step1;
       case 2:
         return "Conexión exitosa!";
       default:
