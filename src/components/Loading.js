@@ -36,7 +36,7 @@ class Loading extends React.Component {
             <Router style={{ fontSize: "3.5em"}} />
           </Fab>
         )}
-        <CircularProgress size={100} className={styles.IconProgress} />
+        <CircularProgress size={100} styles={styles.IconProgress} />
       </div>
     );
   }

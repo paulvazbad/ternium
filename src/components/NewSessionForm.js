@@ -9,47 +9,60 @@ import {
 } from "@material-ui/core";
 import Person from "@material-ui/icons/Person";
 import Router from "@material-ui/icons/Router";
+import { connect } from "react-redux";
+import {
+  fetchWorkers,
+  setSelectedDevice,
+  setSelectedWorker,
+  fetchDevices
+} from "../redux/actions/user";
 
 class NewSessionForm extends React.Component {
   state = {
-    selectedWorker: "",
-    selectedDevice: "",
-    workers: [
-      { id: 0, name: "Eduardo Angulo" },
-      { id: 1, name: "Pedro Paramo" }
-    ],
     labelWidth: 0,
     requiredWorker: "",
-    requiredDevice: ""
+    requiredDevice: "",
+    selectedDevice: "",
+    selectedWorker: "",
   };
-  getWorkers = cant => {
-    let works = [];
 
-    for (var i = 0; i < cant; i++) {
-      let worker = "Worker " + Math.random() * 100;
-      works.push({ id: i, name: worker });
-    }
-    return works;
-  };
-  componentDidMount() {
+  componentWillMount() {
+    this.props.fetchWorkers();
+    this.props.fetchDevices();
+  }
+  componentDidMount(){
     this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-      workers: this.getWorkers(6)
+      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth
     });
   }
-  renderMenuItems = () => {
-    return this.state.workers.map((worker, index) => (
-      <MenuItem key={index} value={worker.id}>
-        {worker.name}
-      </MenuItem>
-    ));
+  renderMenuItems = renderType => {
+    if (renderType === "workers") {
+      return this.props.workers.map((worker, index) => (
+        <MenuItem key={index} value={worker.id}>
+          {worker.name}
+        </MenuItem>
+      ));
+    } else {
+      return this.props.devices.map((device, index) => (
+        <MenuItem key={index} value={device.id}>
+          {device.name}
+        </MenuItem>
+      ));
+    }
   };
   handleChange = name => event => {
     console.log(this.state.selectedWorker);
     console.log(name + event.target.value);
     console.log(event.target.value);
-    this.setState({ [name]: event.target.value });
-    let colorName = name==="selectedWorker"? "requiredWorker": "requiredDevice";
+    if (name === "selectedWorker") {
+      this.props.setSelectedWorker(event.target.value);
+      this.setState({selectedWorker:event.target.value});
+    } else {
+      this.props.setSelectedDevice(event.target.value);
+      this.setState({selectedDevice:event.target.value});
+    }
+    let colorName =
+      name === "selectedWorker" ? "requiredWorker" : "requiredDevice";
     if (event.target.value !== "") {
       console.log("YEET");
       this.setState({ [colorName]: { color: "#4caf50" } });
@@ -89,13 +102,15 @@ class NewSessionForm extends React.Component {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              {this.renderMenuItems()}
+              {this.props.workers && this.renderMenuItems("workers")}
             </Select>
           </FormControl>
         </div>
 
         <div style={{ display: "flex", wrap: "nowrap" }}>
-          <Router style={{ fontSize: "3em", padding: "1%", ...requiredDevice  }} />
+          <Router
+            style={{ fontSize: "3em", padding: "1%", ...requiredDevice }}
+          />
           <FormControl variant="outlined" fullWidth={true}>
             <InputLabel
               ref={ref => {
@@ -119,7 +134,7 @@ class NewSessionForm extends React.Component {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              {this.renderMenuItems()}
+              {this.props.devices && this.renderMenuItems("devices")}
             </Select>
           </FormControl>
         </div>
@@ -127,4 +142,30 @@ class NewSessionForm extends React.Component {
     );
   }
 }
-export default NewSessionForm;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchWorkers: () => {
+      dispatch(fetchWorkers());
+    },
+    fetchDevices: () => {
+      dispatch(fetchDevices());
+    },
+    setSelectedWorker: id => {
+      dispatch(setSelectedWorker(id));
+    },
+    setSelectedDevice: id => {
+      dispatch(setSelectedDevice(id));
+    }
+  };
+};
+const mapStateToProps = state => {
+  return {
+    workers: state.user.workers,
+    devices: state.user.devices
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewSessionForm);
