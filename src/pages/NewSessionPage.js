@@ -107,6 +107,7 @@ class NewSessionPage extends React.Component {
               onClick={this.handleNext(steps)}
             >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              {activeStep !==1}
             </Button>
           </Grid>
         </Grid>

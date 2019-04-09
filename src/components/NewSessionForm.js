@@ -23,14 +23,17 @@ class NewSessionForm extends React.Component {
     requiredWorker: "",
     requiredDevice: "",
     selectedDevice: "",
-    selectedWorker: "",
+    selectedWorker: ""
   };
 
   componentWillMount() {
-    this.props.fetchWorkers();
+    if (!this.props.workers) {
+      this.props.fetchWorkers();
+    }
+
     this.props.fetchDevices();
   }
-  componentDidMount(){
+  componentDidMount() {
     this.setState({
       labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth
     });
@@ -56,15 +59,14 @@ class NewSessionForm extends React.Component {
     console.log(event.target.value);
     if (name === "selectedWorker") {
       this.props.setSelectedWorker(event.target.value);
-      this.setState({selectedWorker:event.target.value});
+      this.setState({ selectedWorker: event.target.value });
     } else {
       this.props.setSelectedDevice(event.target.value);
-      this.setState({selectedDevice:event.target.value});
+      this.setState({ selectedDevice: event.target.value });
     }
     let colorName =
       name === "selectedWorker" ? "requiredWorker" : "requiredDevice";
     if (event.target.value !== "") {
-      console.log("YEET");
       this.setState({ [colorName]: { color: "#4caf50" } });
     } else {
       this.setState({ [colorName]: { color: "" } });
