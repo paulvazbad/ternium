@@ -7,7 +7,15 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { loadUser } from "./redux/actions/auth";
 import { DASHBOARD, HISTORY, NEWSESSION } from "./constants/routes";
 import Layout from './components/Layout';
+import { createMuiTheme, MuiThemeProvider, withTheme } from '@material-ui/core/styles';
+
 //import {styles} from './styles/MainStyles'; 
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: "#F25C29" }, // Purple and green play nicely together.
+    secondary: { main: '#37323E' }, // This is just green.A700 as hex.
+  },
+});
 
 class App extends Component {
   componentWillMount(){
@@ -19,16 +27,18 @@ class App extends Component {
   render() {
     if(this.props.auth.loaded){
       return (
+        <MuiThemeProvider theme={theme}>
         <BrowserRouter>
         <Layout auth={this.props.auth}>
             <Switch>
               <Route exact path='/' component={LoginPage}/>
-              <ProtectedRoute exact path={DASHBOARD} component={DashboardPage}/>
-              <ProtectedRoute exact path={HISTORY} component={HistoryPage}/>
-              <ProtectedRoute exact path={NEWSESSION} component={NewSessionPage}/>
+              <ProtectedRoute exact path={DASHBOARD} component={DashboardPage} rol={["SA","SS"]}/>
+              <ProtectedRoute exact path={HISTORY} component={HistoryPage} rol={["SA","SS"]}/>
+              <ProtectedRoute exact path={NEWSESSION} component={NewSessionPage} rol={["SA","SS"]}/>
             </Switch>
         </Layout>
         </BrowserRouter>
+        </MuiThemeProvider>
       );
     }
     else{
@@ -46,4 +56,4 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({
   auth:state.auth
 });
-export default (connect (mapStateToProps,mapDispatchToProps)(App));
+export default withTheme()(connect (mapStateToProps,mapDispatchToProps)(App));

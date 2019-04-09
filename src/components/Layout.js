@@ -51,7 +51,6 @@ class Layout extends React.Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
   componentDidUpdate(){
-    console.log(this.state.mobileOpen);
   }
   render() {
     const { classes, children, auth } = this.props;

@@ -20,7 +20,7 @@ const  authReducer = (state=defaultState,action) =>{
         case FETCHING_USER:
         return {...state,fetching:true};
         case FAILED_LOGIN:
-            return {...state, fetching:false,failed:true};
+            return {...state, fetching:false,failed:true, loaded:true};
         default:
             return state;
     }
