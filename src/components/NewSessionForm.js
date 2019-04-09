@@ -57,6 +57,7 @@ class NewSessionForm extends React.Component {
     console.log(this.state.selectedWorker);
     console.log(name + event.target.value);
     console.log(event.target.value);
+    this.props.setParent({[event.target.name]:event.target.value});
     if (name === "selectedWorker") {
       this.props.setSelectedWorker(event.target.value);
       this.setState({ selectedWorker: event.target.value });
