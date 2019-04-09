@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { logIn } from "../redux/actions/auth";
 import { withRouter } from "react-router-dom";
 import { Button} from "@material-ui/core/";
-import { DASHBOARD } from "../constants/routes";
+import { DASHBOARD, USER_ADMIN } from "../constants/routes";
 import { TextField, Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
@@ -12,23 +12,28 @@ class LoginPage extends Component {
     username:null,
     password:null
   };
-
+  redirectOnAlreadyLogged = () =>{
+    console.log("Creating Login Page");
+    console.log(this.props.auth);
+    if(this.props.auth.rol==="SU"){
+      console.log("GOES TO SU");
+      console.log(USER_ADMIN);
+      this.props.history.push('/user_admin');
+    }
+    else if (this.props.auth.username) {
+      this.props.history.push(DASHBOARD);
+    }
+  }
   componentDidMount() {
     //Checkc if redirect to dashboard needed
     //get cookie
-    console.log("Creating Login Page");
-    console.log(this.props.auth);
-    if (this.props.auth.username) {
-      this.props.history.push(DASHBOARD);
-    }
+    this.redirectOnAlreadyLogged();
   }
   redirectOnLogIn = () => {
     this.props.logIn(this.state);
   };
   componentDidUpdate() {
-    if (this.props.auth.username) {
-      this.props.history.push(DASHBOARD);
-    }
+    this.redirectOnAlreadyLogged();
   }
   handleChange = name => event => {
   this.setState({[name]:event.target.value});

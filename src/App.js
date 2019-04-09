@@ -23,9 +23,9 @@ class App extends Component {
         <Layout auth={this.props.auth}>
             <Switch>
               <Route exact path='/' component={LoginPage}/>
-              <ProtectedRoute exact path={DASHBOARD} component={DashboardPage}/>
-              <ProtectedRoute exact path={HISTORY} component={HistoryPage}/>
-              <ProtectedRoute exact path={NEWSESSION} component={NewSessionPage}/>
+              <ProtectedRoute exact path={DASHBOARD} component={DashboardPage} rol={["SA","SS"]}/>
+              <ProtectedRoute exact path={HISTORY} component={HistoryPage} rol={["SA","SS"]}/>
+              <ProtectedRoute exact path={NEWSESSION} component={NewSessionPage} rol={["SA","SS"]}/>
             </Switch>
         </Layout>
         </BrowserRouter>
