@@ -26,7 +26,7 @@ class Navbar extends Component {
   render() {
     return (
       <AppBar
-        color="primary"
+        color="secondary"
         position="absolute"
         className={this.props.className}
       >

@@ -68,7 +68,7 @@ class NewSessionForm extends React.Component {
     let colorName =
       name === "selectedWorker" ? "requiredWorker" : "requiredDevice";
     if (event.target.value !== "") {
-      this.setState({ [colorName]: { color: "#4caf50" } });
+      this.setState({ [colorName]: { color: "#F25C29" } });
     } else {
       this.setState({ [colorName]: { color: "" } });
     }
