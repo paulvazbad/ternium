@@ -26,7 +26,7 @@ class Navbar extends Component {
   render() {
     return (
       <AppBar
-        color="blue"
+        color="primary"
         position="absolute"
         className={this.props.className}
       >
@@ -49,7 +49,7 @@ class Navbar extends Component {
             noWrap
           >
 
-            Ternium
+            Ternium Gas Viewer
 
           </Typography>
 
