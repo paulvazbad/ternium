@@ -13,8 +13,6 @@ class LoginPage extends Component {
     password:null
   };
   redirectOnAlreadyLogged = () =>{
-    console.log("Creating Login Page");
-    console.log(this.props.auth);
     if(this.props.auth.rol==="SU"){
       console.log("GOES TO SU");
       console.log(USER_ADMIN);
