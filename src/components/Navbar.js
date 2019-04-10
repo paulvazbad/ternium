@@ -43,7 +43,7 @@ class Navbar extends Component {
           )}
           <img src={mini_logo} alt="Logo" style={{width:30,height:30, marginRight:10}}/>
           <Typography
-            variant="title"
+            variant="h6"
             color="inherit"
             className={this.props.grow}
             noWrap

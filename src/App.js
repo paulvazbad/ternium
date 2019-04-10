@@ -15,6 +15,9 @@ const theme = createMuiTheme({
     primary: { main: "#F25C29" }, // Purple and green play nicely together.
     secondary: { main: '#37323E' }, // This is just green.A700 as hex.
   },
+  typography: {
+    useNextVariants: true,
+  }
 });
 
 class App extends Component {

@@ -42,7 +42,7 @@ class LoginPage extends Component {
         <Grid container direction="column" justify="flex-start" spacing={16} alignItems="center">
         <div style={{width: "60%", textAlign:"center"}}>
         <Grid item>
-        <Typography style={{paddingTop:20}}variant="title">Sign In</Typography>
+        <Typography style={{paddingTop:20}}variant="h6">Sign In</Typography>
         </Grid>
           <Grid item>
            
