@@ -3,7 +3,7 @@ import axios from "axios";
 import jwt from "jwt-simple";
 // eslint-disable-next-line no-undef
 const linkPost = "https://d31e1bb5-30af-411e-9746-26902dd9fc3a.mock.pstmn.io";
-const linkBack = "http://10.15.247.151:4000/api/users/login";
+const linkBack = "http://localhost:4000";
 const secret = process.env.REACT_APP_JWT_COOKIE;
 var newUser = {
   username: "noBackend",
@@ -13,7 +13,7 @@ var newUser = {
   id: "13465"
 };
 
-const backedOn = false;
+const backedOn = true;
 export const logIn = userInfo => {
   return dispatch => {
     //dummy user
@@ -22,7 +22,7 @@ export const logIn = userInfo => {
     if (backedOn) {
       axios({
         method: "post",
-        url: "http://10.15.247.151:4000/api/users/login",
+        url: linkBack+"/api/users/login",
         proxyHeaders: false,
         credentials: false,
         data: userInfo
@@ -67,14 +67,15 @@ export const loadUser = () => {
       JSONUSer = cachedUser;
       if(backedOn){
         axios
-        .post(linkBack, JSONUSer)
+        .post(linkBack+"/api/users/login", JSONUSer)
         .then(response => {
+          const newUser = { ...response.data, rol: "SA"};
           dispatch({
             type: LOAD_USER,
             payload: newUser
           });
         })
-        .catch(response => {
+        .catch(error => {
           sessionStorage.removeItem("user");
           dispatch({
             type: FAILED_LOGIN
