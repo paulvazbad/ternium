@@ -3,9 +3,9 @@ const express = require('express');
 const users = require('./routes/users');
 const app = express();
 
-mongoose.connect('mongodb://localhost/ternium')
+mongoose.connect("mongodb+srv://admin:admin@clustert-fwz18.mongodb.net/ternium?retryWrites=true", {dbName: 'ternium', useNewUrlParser: true})
   .then(() => console.log('Connected to MongoDB...'))
-  .catch(err => console.error('Could not connect to MongoDB...'));
+  .catch(err => console.error('Could not connect to MongoDB...'+err));
 
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
