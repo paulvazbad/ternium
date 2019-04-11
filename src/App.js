@@ -5,9 +5,10 @@ import {connect } from "react-redux";
 import {DashboardPage, LoginPage, HistoryPage,NewSessionPage} from "./pages";
 import ProtectedRoute from './components/ProtectedRoute';
 import { loadUser } from "./redux/actions/auth";
-import { DASHBOARD, HISTORY, NEWSESSION } from "./constants/routes";
+import { DASHBOARD, HISTORY, NEWSESSION, USER_ADMIN } from "./constants/routes";
 import Layout from './components/Layout';
 import { createMuiTheme, MuiThemeProvider, withTheme } from '@material-ui/core/styles';
+import userAdminPage from "./pages/userAdminPage";
 
 //import {styles} from './styles/MainStyles'; 
 const theme = createMuiTheme({
@@ -37,7 +38,8 @@ class App extends Component {
               <Route exact path='/' component={LoginPage}/>
               <ProtectedRoute exact path={DASHBOARD} component={DashboardPage} rol={["SA","SS"]}/>
               <ProtectedRoute exact path={HISTORY} component={HistoryPage} rol={["SA","SS"]}/>
-              <ProtectedRoute exact path={NEWSESSION} component={NewSessionPage} rol={["SA","SS"]}/>
+              <ProtectedRoute exact path={NEWSESSION} component={NewSessionPage} rol={["SA"]}/>
+              <ProtectedRoute exact path={USER_ADMIN} component={userAdminPage} rol={["SU"]}/>
             </Switch>
         </Layout>
         </BrowserRouter>
