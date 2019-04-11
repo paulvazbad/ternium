@@ -7,6 +7,7 @@ let secret = process.env.REACT_APP_JWT_COOKIE;
 var newUser = {
   username: "noBackend",
   password: "noPass",
+  name:"NoName Jimenez",
   rol: "SA",
   area: "REDI",
   id: "13465"
