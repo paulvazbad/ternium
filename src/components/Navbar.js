@@ -61,13 +61,14 @@ class Navbar extends Component {
             variant="subtitle1"
             style={{ marginRight: 20 }}
           />
+          { this.props.auth.name &&
           <Chip
             color="secondary light"
             style={{ marginRight: 20 }}
             avatar={<Avatar>{this.props.auth.rol}</Avatar>}
             label={this.props.auth.name}
           />
-
+          }
           {this.props.auth.username && (
             <Button
               size="large"
