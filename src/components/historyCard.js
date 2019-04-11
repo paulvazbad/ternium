@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 
-import historyData from '/historyData'
-import HistoryDataTag from '/historyDataTag'
+import HistoryDataTag from './historyDataTag'
 
 const styles = theme => ({
   card: {
@@ -15,7 +14,9 @@ const styles = theme => ({
     borderStyle:"solid",
     borderWidth: 1,
     maxHeight: 100,
+    maxWidth: "70%",
     padding: 0,
+    margin: 20,
   },
   details: {
     display: 'flex',
@@ -27,27 +28,25 @@ const styles = theme => ({
 });
 
 function MediaControlCard(props) {
-  const { classes, theme } = props;
-  const date = historyData.map(hd => <HistoryDataTag upper={hd.date} lower={hd.begin_time + "-" + hd.end_time}/>);
-  const place = historyData.map(hd => <HistoryDataTag upper={hd.area} lower={hd.place}/>); 
-  const type = historyData.map(hd => <HistoryDataTag detected={hd.detected} type={hd.type}/>);
-  const img = historyData.map(hd => <HistoryDataTag img="go" type={hd.type}/>);
-
-  
-  return (
+    const { classes, theme } = props;
+    const date = <HistoryDataTag upper={props.date} lower={props.btime + "-" + props.etime}/>;
+    const place = <HistoryDataTag upper={props.area} lower={props.place}/>; 
+    const type = <HistoryDataTag detected={props.detected} type={props.type}/>;
+    const img = <HistoryDataTag img="go" type={props.type} />;
+    return (
     <Card className={classes.card}>
-      <div className={classes.details}>
+        <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {date[0]}
-            {place[0]}
-            {type[0]}
-            {img[0]}
-          </Typography>
+           <Typography component="h5" variant="h5">
+                        {date}
+                        {place}
+                        {type}
+                        {img}
+           </Typography>
         </CardContent>
-      </div>
+        </div>
     </Card>
-  );
+    );
 }
 
 MediaControlCard.propTypes = {

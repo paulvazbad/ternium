@@ -4,7 +4,7 @@ import jwt from "jwt-simple";
 // eslint-disable-next-line no-undef
 const linkPost = "https://d31e1bb5-30af-411e-9746-26902dd9fc3a.mock.pstmn.io";
 const linkBack = "http://localhost:4000";
-const secret = process.env.REACT_APP_JWT_COOKIE;
+let secret = process.env.REACT_APP_JWT_COOKIE;
 var newUser = {
   username: "noBackend",
   password: "noPass",
