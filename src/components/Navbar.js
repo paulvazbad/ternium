@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { logOut } from "../redux/actions/auth";
 import { connect } from "react-redux";
+import mini_logo from '../assests/Mini-Logo.jpeg'
 
 const styles = () => ({
   appBar: {
@@ -19,18 +20,18 @@ const styles = () => ({
 class Navbar extends Component {
   redirectOnLogOut = () => {
     this.props.logOut();
-    return(<Redirect to={"/pero"}/>)
+    return(<Redirect to={"/"}/>)
   };
 
   render() {
     return (
       <AppBar
-        color="primary"
+        color="secondary"
         position="absolute"
         className={this.props.className}
       >
         <Toolbar>
-          {this.props.auth.username && (
+          {this.props.auth.username && this.props.auth.rol!=="SU"  && (
             <IconButton
               color="inherit"
               aria-label="Open drawer"
@@ -40,13 +41,16 @@ class Navbar extends Component {
               <MenuIcon />
             </IconButton>
           )}
+          <img src={mini_logo} alt="Logo" style={{width:30,height:30, marginRight:10}}/>
           <Typography
-            variant="title"
+            variant="h6"
             color="inherit"
             className={this.props.grow}
             noWrap
           >
+
             Ternium Gas Viewer
+
           </Typography>
 
           {

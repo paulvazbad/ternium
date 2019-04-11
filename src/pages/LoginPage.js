@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { logIn } from "../redux/actions/auth";
 import { withRouter } from "react-router-dom";
 import { Button} from "@material-ui/core/";
-import { DASHBOARD } from "../constants/routes";
+import { DASHBOARD, USER_ADMIN } from "../constants/routes";
 import { TextField, Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
@@ -12,23 +12,26 @@ class LoginPage extends Component {
     username:null,
     password:null
   };
-
+  redirectOnAlreadyLogged = () =>{
+    if(this.props.auth.rol==="SU"){
+      console.log("GOES TO SU");
+      console.log(USER_ADMIN);
+      this.props.history.push('/user_admin');
+    }
+    else if (this.props.auth.username) {
+      this.props.history.push(DASHBOARD);
+    }
+  }
   componentDidMount() {
     //Checkc if redirect to dashboard needed
     //get cookie
-    console.log("Creating Login Page");
-    console.log(this.props.auth);
-    if (this.props.auth.username) {
-      this.props.history.push(DASHBOARD);
-    }
+    this.redirectOnAlreadyLogged();
   }
   redirectOnLogIn = () => {
     this.props.logIn(this.state);
   };
   componentDidUpdate() {
-    if (this.props.auth.username) {
-      this.props.history.push(DASHBOARD);
-    }
+    this.redirectOnAlreadyLogged();
   }
   handleChange = name => event => {
   this.setState({[name]:event.target.value});
@@ -39,7 +42,7 @@ class LoginPage extends Component {
         <Grid container direction="column" justify="flex-start" spacing={16} alignItems="center">
         <div style={{width: "60%", textAlign:"center"}}>
         <Grid item>
-        <Typography style={{paddingTop:20}}variant="title">Sign In</Typography>
+        <Typography style={{paddingTop:20}}variant="h6">Sign In</Typography>
         </Grid>
           <Grid item>
            

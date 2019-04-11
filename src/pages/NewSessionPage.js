@@ -17,7 +17,9 @@ class NewSessionPage extends React.Component {
   state = {
     activeStep: 0,
     width: 0,
-    orientation: "horizontal"
+    orientation: "horizontal",
+    selectedDevice: null,
+    selectedWorker: null
   };
   componentWillMount() {
     this.updateWindowSize();
@@ -42,12 +44,17 @@ class NewSessionPage extends React.Component {
         <Typography style={{ padding: "2%" }}>
           Introduce la información del wearable y del usuario
         </Typography>
-        <NewSessionForm />
+        <NewSessionForm setParent={formObj => this.checkButton(formObj)} />
       </div>
     </Grow>
   );
 
   step1 = <Loading withIcon={true} redirect={"TBD"} />;
+
+  checkButton = formObj => {
+    this.setState({ ...formObj });
+    console.log(formObj);
+  };
   getStepContent = step => {
     switch (step) {
       case 0:
@@ -79,8 +86,9 @@ class NewSessionPage extends React.Component {
   };
 
   render() {
-    const { activeStep } = this.state;
+    const { activeStep, selectedDevice, selectedWorker } = this.state;
     const steps = this.getSteps();
+    console.log(this.state);
     return (
       <Paper style={{ width: "80%", flex: 1, margin: "auto" }}>
         <Stepper activeStep={activeStep} orientation={this.state.orientation}>
@@ -105,6 +113,10 @@ class NewSessionPage extends React.Component {
               variant="contained"
               color="primary"
               onClick={this.handleNext(steps)}
+              disabled={
+                activeStep === 0 &&
+                (selectedDevice === null || selectedWorker === null)
+              }
             >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>

@@ -6,6 +6,12 @@ pages -- Pages components (Home,Dashboard,etc...) <br>
 redux -- All the code for redux <br>
 styles -- custom css
 
+##Backend
+To avoid using the backend set ```backedOn=false ``` in 
+./redux/actions/auth.js and ./redux/actions/user.js 
+
+To use the backend you must have mongodb set up and running on the host computer
+
 ## CREATE REACT APP INFO
 
 ## Available Scripts
