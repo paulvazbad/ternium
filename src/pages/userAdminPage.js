@@ -47,7 +47,7 @@ class userAdminPage extends React.Component {
 
   renderUsers = () => {
     return this.state.users.map((user, index) => (
-      <ExpansionPanel>
+      <ExpansionPanel key={index}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography style={styles.heading} variant="title">
             Usuario {index}
