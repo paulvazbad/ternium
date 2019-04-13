@@ -1,88 +1,77 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import imagen from "./images/large.jpg";
-const styles = {
-  card: {
+import good from "./images/1.svg";
+import bad from "./images/2.png";
+import warning from "./images/3.png";
+
+var spanStyle = {
+    display: "inline-block",
+    textAlign: "left",
     maxWidth: 160,
     minHeight: 40,
     maxHeight: 80,
-    //backgroundColor: "lightsalmon",
-    display: "inline-block",
-    textAlign: "left",
-  },
+    paddingRight: 30,
+    paddingTop: 0,
 };
 
 function SimpleCard(props) {
-  const { classes } = props;
+    const { classes } = props;
 
-  if (props.img) {
+    if (props.img) {
     if (props.type !== "alert") {
-      var s;
-      if (props.type === "warning") {
-        s = "images/1.jpg";
-      } else if (props.type === "bad") {
-        s = "images/2.jpg";
-      } else {
-        s = "images/3.jpg";
-      }
-      return (
-        <Card className={classes.card}>
-          <CardContent>
-            <img id="iconos" src={imagen} alt=":C" style={{width: "100%"}}/>
-          </CardContent>
-        </Card>
-          
-      );
+        var s;
+        if (props.type === "warning") {
+        s = warning;
+        } else if (props.type === "bad") {
+        s = bad;
+        } else {
+        s = good;
+        }
+        return (
+            <span>
+            <img id="iconos" src={s} alt=":C" style={{ width: "7%"}} />
+            </span>
+        );
     } else {
-      return null;
+        return null;
     }
-  }
+    }
 
-  if (!props.detected) {
+    if (!props.detected) {
     return (
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="h5" component="h2">
+        <span style={spanStyle}>
+            <Typography variant="h5" component="h2">
             {props.upper}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
             {props.lower}
-          </Typography>
-        </CardContent>
-      </Card>
+            </Typography>
+        </span>
     );
-  }
+    }
 
-  if (props.type === "alert") {
+    if (props.type === "alert") {
     return (
-      <Card className={classes.card}>
-        <CardContent>
-          <Typography variant="subtitle1" component="h2">
+        <span style={spanStyle}>
+            <Typography variant="subtitle1" component="h2">
             Alerta:
             <br />
             {props.detected}
-          </Typography>
-        </CardContent>
-      </Card>
+            </Typography>
+        </span>
     );
-  }
-  return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography variant="subtitle1" color="textSecondary">
-          Gases detectados: {props.detected}
+    }
+    return (
+        <Typography variant="subtitle1" color="textSecondary" style={spanStyle}>
+            Gases detectados: {props.detected}
         </Typography>
-      </CardContent>
-    </Card>
-  );
+    );
 }
 
 SimpleCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(SimpleCard);
+export default (SimpleCard);

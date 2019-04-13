@@ -13,17 +13,20 @@ const styles = theme => ({
     borderColor:"#787878",
     borderStyle:"solid",
     borderWidth: 1,
-    maxHeight: 100,
+    maxHeight: 90,
     maxWidth: "70%",
     padding: 0,
     margin: 20,
+    paddingTop: 0,
   },
   details: {
     display: 'flex',
     flexDirection: 'column',
   },
   content: {
-    flex: '1 0 auto',
+      flex: '1 0 auto',
+      display: 'inline-block',
+      paddingTop: 15,
   },
 });
 
@@ -33,17 +36,18 @@ function MediaControlCard(props) {
     const place = <HistoryDataTag upper={props.area} lower={props.place}/>; 
     const type = <HistoryDataTag detected={props.detected} type={props.type}/>;
     const img = <HistoryDataTag img="go" type={props.type} />;
+
     return (
-    <Card className={classes.card}>
+        <Card className={classes.card} style={{ backgroundColor: props.type === "alert" ? "#EE836C" : "white" }}>
         <div className={classes.details}>
-        <CardContent className={classes.content}>
-           <Typography component="h5" variant="h5">
-                        {date}
-                        {place}
-                        {type}
-                        {img}
-           </Typography>
-        </CardContent>
+            <CardContent className={classes.content}>
+                <Typography component="h5" variant="h5">
+                            {date}
+                            {place}
+                            {type}
+                            {img}
+               </Typography>
+            </CardContent>
         </div>
     </Card>
     );
