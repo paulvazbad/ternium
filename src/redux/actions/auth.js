@@ -17,7 +17,7 @@ const backedOn = true;
 export const logIn = userInfo => {
   return dispatch => {
     //dummy user
-    userInfo.password = jwt.encode(userInfo.password,secret);
+    //userInfo.password = jwt.encode(userInfo.password,secret);
     console.log(userInfo.password);
     //validate user
     if (backedOn) {
