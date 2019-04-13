@@ -29,7 +29,7 @@ class Navbar extends Component {
     return (
       <AppBar
         color="secondary"
-        position="absolute"
+        position="fixed"
         className={this.props.className}
       >
         <Toolbar>
