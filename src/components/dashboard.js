@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import GasInfo from './gasInfo'
 import GasTag from './gasTag'
@@ -17,8 +18,12 @@ const styles = theme => ({
     },
     paper: {
         padding: theme.spacing.unit * 2,
-        textAlign: 'center',
+        textAlign: 'left',
         color: theme.palette.text.secondary,
+    },
+    pos: {
+        marginBottom: 1,
+        fontSize: 20,
     },
 });
 
@@ -29,6 +34,11 @@ function Dashboard(props) {
     return (
         <div className={classes.root}>
             <Grid container spacing={8}>
+                <Grid item xs={12}>
+                        <Typography variant="h5" component="h2" style={{ color: "black" }}>
+                        Nombre de trabajador
+                    </Typography>
+                </Grid>
                 <Grid item xs={3}>
                     {gasComponent[0]}
                 </Grid>

@@ -23,14 +23,14 @@ const styles = {
 function SimpleCard(props) {
     const { classes } = props;
     const colors = ["#D8D7D6", "#F25F24", "#4F4C4C", "#FF994E", "#EB8C78", "#FFB46A"]
-    const textColors = ["#4F4C4C", "white", "white", "white", "white", "white"]
+    const textColor = (props.id%6 == 1 ? "#4F4C4C" : "white")
 
     var cardStyle = {
         backgroundColor: colors[(props.id - 1) % 6],
     }
 
     var text = {
-        color: textColors[(props.id - 1) % 6],
+        color: textColor,
     }
 
     return (
