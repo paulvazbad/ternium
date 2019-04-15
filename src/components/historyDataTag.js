@@ -2,13 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import good from "./images/1.svg";
-import bad from "./images/2.png";
-import warning from "./images/3.png";
+import SVGIcon from "./images/svgicon"
 
 var spanStyle = {
     display: "inline-block",
     textAlign: "left",
+    minWidth: 160,
     maxWidth: 160,
     minHeight: 40,
     maxHeight: 80,
@@ -20,23 +19,11 @@ function SimpleCard(props) {
     const { classes } = props;
 
     if (props.img) {
-    if (props.type !== "alert") {
-        var s;
-        if (props.type === "warning") {
-        s = warning;
-        } else if (props.type === "bad") {
-        s = bad;
-        } else {
-        s = good;
-        }
         return (
             <span>
-            <img id="iconos" src={s} alt=":C" style={{ width: "7%"}} />
+                <SVGIcon id={props.type} />
             </span>
         );
-    } else {
-        return null;
-    }
     }
 
     if (!props.detected) {

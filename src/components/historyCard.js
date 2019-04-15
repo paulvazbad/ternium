@@ -14,7 +14,7 @@ const styles = theme => ({
     borderStyle:"solid",
     borderWidth: 1,
     maxHeight: 90,
-    maxWidth: "70%",
+    maxWidth: "55%",
     padding: 0,
     margin: 20,
     paddingTop: 0,
