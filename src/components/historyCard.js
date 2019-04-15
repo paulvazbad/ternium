@@ -16,8 +16,8 @@ const styles = theme => ({
     maxHeight: 90,
     maxWidth: "55%",
     padding: 0,
-    margin: 20,
     paddingTop: 0,
+    margin: "auto",
   },
   details: {
     display: 'flex',
@@ -38,18 +38,21 @@ function MediaControlCard(props) {
     const img = <HistoryDataTag img="go" type={props.type} />;
 
     return (
-        <Card className={classes.card} style={{ backgroundColor: props.type === "alert" ? "#EE836C" : "white" }}>
-        <div className={classes.details}>
-            <CardContent className={classes.content}>
-                <Typography component="h5" variant="h5">
-                            {date}
-                            {place}
-                            {type}
-                            {img}
-               </Typography>
-            </CardContent>
+        <div>
+            <Card className={classes.card} style={{ backgroundColor: props.type === "alert" ? "#EE836C" : "white" }}>
+                <div className={classes.details}>
+                    <CardContent className={classes.content}>
+                        <Typography component="h5" variant="h5">
+                                    {date}
+                                    {place}
+                                    {type}
+                                    {img}
+                       </Typography>
+                    </CardContent>
+                </div>
+            </Card>
+            <br />
         </div>
-    </Card>
     );
 }
 
