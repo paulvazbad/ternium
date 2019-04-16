@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import HistoryData from '../components/historyData'
-import HistoryCard from '../components/historyCard'
+import HistoryCard from '../components/HistoryCard'
 import Search from "../components/Search"
 
 const styles = theme => ({

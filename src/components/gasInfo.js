@@ -11,12 +11,12 @@ const gasInfo = [
                 {
                     id: 2,
                     name: "Explosivo (Hidrógeno)",
-                    lectura: 0
+                    lectura: 3
                 },
                 {
                     id: 3,
                     name: "CO",
-                    lectura: 16
+                    lectura: 55
                 },
                 {
                     id: 4,
@@ -66,7 +66,7 @@ const gasInfo = [
                 {
                     id: 5,
                     name: "H2S",
-                    lectura: 5
+                    lectura: 13.4
                 },
                 {
                     id: 6,

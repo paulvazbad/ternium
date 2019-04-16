@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import { logOut } from "../redux/actions/auth";
 import Typography from '@material-ui/core/Typography';
 
-import Dashboard from "../components/dashboard"
+import SessionCard from "../components/SessionCard"
 import Search from "../components/Search"
 import GasInfo from '../components/gasInfo'
 
 class DashboardPage extends Component {
  
     render() {
-        const gasComponent = GasInfo.map(gas => <Dashboard gasInfo={gas.gases} employee={gas.employee} />)
+        const gasComponent = GasInfo.map(gas => <SessionCard gasInfo={gas.gases} employee={gas.employee} />)
 
         return (
             <div>
