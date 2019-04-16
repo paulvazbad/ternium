@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import GasInfo from './gasInfo'
 import GasTag from './gasTag'
 
 const styles = theme => ({
@@ -29,37 +28,20 @@ const styles = theme => ({
 
 function Dashboard(props) {
     const { classes } = props;
-    const gasComponent = GasInfo.map(gas => <GasTag id={gas.id} name={gas.name} lectura={gas.lectura} />);
+
+
+    const gasComponent = props.gasInfo.map(gas => <GasTag id={gas.id} name={gas.name} lectura={gas.lectura} />)
+
 
     return (
         <div className={classes.root}>
             <Grid container spacing={8}>
                 <Grid item xs={12}>
-                        <Typography variant="h5" component="h2" style={{ color: "black" }}>
-                        Nombre de trabajador
+                    <Typography variant="h5" component="h2" style={{ color: "black" }}>
+                        {props.employee}
                     </Typography>
                 </Grid>
-                <Grid item xs={3}>
-                    {gasComponent[0]}
-                </Grid>
-                <Grid item xs={6}>
-                    {gasComponent[1]}
-                </Grid>
-                <Grid item xs={3}>
-                    {gasComponent[2]}
-                </Grid>
-                <Grid item xs={3}>
-                    {gasComponent[3]}
-                </Grid>
-                <Grid item xs={2}>
-                    {gasComponent[4]}
-                </Grid>
-                <Grid item xs={3}>
-                    {gasComponent[5]}
-                </Grid>
-                <Grid item xs={4}>
-                    {gasComponent[6]}
-                </Grid>
+                {gasComponent}
             </Grid>
         </div>
     );
