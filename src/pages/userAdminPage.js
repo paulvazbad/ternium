@@ -6,6 +6,10 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Search from "../components/Search";
 import Add from "@material-ui/icons/Add";
+
+import EditUserCard from "../components/EditUserCard"
+import userData from "../components/userData"
+
 const styles = {
   main: {
     textAlign: "center",
@@ -25,7 +29,7 @@ const styles = {
   },
   fab: {
     margin: 0,
-    top: "auto",
+    top: "0%",
     right: "10%",
     bottom: "15%",
     left: "auto",
@@ -45,22 +49,22 @@ class userAdminPage extends React.Component {
     console.log("add user");
   };
 
-  renderUsers = () => {
-    return this.state.users.map((user, index) => (
-      <ExpansionPanel key={index}>
+    renderUsers = () => {
+        return (userData.map(user=>
+            <ExpansionPanel style={{textAlign: "left"}}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography style={styles.heading} variant="title">
-            Usuario {index}
+                    <Typography style={styles.heading} variant="title">
+                        {user.nombre}
           </Typography>
-          <Typography style={styles.heading} variant="subtitle1">
-            Supervisor de Seguridad
+                    <Typography style={styles.heading} variant="subtitle1">
+                        {user.puesto}
           </Typography>
-          <Typography style={styles.heading} variant="subtitle1">
-            Aceria
+                    <Typography style={styles.heading} variant="subtitle1">
+                        {user.area}
           </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>Tarjeta de edicion</Typography>
+                <ExpansionPanelDetails>
+                    <EditUserCard id={user.id} area={user.area} lugar={user.lugar} nombre={user.nombre} puesto={user.puesto} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     ));
