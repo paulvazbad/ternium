@@ -38,9 +38,9 @@ class Search extends React.Component {
     super(props);
   }
   onChange = (e,searchList) => {
+    let newList = [];
     if (e.target.value !== ""){
       //checks
-      let newList = [];
      newList =  searchList.filter((item)=>{
         for(var property in item){
           if(item.hasOwnProperty(property)){
@@ -53,11 +53,11 @@ class Search extends React.Component {
         }
         return false;
       })
-      console.log(newList);
+      this.props.onSearch(newList);
       //then query to backend
     }
     else{
-      console.log(searchList);
+      this.props.onSearch(searchList);
       //set list to original one
     }
   };

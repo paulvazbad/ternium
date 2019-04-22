@@ -41,7 +41,7 @@ class userAdminPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      userData: userData
     };
   }
 
@@ -50,7 +50,7 @@ class userAdminPage extends React.Component {
   };
 
   renderUsers = () => {
-    return userData.map(user => (
+    return this.state.userData.map(user => (
       <ExpansionPanel style={{ textAlign: "left" }}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography style={styles.heading} variant="title">
@@ -75,12 +75,15 @@ class userAdminPage extends React.Component {
       </ExpansionPanel>
     ));
   };
+  onSearch = (filteredList) =>{
+    this.setState({userData:filteredList});
+  }
   render() {
     return (
       <div>
         <div style={styles.main}>
           <Typography variant="h5">User Administration</Typography>
-          <Search style={styles.search} searchList={userData} />
+          <Search style={styles.search} searchList={userData} onSearch={this.onSearch}/>
           <Paper style={styles.paper}>{this.renderUsers()}</Paper>
         </div>
         <Fab style={styles.fab} color="primary" onClick={this.AddUser}>
