@@ -7,8 +7,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Search from "../components/Search";
 import Add from "@material-ui/icons/Add";
 
-import EditUserCard from "../components/EditUserCard"
-import userData from "../components/userData"
+import EditUserCard from "../components/EditUserCard";
+import userData from "../components/userData";
 
 const styles = {
   main: {
@@ -29,8 +29,8 @@ const styles = {
   },
   fab: {
     margin: 0,
-    top: "0%",
-    right: "10%",
+    top: "80%",
+    right: "15%",
     bottom: "15%",
     left: "auto",
     position: "fixed"
@@ -49,22 +49,28 @@ class userAdminPage extends React.Component {
     console.log("add user");
   };
 
-    renderUsers = () => {
-        return (userData.map(user=>
-            <ExpansionPanel style={{textAlign: "left"}}>
+  renderUsers = () => {
+    return userData.map(user => (
+      <ExpansionPanel style={{ textAlign: "left" }}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography style={styles.heading} variant="title">
-                        {user.nombre}
+          <Typography style={styles.heading} variant="title">
+            {user.nombre}
           </Typography>
-                    <Typography style={styles.heading} variant="subtitle1">
-                        {user.puesto}
+          <Typography style={styles.heading} variant="subtitle1">
+            {user.puesto}
           </Typography>
-                    <Typography style={styles.heading} variant="subtitle1">
-                        {user.area}
+          <Typography style={styles.heading} variant="subtitle1">
+            {user.area}
           </Typography>
         </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <EditUserCard id={user.id} area={user.area} lugar={user.lugar} nombre={user.nombre} puesto={user.puesto} />
+        <ExpansionPanelDetails>
+          <EditUserCard
+            id={user.id}
+            area={user.area}
+            lugar={user.lugar}
+            nombre={user.nombre}
+            puesto={user.puesto}
+          />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     ));
