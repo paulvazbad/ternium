@@ -2,7 +2,7 @@ import { LOGIN, LOGOUT, LOAD_USER, FAILED_LOGIN } from "../../constants/index";
 import axios from "axios";
 import jwt from "jwt-simple";
 // Encrypt with jwt standard encryption
-const linkBack = "http://localhost:4000";
+const linkBack =process.env.REACT_APP_API_BACKEND;
 let secret = process.env.REACT_APP_JWT_COOKIE;
 var newUser = {
   username: "noBackend",
@@ -16,6 +16,7 @@ var newUser = {
 const backedOn = true;
 export const logIn = userInfo => {
   return dispatch => {
+    console.log(linkBack);
     //dummy user
     //userInfo.password = jwt.encode(userInfo.password,secret);
     console.log(userInfo.password);

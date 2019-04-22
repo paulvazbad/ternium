@@ -14,9 +14,9 @@ const styles = {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width:"80%",
-    margin:"auto",
-    marginTop: "2%",
+    width: "80%",
+    margin: "auto",
+    marginTop: "2%"
   },
   input: {
     marginLeft: 8,
@@ -24,7 +24,7 @@ const styles = {
   },
   iconButton: {
     padding: 10,
-    color:"primary"
+    color: "primary"
   },
   divider: {
     width: 1,
@@ -34,13 +34,47 @@ const styles = {
 };
 
 class Search extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  onChange = (e,searchList) => {
+    if (e.target.value !== ""){
+      //checks
+      let newList = [];
+     newList =  searchList.filter((item)=>{
+        for(var property in item){
+          if(item.hasOwnProperty(property)){
+            let itemData = item[property].toLowerCase();
+            let searchData = e.target.value.toLowerCase();
+            if(itemData.includes(searchData)){
+              return true;
+            }
+          }
+        }
+        return false;
+      })
+      console.log(newList);
+      //then query to backend
+    }
+    else{
+      console.log(searchList);
+      //set list to original one
+    }
+  };
+
   render() {
+    const {searchList} = this.props;
+    console.log(searchList);
     return (
       <Paper style={styles.root} elevation={1}>
         <IconButton style={styles.iconButton} color="primary" aria-label="Menu">
           <AddIcon />
         </IconButton>
-        <InputBase style={styles.input} placeholder="Buscar usuarios" />
+        <InputBase
+          style={styles.input}
+          placeholder="Buscar usuarios"
+          onChange={(event) => this.onChange(event,searchList)}
+        />
         <IconButton style={styles.iconButton} aria-label="Search">
           <SearchIcon />
         </IconButton>
@@ -48,5 +82,8 @@ class Search extends React.Component {
     );
   }
 }
-
+Search.propTypes = {
+  searchList: PropTypes.array,
+  onSearch: PropTypes.func
+};
 export default Search;
