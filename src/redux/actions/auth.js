@@ -1,28 +1,29 @@
 import { LOGIN, LOGOUT, LOAD_USER, FAILED_LOGIN } from "../../constants/index";
 import axios from "axios";
 import jwt from "jwt-simple";
-// eslint-disable-next-line no-undef
-const linkPost = "https://d31e1bb5-30af-411e-9746-26902dd9fc3a.mock.pstmn.io";
-const linkBack = "http://10.15.247.151:4000/api/users/login";
-const secret = process.env.REACT_APP_JWT_COOKIE;
+// Encrypt with jwt standard encryption
+const linkBack = "http://localhost:4000";
+let secret = process.env.REACT_APP_JWT_COOKIE;
 var newUser = {
   username: "noBackend",
   password: "noPass",
+  name:"NoName Jimenez",
   rol: "SA",
   area: "REDI",
   id: "13465"
 };
 
-const backedOn = false;
+const backedOn = true;
 export const logIn = userInfo => {
   return dispatch => {
     //dummy user
-
+    //userInfo.password = jwt.encode(userInfo.password,secret);
+    console.log(userInfo.password);
     //validate user
     if (backedOn) {
       axios({
         method: "post",
-        url: "http://10.15.247.151:4000/api/users/login",
+        url: linkBack+"/api/users/login",
         proxyHeaders: false,
         credentials: false,
         data: userInfo
@@ -31,7 +32,11 @@ export const logIn = userInfo => {
           console.log(response);
           let cookie = jwt.encode(userInfo, secret);
           sessionStorage.setItem("user", cookie);
-          const newUser = { ...response.data, rol: "SA"};
+          let newUser = { ...response.data};
+          if(!response.data.rol){
+            console.log("no rol in db");
+             newUser = { ...response.data, rol:"SA"};
+          }
           console.log(newUser);
           dispatch({
             type: LOGIN,
@@ -67,14 +72,19 @@ export const loadUser = () => {
       JSONUSer = cachedUser;
       if(backedOn){
         axios
-        .post(linkBack, JSONUSer)
+        .post(linkBack+"/api/users/login", JSONUSer)
         .then(response => {
+          let newUser = { ...response.data};
+          if(!response.data.rol){
+            console.log("no rol in db");
+             newUser = { ...response.data, rol:"SA"};
+          }
           dispatch({
             type: LOAD_USER,
             payload: newUser
           });
         })
-        .catch(response => {
+        .catch(error => {
           sessionStorage.removeItem("user");
           dispatch({
             type: FAILED_LOGIN
