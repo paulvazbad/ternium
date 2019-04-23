@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -25,7 +24,6 @@ function SimpleCard(props) {
 
     const { classes } = props;
     const colors = ["#D8D7D6", "#EB8C78", "#C2B79F", "#FFCE66", "#FF914A", "#FFB46A"]
-    const textColor = (props.id % 6 == 1 ? "#4F4C4C" : "white")
     const sizes = [3, 6, 3, 2, 3, 3, 4]
 
     const red = "#BF1F1F"
@@ -33,7 +31,7 @@ function SimpleCard(props) {
     var safe = "green"
     var lectura = ""
 
-    if (props.id %7 === 1) {    //oxígeno
+    if (props.id %7 === 1) {    //oxï¿½geno
         lectura = props.lectura + "%"
         if (props.lectura < 19.5) {
             safe = red

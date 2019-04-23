@@ -30,7 +30,7 @@ function Dashboard(props) {
     const { classes } = props;
 
 
-    const gasComponent = props.gasInfo.map(gas => <GasTag id={gas.id} name={gas.name} lectura={gas.lectura} />)
+    const gasComponent = props.gasInfo.map((gas,index) => <GasTag id={gas.id} name={gas.name} lectura={gas.lectura} key={gas.id+index} />)
 
 
     return (
