@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import edit from "./images/edit"
+import save from "./images/save"
 
 const styles = theme => ({
     root: {
@@ -66,7 +66,7 @@ class userCard extends React.Component{
         area: this.props.area,
         puesto: this.props.puesto,
         id: this.props.id,
-        editar: false,
+        enableSave: false,
         };
 
     handleChange = prop => event => {
@@ -74,7 +74,11 @@ class userCard extends React.Component{
     };
 
     handleClickShowPassword = () => {
-        this.setState(state => ({ editar: !state.editar }));
+        this.setState(state => ({ readOnly: !state.readOnly }));
+    };
+
+    editing = () => {
+        this.setState(state => ({ enableSave: !state.enableSave }));
     };
 
     render() {
@@ -90,11 +94,9 @@ class userCard extends React.Component{
                                 id="name"
                                 label="Nombre"
                                 className={classes.textField}
-                                value={this.props.nombre}
-                                InputProps={{
-                                    readOnly: true,
-                                }}
+                                defaultValue={this.props.nombre}
                                 margin="normal"
+                                //onBlur={this.editing()}
                             />
                         </TableCell>
                         <TableCell align="left">
@@ -102,16 +104,22 @@ class userCard extends React.Component{
                                 id="id"
                                 label="ID"
                                 className={classes.textField}
-                                value={this.props.id}
+                                defaultValue={this.props.id}
                                 InputProps={{
-                                    readOnly: true,
+                                    readOnly: this.state.readOnly,
                                 }}
                                 margin="normal"
+                                //onBlur={this.editing()}
                             />
                         </TableCell>
                         <div align="right">
-                            <Button variant="contained" color="primary" style={buttonStyle1}>
-                                {edit()}
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                style={buttonStyle1}
+                                //disabled= "false"
+                            >
+                                {save()}
                             </Button>
                         </div>
                     </TableRow>
@@ -123,7 +131,7 @@ class userCard extends React.Component{
                                 value={this.state.lugar}
                                 onChange={this.handleChange('lugar')}
                                 InputProps={{
-                                    readOnly: true,
+                                    readOnly: this.state.readOnly,
                                 }}
                             >
                                 {lugares.map(option => (
@@ -140,7 +148,7 @@ class userCard extends React.Component{
                                 value={this.state.area}
                                 onChange={this.handleChange('area')}
                                 InputProps={{
-                                    readOnly: true,
+                                    readOnly: this.state.readOnly,
                                 }}
                             >
                                 {areas.map(option => (
@@ -150,16 +158,17 @@ class userCard extends React.Component{
                                 ))}
                             </TextField>
                         </TableCell>
-                        <TableCell align="left" colspan={2}>
+                        <TableCell align="left">
                             <TextField
                                 id="puesto"
                                 label="Puesto"
                                 className={classes.textField}
-                                value={this.props.puesto}
+                                defaultValue={this.props.puesto}
                                 InputProps={{
-                                    readOnly: true,
+                                    readOnly: this.state.readOnly,
                                 }}
                                 margin="normal"
+                                //onBlur={this.editing()}
                             />
                         </TableCell>
                     </TableRow>
