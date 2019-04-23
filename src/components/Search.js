@@ -35,28 +35,31 @@ class Search extends React.Component {
     let newList = [];
     if (e.target.value !== "") {
       //checks
-      newList = searchList.filter(item => {
-        for (var property in item) {
-          if (item.hasOwnProperty(property)) {
-            let itemData = item[property];
-            if (typeof itemData === "string") {
-              itemData = itemData.toLowerCase();
-              let searchData = e.target.value.toLowerCase();
-              if (itemData.includes(searchData)) {
-                console.log("found word");
+      if (searchList) {
+        newList = searchList.filter(item => {
+          for (var property in item) {
+            if (item.hasOwnProperty(property)) {
+              let itemData = item[property];
+              if (typeof itemData === "string") {
+                itemData = itemData.toLowerCase();
+                let searchData = e.target.value.toLowerCase();
+                if (itemData.includes(searchData)) {
+                  console.log("found word");
+                  return true;
+                }
+              } else if (
+                typeof itemData === "number" &&
+                parseInt(e.target.value) === itemData
+              ) {
+                console.log("FOUnd number");
                 return true;
               }
-            } else if (
-              typeof itemData === "number" &&
-              parseInt(e.target.value) === itemData
-            ) {
-              console.log("FOUnd number");
-              return true;
             }
           }
-        }
-        return false;
-      });
+          return false;
+        });
+      }
+
       this.props.onSearch(newList);
       //then query to backend
     } else {
@@ -85,8 +88,8 @@ class Search extends React.Component {
   }
 }
 Search.propTypes = {
-  searchList: PropTypes.array,
-  onSearch: PropTypes.func,
+  searchList: PropTypes.array.isRequired,
+  onSearch: PropTypes.func.isRequired,
   placeholder: PropTypes.string
 };
 export default Search;

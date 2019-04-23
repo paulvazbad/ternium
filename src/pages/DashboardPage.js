@@ -8,15 +8,23 @@ import Search from "../components/Search";
 import GasInfo from "../components/gasInfo";
 
 class DashboardPage extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      GasInfo:GasInfo
+    }
+  }
+  renderGasComponent = () => this.state.GasInfo.map((gas, index) => (
+    <SessionCard
+      gasInfo={gas.gases}
+      employee={gas.employee}
+      key={gas.employee + index}
+    />
+  ));
+  onSearch = (filteredList) =>{
+    this.setState({GasInfo:filteredList});
+  }
   render() {
-    const gasComponent = GasInfo.map((gas, index) => (
-      <SessionCard
-        gasInfo={gas.gases}
-        employee={gas.employee}
-        key={gas.employee + index}
-      />
-    ));
-
     return (
       <div>
         <div style={{ paddingLeft: "10%" }}>
@@ -28,9 +36,9 @@ class DashboardPage extends Component {
             Lugar
           </Typography>
         </div>
-        <Search placeholder={"Buscar sesiones activas"}/>
+        <Search placeholder={"Buscar sesiones activas"} searchList={GasInfo} onSearch={this.onSearch}/>
         <br />
-        <div>{gasComponent}</div>
+        <div>{this.renderGasComponent()}</div>
       </div>
     );
   }
