@@ -4,37 +4,32 @@ const gasInfo = [
         gases:
             [
                 {
-                    id: 1,
-                    name: "Oxígeno",
-                    lectura: 19.3
-                },
-                {
-                    id: 2,
+                    id: 0,
                     name: "Explosivo (Hidrógeno)",
                     lectura: 3
                 },
                 {
-                    id: 3,
+                    id: 1,
                     name: "CO",
-                    lectura: 55
+                    lectura: 50
                 },
                 {
-                    id: 4,
-                    name: "Nitrógeno",
-                    lectura: 4
-                },
-                {
-                    id: 5,
-                    name: "H2S",
-                    lectura: 5
-                },
-                {
-                    id: 6,
+                    id: 2,
                     name: "Gas Natural",
                     lectura: 0.6
                 },
                 {
-                    id: 7,
+                    id: 3,
+                    name: "Calidad de aire",
+                    lectura: 0.6
+                },
+                {
+                    id: 4,
+                    name: "Aquí irá el mapa",
+                    lectura: "localización"
+                },
+                {
+                    id: 5,
                     name: "Aquí irá la gráfica",
                     lectura: "all gases"
                 }
@@ -44,41 +39,36 @@ const gasInfo = [
         employee: "Paul Vazquez Vadillo",
         gases: [
                 {
+                    id: 0,
+                    name: "Explosivo (Hidrógeno)",
+                    lectura: 1.1
+                },
+                {
                     id: 1,
-                    name: "Oxígeno",
-                    lectura: 20.8
+                    name: "CO",
+                    lectura: 64
                 },
                 {
                     id: 2,
-                    name: "Explosivo (Hidrógeno)",
-                    lectura: 0
-                },
-                {
-                    id: 3,
-                    name: "CO",
-                    lectura: 49
-                },
-                {
-                    id: 4,
-                    name: "Nitrógeno",
-                    lectura: 4
-                },
-                {
-                    id: 5,
-                    name: "H2S",
-                    lectura: 13.4
-                },
-                {
-                    id: 6,
                     name: "Gas Natural",
                     lectura: 0.6
                 },
                 {
-                    id: 7,
+                    id: 3,
+                    name: "Calidad de aire",
+                    lectura: 0.6
+                },
+                {
+                    id: 4,
+                    name: "Aquí irá el mapa",
+                    lectura: "localización"
+                },
+                {
+                    id: 5,
                     name: "Aquí irá la gráfica",
-                    lectura: "segunda tarjeta"
+                    lectura: "all gases"
                 }
-            ]
+               ]
     }
 ]
 
