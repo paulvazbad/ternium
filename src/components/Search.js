@@ -73,15 +73,15 @@ class Search extends React.Component {
     return (
       <Paper style={styles.root} elevation={1}>
         <IconButton style={styles.iconButton} color="primary" aria-label="Menu">
-          <AddIcon />
-        </IconButton>
+                <AddIcon />
+                </IconButton>
         <InputBase
           style={styles.input}
           placeholder={placeholder}
           onChange={event => this.onChange(event, searchList)}
         />
         <IconButton style={styles.iconButton} aria-label="Search">
-          <SearchIcon />
+                <SearchIcon />
         </IconButton>
       </Paper>
     );

@@ -14,7 +14,8 @@ const styles = {
   main: {
     textAlign: "center",
     flex: 1,
-    minHeight: 200
+    minHeight: 200,
+    minWidth: 700,
   },
   paper: {
     width: "80%",
@@ -87,7 +88,7 @@ class userAdminPage extends React.Component {
           <Paper style={styles.paper}>{this.renderUsers()}</Paper>
         </div>
         <Fab style={styles.fab} color="primary" onClick={this.AddUser}>
-          <Add />
+                <Add />
         </Fab>
       </div>
     );

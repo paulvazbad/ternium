@@ -46,7 +46,7 @@ class ResponsiveDrawer extends React.Component {
               key={"Iniciar Monitoreo"}
             >
               <ListItemIcon>
-                <Add />
+                            <Add />
               </ListItemIcon>
               <ListItemText primary={"Iniciar Monitoreo"} />
             </ListItem>
