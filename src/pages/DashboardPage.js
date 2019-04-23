@@ -28,7 +28,7 @@ class DashboardPage extends Component {
             Lugar
           </Typography>
         </div>
-        <Search />
+        <Search placeholder={"Buscar sesiones activas"}/>
         <br />
         <div>{gasComponent}</div>
       </div>

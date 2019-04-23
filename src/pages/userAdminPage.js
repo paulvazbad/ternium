@@ -83,7 +83,7 @@ class userAdminPage extends React.Component {
       <div>
         <div style={styles.main}>
           <Typography variant="h5">User Administration</Typography>
-          <Search style={styles.search} searchList={userData} onSearch={this.onSearch}/>
+          <Search style={styles.search} searchList={userData} onSearch={this.onSearch} placeholder="Buscar usuarios"/>
           <Paper style={styles.paper}>{this.renderUsers()}</Paper>
         </div>
         <Fab style={styles.fab} color="primary" onClick={this.AddUser}>
