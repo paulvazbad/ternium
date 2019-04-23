@@ -63,7 +63,7 @@ class Navbar extends Component {
           />
           { this.props.auth.name &&
           <Chip
-            color="secondary light"
+            color="default"
             style={{ marginRight: 20 }}
             avatar={<Avatar>{this.props.auth.rol}</Avatar>}
             label={this.props.auth.name}

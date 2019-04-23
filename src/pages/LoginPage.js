@@ -59,6 +59,7 @@ class LoginPage extends Component {
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                autoComplete="username"
                 onChange={this.handleChange("username")}
               />
             </Grid>
@@ -70,6 +71,7 @@ class LoginPage extends Component {
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                autoComplete="current-password"
                 onChange={this.handleChange("password")}
                 onKeyPress={ev => {
                   if (ev.key === "Enter") {

@@ -8,8 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 
 import save from "./images/save"
 
@@ -112,16 +110,11 @@ class userCard extends React.Component{
                                 //onBlur={this.editing()}
                             />
                         </TableCell>
-                        <div align="right">
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                style={buttonStyle1}
-                                //disabled= "false"
-                            >
+                        <td align="right">
+                            <Button variant="contained" color="primary" style={buttonStyle1}>
                                 {save()}
                             </Button>
-                        </div>
+                        </td>
                     </TableRow>
                     <TableRow>
                         <TableCell align="left">
@@ -158,7 +151,7 @@ class userCard extends React.Component{
                                 ))}
                             </TextField>
                         </TableCell>
-                        <TableCell align="left">
+                        <TableCell align="left" colSpan={2}>
                             <TextField
                                 id="puesto"
                                 label="Puesto"

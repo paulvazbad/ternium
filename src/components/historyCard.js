@@ -31,7 +31,7 @@ const styles = theme => ({
 });
 
 function MediaControlCard(props) {
-    const { classes, theme } = props;
+    const { classes } = props;
     const date = <HistoryDataTag upper={props.date} lower={props.btime + "-" + props.etime}/>;
     const place = <HistoryDataTag upper={props.area} lower={props.place}/>; 
     const type = <HistoryDataTag detected={props.detected} type={props.type}/>;

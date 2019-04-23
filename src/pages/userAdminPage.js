@@ -7,8 +7,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Search from "../components/Search";
 import Add from "@material-ui/icons/Add";
 
-import EditUserCard from "../components/EditUserCard"
-import userData from "../components/userData"
+import EditUserCard from "../components/EditUserCard";
+import userData from "../components/userData";
 
 const styles = {
   main: {
@@ -29,8 +29,8 @@ const styles = {
   },
   fab: {
     margin: 0,
-    top: "0%",
-    right: "10%",
+    top: "80%",
+    right: "15%",
     bottom: "15%",
     left: "auto",
     position: "fixed"
@@ -41,7 +41,7 @@ class userAdminPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      userData: userData
     };
   }
 
@@ -49,32 +49,41 @@ class userAdminPage extends React.Component {
     console.log("add user");
   };
 
-    renderUsers = () => {
-        return (userData.map(user=>
-            <ExpansionPanel style={{textAlign: "left"}}>
+  renderUsers = () => {
+    return this.state.userData.map((user,index) => (
+      <ExpansionPanel style={{ textAlign: "left" }} key={user.id+index}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography style={styles.heading} variant="title">
-                        {user.nombre}
+          <Typography style={styles.heading} variant="h6">
+            {user.nombre}
           </Typography>
-                    <Typography style={styles.heading} variant="subtitle1">
-                        {user.puesto}
+          <Typography style={styles.heading} variant="subtitle1">
+            {user.puesto}
           </Typography>
-                    <Typography style={styles.heading} variant="subtitle1">
-                        {user.area}
+          <Typography style={styles.heading} variant="subtitle1">
+            {user.area}
           </Typography>
         </ExpansionPanelSummary>
-                <ExpansionPanelDetails>
-                    <EditUserCard id={user.id} area={user.area} lugar={user.lugar} nombre={user.nombre} puesto={user.puesto} />
+        <ExpansionPanelDetails>
+          <EditUserCard
+            id={user.id}
+            area={user.area}
+            lugar={user.lugar}
+            nombre={user.nombre}
+            puesto={user.puesto}
+          />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     ));
   };
+  onSearch = (filteredList) =>{
+    this.setState({userData:filteredList});
+  }
   render() {
     return (
       <div>
         <div style={styles.main}>
           <Typography variant="h5">User Administration</Typography>
-          <Search style={styles.search} />
+          <Search style={styles.search} searchList={userData} onSearch={this.onSearch} placeholder="Buscar usuarios"/>
           <Paper style={styles.paper}>{this.renderUsers()}</Paper>
         </div>
         <Fab style={styles.fab} color="primary" onClick={this.AddUser}>
