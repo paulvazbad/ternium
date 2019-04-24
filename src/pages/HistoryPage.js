@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-import HistoryData from "../components/historyData";
+import historyData from "../components/historyData";
 import HistoryCard from "../components/HistoryCard";
 import Search from "../components/Search";
 
@@ -26,7 +26,7 @@ class HistoryPage extends React.Component {
     super(props);
     this.state = {
       filter: null,
-      HistoryData: HistoryData
+      historyData: historyData
     };
   }
   setFilter = selection => {
@@ -46,7 +46,7 @@ class HistoryPage extends React.Component {
     
   };
   preFilter = (filter) => {
-    let preFilteredList = HistoryData.filter(element => {
+    let preFilteredList = historyData.filter(element => {
         console.log("filter inside "+filter)
       if (filter === "Alertas") {
         return element.type === "alert";
@@ -59,13 +59,13 @@ class HistoryPage extends React.Component {
     });
     console.log(this.state);
     console.log(preFilteredList);
-    this.setState({HistoryData:preFilteredList});
+    this.setState({historyData:preFilteredList});
   };
   onSearch = filteredList => {
-    this.setState({ HistoryData: filteredList });
+    this.setState({ historyData: filteredList });
   };
   renderHistory = () =>
-    this.state.HistoryData.map(hd => (
+    this.state.historyData.map(hd => (
       <HistoryCard
         date={hd.date}
         btime={hd.begin_time}
@@ -82,7 +82,7 @@ class HistoryPage extends React.Component {
         <Search
           placeholder={"Buscar sesiones pasadas e incidentes"}
           onSearch={this.onSearch}
-          searchList={HistoryData}
+          searchList={historyData}
         />
         <br />
         <div>
