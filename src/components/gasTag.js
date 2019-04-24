@@ -23,67 +23,37 @@ const styles = {
 function SimpleCard(props) {
 
     const { classes } = props;
-    const colors = ["#D8D7D6", "#EB8C78", "#C2B79F", "#FFCE66", "#FF914A", "#FFB46A"]
-    const sizes = [3, 6, 3, 2, 3, 3, 4]
+    const sizes = [6, 3, 3, 3, 3, 6]
+    const limits = [1, 50, 5, 20]
+    const suffix = ["% LEL", " ppm", "%", "%", "", ""]
 
-    const red = "#BF1F1F"
+    var safe = "#5DAE55"
+    const red = "#DC4545"
+    const yellow = "#FFB200"
+    var lectura = props.lectura + suffix[props.id]
 
-    var safe = "green"
-    var lectura = ""
-
-    if (props.id %7 === 1) {    //ox�geno
-        lectura = props.lectura + "%"
-        if (props.lectura < 19.5) {
-            safe = red
-        } else if (props.lectura < 23.5) {
-            safe = "green"
-        } else {
-            safe = red
-        }
-    } else if (props.id %7 === 2) {    //explosivo
-        lectura = props.lectura + "% LEL"
-        if (props.lectura < 1) {
-            safe = "green"
-        } else {
-            safe = red
-        }
-    } else if (props.id %7 === 3) {    //CO
-        lectura = props.lectura + " ppm"
-        if (props.lectura < 50) {
-            safe = "green"
-        } else {
-            safe = red
-        }
-    } else if (props.id %7 === 4) {    //Nitro
-        lectura = props.lectura + " ppm"
-    } else if (props.id%7 === 5) {    //H2S
-        lectura = props.lectura + " ppm"
-        if (props.lectura < 10) {
-            safe = "green"
-        } else {
-            safe = red
-        }
-    } else if (props.id%7 === 6) {    //Gas Natural
-        lectura = props.lectura + "%"
-    } else {
-        lectura = "all gases"
+    if (props.lectura >= limits[props.id % 4]) {
+        if (props.lectura <= limits[props.id % 4]*(1.1)) {safe = yellow}
+        else {safe = red}
     }
 
     var cardStyle = {
-        backgroundColor: colors[(props.id - 1) % 6],
+        backgroundColor: safe,
         //border: "3px solid " + safe,
     }
 
+    
+
     var text = {
-        color: safe,
+        color: "white",
         fontSize: "200%",
     }
 
     return (
-        <Grid item xs={sizes[props.id - 1]}>
+        <Grid item xs={sizes[props.id]%7}>
             <Card className={classes.card} style={cardStyle}>
                 <CardContent>
-                    <Typography className={classes.pos} style={{ color: safe }}>
+                    <Typography className={classes.pos} style={{color: "white"}}>
                         {props.name}
                     </Typography>
                     <Typography variant="h4" component="h2" style={text}>

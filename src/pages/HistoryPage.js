@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-import HistoryData from "../components/HistoryData";
+import HistoryData from "../components/historyData";
 import HistoryCard from "../components/HistoryCard";
 import Search from "../components/Search";
 

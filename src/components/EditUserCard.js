@@ -19,6 +19,7 @@ const styles = theme => ({
     },
     table: {
         width: "100%",
+        minWidth: 200,
         //fontSize: '200%',
     },
 });

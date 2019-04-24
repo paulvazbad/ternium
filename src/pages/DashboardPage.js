@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 
 import SessionCard from "../components/SessionCard";
 import Search from "../components/Search";
-import GasInfo from "../components/gasInfo";
+import GasInfo from "../components/gasData";
 
 class DashboardPage extends Component {
   constructor(props){

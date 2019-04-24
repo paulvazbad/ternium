@@ -15,7 +15,8 @@ const styles = {
   main: {
     textAlign: "center",
     flex: 1,
-    minHeight: 200
+    minHeight: 200,
+    minWidth: 700,
   },
   paper: {
     width: "80%",
