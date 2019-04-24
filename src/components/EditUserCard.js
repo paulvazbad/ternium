@@ -77,7 +77,7 @@ class userCard extends React.Component{
     };
 
     editing = () => {
-        this.setState(state => ({ enableSave: !state.enableSave }));
+        this.setState(state => ({ enableSave: true}));
     };
 
     render() {
@@ -105,7 +105,7 @@ class userCard extends React.Component{
                                 className={classes.textField}
                                 defaultValue={this.props.id}
                                 InputProps={{
-                                    readOnly: this.state.readOnly,
+                                    readOnly: true,
                                 }}
                                 margin="normal"
                                 //onBlur={this.editing()}

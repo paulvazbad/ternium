@@ -20,7 +20,7 @@ const styles = {
     },
 };
 
-function SimpleCard(props) {
+function GasTag(props) {
 
     const { classes } = props;
     const sizes = [6, 3, 3, 3, 3, 6]
@@ -65,8 +65,4 @@ function SimpleCard(props) {
     );
 }
 
-SimpleCard.propTypes = {
-    classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(SimpleCard);
+export default withStyles(styles)(GasTag);
