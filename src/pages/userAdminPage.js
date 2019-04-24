@@ -9,6 +9,7 @@ import Add from "@material-ui/icons/Add";
 
 import EditUserCard from "../components/EditUserCard";
 import userData from "../components/userData";
+import NewUserModal from "../components/NewUserModal";
 
 const styles = {
   main: {
@@ -41,12 +42,14 @@ class userAdminPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userData: userData
+      userData: userData,
+      modalOpen:false
     };
   }
 
   addUser = () => {
     console.log("add user");
+    this.setState({modalOpen:true});
   };
 
   renderUsers = () => {
@@ -78,15 +81,19 @@ class userAdminPage extends React.Component {
   onSearch = (filteredList) =>{
     this.setState({userData:filteredList});
   }
+  handleClose = () =>{
+    this.setState({modalOpen:false});
+  }
   render() {
     return (
       <div>
         <div style={styles.main}>
+          <NewUserModal open={this.state.modalOpen} handleClose={this.handleClose}/>
           <Typography variant="h5">User Administration</Typography>
           <Search style={styles.search} searchList={userData} onSearch={this.onSearch} placeholder="Buscar usuarios"/>
           <Paper style={styles.paper}>{this.renderUsers()}</Paper>
         </div>
-        <Fab style={styles.fab} color="primary" onClick={this.AddUser}>
+        <Fab style={styles.fab} color="primary" onClick={this.addUser} aria-label="Add">
           <Add />
         </Fab>
       </div>

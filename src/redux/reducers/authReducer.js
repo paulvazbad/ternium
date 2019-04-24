@@ -1,13 +1,12 @@
 import {LOGIN, LOGOUT, LOAD_USER, FETCHING_USER, FAILED_LOGIN} from '../../constants/index';
 const defaultState = {
     username:null,
-    id:null,
     area:null,
     rol:null,
     team:null,
     loaded:null,
     fetching:false,
-    failed:false
+    failed:false,
 }
 const  authReducer = (state=defaultState,action) =>{
     switch(action.type){

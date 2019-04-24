@@ -2,15 +2,14 @@ import { LOGIN, LOGOUT, LOAD_USER, FAILED_LOGIN } from "../../constants/index";
 import axios from "axios";
 import jwt from "jwt-simple";
 // Encrypt with jwt standard encryption
-const linkBack =process.env.REACT_APP_API_BACKEND;
+const linkBack = process.env.REACT_APP_API_BACKEND;
 let secret = process.env.REACT_APP_JWT_COOKIE;
 var newUser = {
   username: "noBackend",
   password: "noPass",
-  name:"NoName Jimenez",
+  name: "NoName Jimenez",
   rol: "SA",
-  area: "REDI",
-  id: "13465"
+  area: "REDI"
 };
 
 const backedOn = true;
@@ -24,19 +23,19 @@ export const logIn = userInfo => {
     if (backedOn) {
       axios({
         method: "post",
-        url: linkBack+"/api/users/login",
+        url: linkBack + "/api/users/login",
         proxyHeaders: false,
         credentials: false,
-        data: userInfo
+        data: { username: userInfo.username, password: userInfo.password }
       })
         .then(response => {
           console.log(response);
           let cookie = jwt.encode(userInfo, secret);
           sessionStorage.setItem("user", cookie);
-          let newUser = { ...response.data};
-          if(!response.data.rol){
+          let newUser = { ...response.data };
+          if (!response.data.rol) {
             console.log("no rol in db");
-             newUser = { ...response.data, rol:"SA"};
+            newUser = { ...response.data, rol: "SA" };
           }
           console.log(newUser);
           dispatch({
@@ -50,8 +49,7 @@ export const logIn = userInfo => {
             type: FAILED_LOGIN
           });
         });
-    }
-    else{
+    } else {
       let cookie = jwt.encode(userInfo, secret);
       sessionStorage.setItem("user", cookie);
       dispatch({
@@ -71,34 +69,32 @@ export const loadUser = () => {
       console.log("FOUND A USER");
       const cachedUser = jwt.decode(cookie, secret);
       JSONUSer = cachedUser;
-      if(backedOn){
+      if (backedOn) {
         axios
-        .post(linkBack+"/api/users/login", JSONUSer)
-        .then(response => {
-          let newUser = { ...response.data};
-          if(!response.data.rol){
-            console.log("no rol in db");
-             newUser = { ...response.data, rol:"SA"};
-          }
-          dispatch({
-            type: LOAD_USER,
-            payload: newUser
+          .post(linkBack + "/api/users/login", JSONUSer)
+          .then(response => {
+            let newUser = { ...response.data };
+            if (!response.data.rol) {
+              console.log("no rol in db");
+              newUser = { ...response.data, rol: "SA" };
+            }
+            dispatch({
+              type: LOAD_USER,
+              payload: newUser
+            });
+          })
+          .catch(error => {
+            sessionStorage.removeItem("user");
+            dispatch({
+              type: FAILED_LOGIN
+            });
           });
-        })
-        .catch(error => {
-          sessionStorage.removeItem("user");
-          dispatch({
-            type: FAILED_LOGIN
-          });
-        });
-      }
-      else{
+      } else {
         dispatch({
           type: LOAD_USER,
           payload: newUser
         });
       }
-      
     } else {
       dispatch({
         type: LOAD_USER,
