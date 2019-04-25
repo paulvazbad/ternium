@@ -115,7 +115,10 @@ class NewSessionPage extends React.Component {
               onClick={this.handleNext(steps)}
               disabled={
                 activeStep === 0 &&
-                (selectedDevice === null || selectedWorker === null)
+                (selectedDevice === "" ||
+                  selectedWorker === "" ||
+                  selectedDevice === null ||
+                  selectedWorker === null)
               }
             >
               {activeStep === steps.length - 1 ? "Finish" : "Next"}

@@ -16,7 +16,8 @@ const checkIfAll = currentSessions => {
     let pastSessions = state.sessions.currentSessions;
     const failedAttempts = state.sessions.failedAttempts;
     currentSessions.map((value, index) => {
-      let obj = pastSessions.find(o => o.deviceId == value.deviceId);
+      console.log("Element in currentSessions" + value);
+      let obj = pastSessions.find(o => o.deviceId === value.deviceId);
       if (!obj) {
         console.log("No lo encontro en el fetch");
         if (failedAttempts[obj.deviceId]) {
@@ -46,6 +47,7 @@ const checkIfAll = currentSessions => {
           payload: failedConnections
         });
       }
+      return false;
     });
   };
 };
