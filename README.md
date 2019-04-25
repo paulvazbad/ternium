@@ -6,13 +6,19 @@ pages -- Pages components (Home,Dashboard,etc...) <br>
 redux -- All the code for redux <br>
 styles -- custom css
 
+##LogIn
+
+as SA = username: supera1234 password: admin1234
+as SU = username: admin1234 password: admin1234
+as SS = username: supers1234 password: admin1234
+
 ##Backend
 To avoid using the backend set ```backedOn=false ``` in 
 ./redux/actions/auth.js and ./redux/actions/user.js 
 
 To use the backend you must have mongodb set up and running on the host computer
 
-## CREATE REACT APP INFO
+### CREATE REACT APP INFO
 
 ## Available Scripts
 

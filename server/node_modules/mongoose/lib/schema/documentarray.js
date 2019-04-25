@@ -13,6 +13,8 @@ const util = require('util');
 const utils = require('../utils');
 const getDiscriminatorByValue = require('../queryhelpers').getDiscriminatorByValue;
 
+const arrayParentSymbol = require('../helpers/symbols').arrayParentSymbol;
+
 let MongooseDocumentArray;
 let Subdocument;
 
@@ -207,8 +209,8 @@ DocumentArray.prototype.doValidate = function(array, fn, scope, options) {
       // If you set the array index directly, the doc might not yet be
       // a full fledged mongoose subdoc, so make it into one.
       if (!(doc instanceof Subdocument)) {
-        doc = array[i] = new _this.casterConstructor(doc, array, undefined,
-          undefined, i);
+        const Constructor = getConstructor(_this, array[i]);
+        doc = array[i] = new Constructor(doc, array, undefined, undefined, i);
       }
 
       doc.$__validate(callback);
@@ -255,8 +257,8 @@ DocumentArray.prototype.doValidateSync = function(array, scope) {
     // If you set the array index directly, the doc might not yet be
     // a full fledged mongoose subdoc, so make it into one.
     if (!(doc instanceof Subdocument)) {
-      doc = array[i] = new this.casterConstructor(doc, array, undefined,
-        undefined, i);
+      const Constructor = getConstructor(this, array[i]);
+      doc = array[i] = new Constructor(doc, array, undefined, undefined, i);
     }
 
     const subdocValidateError = doc.validateSync();
@@ -290,15 +292,16 @@ DocumentArray.prototype.getDefault = function(scope) {
   }
 
   ret = new MongooseDocumentArray(ret, this.path, scope);
-  const _parent = ret._parent;
-  ret._parent = null;
+  const _parent = ret[arrayParentSymbol];
+  ret[arrayParentSymbol] = null;
 
   for (let i = 0; i < ret.length; ++i) {
-    ret[i] = new this.Constructor(ret[i], ret, undefined,
+    const Constructor = getConstructor(this, ret[i]);
+    ret[i] = new Constructor(ret[i], ret, undefined,
       undefined, i);
   }
 
-  ret._parent = _parent;
+  ret[arrayParentSymbol] = _parent;
 
   return ret;
 };
@@ -349,24 +352,11 @@ DocumentArray.prototype.cast = function(value, doc, init, prev, options) {
       continue;
     }
 
-    let Constructor = this.casterConstructor;
-    if (Constructor.discriminators &&
-        Constructor.schema &&
-        Constructor.schema.options &&
-        typeof value[i][Constructor.schema.options.discriminatorKey] === 'string') {
-      if (Constructor.discriminators[value[i][Constructor.schema.options.discriminatorKey]]) {
-        Constructor = Constructor.discriminators[value[i][Constructor.schema.options.discriminatorKey]];
-      } else {
-        const constructorByValue = getDiscriminatorByValue(Constructor, value[i][Constructor.schema.options.discriminatorKey]);
-        if (constructorByValue) {
-          Constructor = constructorByValue;
-        }
-      }
-    }
+    const Constructor = getConstructor(this, value[i]);
 
     // Check if the document has a different schema (re gh-3701)
     if ((value[i].$__) &&
-        value[i].schema !== Constructor.schema) {
+        !(value[i] instanceof Constructor)) {
       value[i] = value[i].toObject({ transform: false, virtuals: false });
     }
 
@@ -418,6 +408,30 @@ DocumentArray.prototype.cast = function(value, doc, init, prev, options) {
 };
 
 /*!
+ * Find the correct subdoc constructor, taking into account discriminators
+ */
+
+function getConstructor(docArray, subdoc) {
+  let Constructor = docArray.casterConstructor;
+  const schema = Constructor.schema;
+  const discriminatorKey = schema.options.discriminatorKey;
+  const discriminatorValue = subdoc[discriminatorKey];
+  if (Constructor.discriminators && typeof discriminatorValue === 'string') {
+    if (Constructor.discriminators[discriminatorValue]) {
+      Constructor = Constructor.discriminators[discriminatorValue];
+    } else {
+      const constructorByValue = getDiscriminatorByValue(Constructor,
+        discriminatorValue);
+      if (constructorByValue) {
+        Constructor = constructorByValue;
+      }
+    }
+  }
+
+  return Constructor;
+}
+
+/*!
  * ignore
  */
 
@@ -432,12 +446,12 @@ DocumentArray.prototype.clone = function() {
  */
 
 function _clearListeners(arr) {
-  if (arr == null || arr._parent == null) {
+  if (arr == null || arr[arrayParentSymbol] == null) {
     return;
   }
 
   for (const key in arr._handlers) {
-    arr._parent.removeListener(key, arr._handlers[key]);
+    arr[arrayParentSymbol].removeListener(key, arr._handlers[key]);
   }
 }
 

@@ -1,79 +1,72 @@
-const {User, validate} = require('../models/user'); 
-const mongoose = require('mongoose');
+const auth = require('../middleware/auth');
+const bcrypt = require('bcrypt');
+const _ = require('lodash');
+const { User, validate} = require('../models/user');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
-router.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+// router.get('/', async (req, res) => {
+//     const users = await User
+//         .find()
+//         .sort('name')
+//     res.send(users);
+// });
 
-router.get('/', async (req, res) => {
-    console.log('Nueva Peticion!');
-    const users = await User.find();
-    res.send(users);
-});
-
-router.post('/login', async (req, res) => {
-    console.log('Nueva Peticion!');
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-    
-    const user = await User.findOne({ username: req.body.username});
-    if (!user) return res.status(404).send('The username was not found.');
-    
-    if (user.password !== req.body.password) return res.status(404).send('The password entered was not correct.');
-    //console.log(res.header());
-    res.set('Content-Type', 'application/json');
-    console.log(res);
+router.get('/me', auth, async (req, res) => {
+    const user = await User.findById(req.user._id).select('-password');
     res.send(user);
 });
+
+
 
 router.post('/', async (req, res) => {
-    console.log('Nueva Peticion!');
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
+    
+    let user = await User.findOne({ username: req.body.username });
+    if (user) return res.status(400).send('User already registered.');
 
-    let user = new User({ 
-        username: req.body.username,
-        password: req.body.password
-    });
-    user = await user.save();
+    user = new User (_.pick(req.body, ['name', 'username', 'password', 'area', 'rol', 'team']));
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
 
-    res.send(user);
+    await user.save();
+    console.log(user);
+
+    
+    const token = user.generateAuthToken();
+    res.header('x-auth-token', token).send(_.pick(user, ['name', 'username', 'area', 'rol', 'team']));
 });
 
-router.put('/:username', async (req, res) => {
-    console.log('Nueva Peticion!');
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
-    const user = await User.findOneAndUpdate({ username: req.params.username}, {
-        $set: {
-            username: req.body.username,
-            password: req.body.password
-        }
-    }, {new: true})
-    if (!user) return res.status(404).send('The username was not found.');
+// router.put('/:id', async (req, res) => {
+//     const { error } = validate(req.body);
+//     if (error) return res.status(400).send(error.details[0].message);
 
-    res.send(user);
-});
+//     const user = await User.findByIdAndUpdate(req.params.id, {
+//         $set: {
+//             name: req.body.name,
+//             password: req.body.password,
+//             username: req.body.username
+//         }
+//     }, { new: true });
+//     if(!user) return res.status(404).send('The user with the given id was not found.');
+    
+//     res.send(user);
+// });
 
-router.delete('/:username', async (req, res) => {
-    console.log('Nueva Peticion!');
-    const user = await User.findOneAndRemove({ username: req.params.username});
-  
-    if (!user) return res.status(404).send('The username was not found.');
-  
-    res.send(user);
-  });
+// router.delete('/:id', async (req, res) => {
+//     const user = await User.findByIdAndDelete(req.params.id);
+//     if(!user) return res.status(404).send('The user with the given id was not found.');
+    
+//     res.send(user);
+// });
 
-router.get('/:username', async (req, res) => {
-    console.log('Nueva Peticion!');
-    const user = await User.findOne({ username: req.params.username});
-    if (!user) return res.status(404).send('The username was not found.');
-  
-    res.send(user);
-  });
+// router.get('/:id',  async (req, res) => {
+//     const user = await User.findById(req.params.id);
+//     if(!user) return res.status(404).send('The user with the given id was not found.');
+    
+//     res.send(user);
+// });
 
 module.exports = router;

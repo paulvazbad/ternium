@@ -100,13 +100,15 @@ function Document(obj, fields, skipId, options) {
     $__hasIncludedChildren(fields) :
     {};
 
-  this.$__buildDoc(obj, fields, skipId, exclude, hasIncludedChildren, false);
+  if (this._doc == null) {
+    this.$__buildDoc(obj, fields, skipId, exclude, hasIncludedChildren, false);
 
-  // By default, defaults get applied **before** setting initial values
-  // Re: gh-6155
-  $__applyDefaults(this, fields, skipId, exclude, hasIncludedChildren, true, {
-    isNew: this.isNew
-  });
+    // By default, defaults get applied **before** setting initial values
+    // Re: gh-6155
+    $__applyDefaults(this, fields, skipId, exclude, hasIncludedChildren, true, {
+      isNew: this.isNew
+    });
+  }
 
   if (obj) {
     if (obj instanceof Document) {
@@ -788,6 +790,8 @@ Document.prototype.$set = function $set(path, val, type, options) {
 
       return this;
     }
+  } else {
+    this.$__.$setCalled.add(path);
   }
 
   function _handleIndex(i) {
@@ -806,7 +810,8 @@ Document.prototype.$set = function $set(path, val, type, options) {
       delete this._doc[key];
     }
 
-    if (utils.isPOJO(path[key]) &&
+    if (typeof path[key] === 'object' &&
+        path[key] != null &&
         pathtype !== 'virtual' &&
         pathtype !== 'real' &&
         !(this.$__path(pathName) instanceof MixedSchema) &&
@@ -849,7 +854,10 @@ Document.prototype.$set = function $set(path, val, type, options) {
     }
   }
 
-  const pathType = this.schema.pathType(path);
+  let pathType = this.schema.pathType(path);
+  if (pathType === 'adhocOrUndefined') {
+    pathType = getEmbeddedDiscriminatorPath(this, path, { typeOnly: true });
+  }
 
   // Assume this is a Mongoose document that was copied into a POJO using
   // `Object.assign()` or `{...doc}`
@@ -858,7 +866,7 @@ Document.prototype.$set = function $set(path, val, type, options) {
   }
 
   if (pathType === 'nested' && val) {
-    if (utils.isPOJO(val)) {
+    if (typeof val === 'object' && val != null) {
       if (!merge) {
         this.setValue(path, null);
         cleanModifiedSubpaths(this, path);
@@ -1056,25 +1064,7 @@ Document.prototype.$set = function $set(path, val, type, options) {
     // a single nested doc. That's to make sure we get the correct context.
     // Otherwise we would double-call the setter, see gh-7196.
     if (this.schema.singleNestedPaths[path] == null) {
-      // Init the new subdoc to the previous values of the doc, so
-      // getters/setters see the correct current state. We pass the new subdoc
-      // instead of the old subdoc because otherwise side effects in setters
-      // wouldn't work, see gh-7585
-      if (constructing && this.$__.$options.priorDoc) {
-        const priorVal = Object.assign({}, this.$__.$options.priorDoc._doc);
-        delete priorVal[this.schema.options.discriminatorKey];
-        init(this, priorVal, this._doc);
-      }
-
       val = schema.applySetters(val, this, false, priorVal);
-
-      if (constructing && this.$__.$options.priorDoc) {
-        // Clear init-ed paths afterwards, because those should be paths that
-        // were in the previous doc and should not be in the new one.
-        for (const path of Object.keys(this.$__.activePaths.states.init)) {
-          delete this._doc[path];
-        }
-      }
     }
 
     if (!didPopulate && this.$__.populated) {
@@ -1495,6 +1485,8 @@ Document.prototype.directModifiedPaths = function() {
  *     doc.$isEmpty('nested'); // false
  *     doc.nested.$isEmpty(); // false
  *
+ * @memberOf Document
+ * @instance
  * @api public
  * @method $isEmpty
  * @return {Boolean}
@@ -3262,7 +3254,6 @@ Document.prototype.populated = function(path, val, options) {
   }
 
   // internal
-
   if (val === true) {
     if (!this.$__.populated) {
       return undefined;
@@ -3272,6 +3263,22 @@ Document.prototype.populated = function(path, val, options) {
 
   this.$__.populated || (this.$__.populated = {});
   this.$__.populated[path] = {value: val, options: options};
+
+  // If this was a nested populate, make sure each populated doc knows
+  // about its populated children (gh-7685)
+  const pieces = path.split('.');
+  for (let i = 0; i < pieces.length - 1; ++i) {
+    const subpath = pieces.slice(0, i + 1).join('.');
+    const subdoc = this.get(subpath);
+    if (subdoc != null && subdoc.$__ != null && this.populated(subpath)) {
+      const rest = pieces.slice(i + 1).join('.');
+      subdoc.populated(rest, val, options);
+      // No need to continue because the above recursion should take care of
+      // marking the rest of the docs as populated
+      break;
+    }
+  }
+
   return val;
 };
 

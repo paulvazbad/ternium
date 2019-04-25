@@ -1,3 +1,33 @@
+5.5.3 / 2019-04-22
+==================
+ * fix: add findAndModify deprecation warning that references the useFindAndModify option #7644
+ * fix(document): handle pushing a doc onto a discriminator that contains a doc array #7704
+ * fix(update): run setters on array elements when doing $set #7679
+ * fix: correct usage of arguments while buffering commands #7718 [rzymek](https://github.com/rzymek)
+ * fix(document): avoid error clearing modified subpaths if doc not defined #7715 [bitflower](https://github.com/bitflower)
+ * refactor(array): move `_parent` property behind a symbol #7726 #7700
+ * docs(model): list out all operations and options for `bulkWrite()` #7055
+ * docs(aggregate): use `eachAsync()` instead of nonexistent `each()` #7699
+ * docs(validation): add CastError validation example #7514
+ * docs(query+model): list out all options and callback details for Model.updateX() and Query#updateX() #7646
+
+5.5.2 / 2019-04-16
+==================
+ * fix(document): support setting nested path to non-POJO object #7639
+ * perf(connection): remove leaked event handler in `Model.init()` so `deleteModel()` frees all memory #7682
+ * fix(timestamps): handle custom statics that conflict with built-in functions (like mongoose-delete plugin) #7698
+ * fix(populate): make `Document#populated()` work for populated subdocs #7685
+ * fix(document): support `.set()` on document array underneath embedded discriminator path #7656
+
+5.5.1 / 2019-04-11
+==================
+ * fix(document): correctly overwrite all properties when setting a single nested subdoc #7660 #7681
+ * fix(array): allow customization of array required validator #7696 [freewil](https://github.com/freewil)
+ * fix(discriminator): handle embedded discriminators when casting array defaults #7687
+ * fix(collection): ensure collection functions return a promise even if disconnected #7676
+ * fix(schematype): avoid indexing properties with `{ unique: false, index: false }` #7620
+ * fix(aggregate): make `Aggregate#model()` with no arguments return the aggregation's model #7608
+
 5.5.0 / 2019-04-08
 ==================
  * feat(model): support applying hooks to custom static functions #5982
@@ -9,7 +39,7 @@
  * feat(model): print warning when calling create() incorrectly with a session #7535
  * feat(document): add Document#isEmpty() and corresponding helpers for nested paths #5369
  * feat(document): add `getters` option to Document#get() #7233
- feat(query): add Query#projection() to get or overwrite the current projection #7384
+ * feat(query): add Query#projection() to get or overwrite the current projection #7384
  * fix(document): set full validator path on validatorProperties if `propsParameter` set on validator #7447
  * feat(document): add Document#directModifiedPaths() #7373
  * feat(document): add $locals property #7691

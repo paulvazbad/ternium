@@ -4,6 +4,7 @@ import jwt from "jwt-simple";
 // Encrypt with jwt standard encryption
 const linkBack = process.env.REACT_APP_API_BACKEND;
 let secret = process.env.REACT_APP_JWT_COOKIE;
+let x_auth_token = null;
 var newUser = {
   username: "noBackend",
   password: "noPass",
@@ -13,50 +14,65 @@ var newUser = {
 };
 
 const backedOn = true;
+
 export const logIn = userInfo => {
   return dispatch => {
     console.log(linkBack);
     //dummy user
     //userInfo.password = jwt.encode(userInfo.password,secret);
-    console.log(userInfo.password);
     //validate user
-    if (backedOn) {
-      axios({
-        method: "post",
-        url: linkBack + "/api/users/login",
-        proxyHeaders: false,
-        credentials: false,
-        data: { username: userInfo.username, password: userInfo.password }
-      })
-        .then(response => {
-          console.log(response);
-          let cookie = jwt.encode(userInfo, secret);
-          sessionStorage.setItem("user", cookie);
-          let newUser = { ...response.data };
-          if (!response.data.rol) {
-            console.log("no rol in db");
-            newUser = { ...response.data, rol: "SA" };
-          }
-          console.log(newUser);
-          dispatch({
-            type: LOGIN,
-            payload: newUser
-          });
+
+    axios({
+      method: "post",
+      url: linkBack + "/api/auth/",
+      proxyHeaders: false,
+      credentials: false,
+      data: { username: userInfo.username, password: userInfo.password }
+    })
+      .then(response => {
+        //IF LOGIN SUCCESSFUL
+        console.log(response);
+        //SAVE COOKIE WITH USERNAME&PASSWORD
+        let cookie = jwt.encode(userInfo, secret);
+        sessionStorage.setItem("user", cookie);
+
+        //GET REST OF INFO
+        x_auth_token = response.data;
+        axios({
+          method: "get",
+          url: linkBack + "/api/users/me",
+          proxyHeaders: false,
+          credentials: false,
+          headers: { "x-auth-token": x_auth_token }
         })
-        .catch(error => {
-          console.log(error);
-          dispatch({
-            type: FAILED_LOGIN
+          .then(response => {
+            console.log("SI PUDE RECIBIR EL RESTO DE LA INFO");
+            console.log(response);
+            let newUser = { ...response.data };
+            if (!response.data.rol) {
+              console.log("no rol in db");
+              newUser = { ...response.data, rol: "SA" };
+            }
+            dispatch({
+              type: LOGIN,
+              payload: newUser
+            });
+          })
+          .catch(error => {
+            console.log(error);
+            dispatch({
+              type: FAILED_LOGIN
+            });
           });
+      })
+      .catch(error => {
+        console.log("NO PUDE");
+        //Decide what to do in this case
+        console.log(error);
+        dispatch({
+          type: FAILED_LOGIN
         });
-    } else {
-      let cookie = jwt.encode(userInfo, secret);
-      sessionStorage.setItem("user", cookie);
-      dispatch({
-        type: LOGIN,
-        payload: newUser
       });
-    }
   };
 };
 
@@ -71,8 +87,10 @@ export const loadUser = () => {
       JSONUSer = cachedUser;
       if (backedOn) {
         axios
-          .post(linkBack + "/api/users/login", JSONUSer)
+          .post(linkBack + "/api/auth", JSONUSer)
           .then(response => {
+            console.log(response);
+            //Segunda llamada aqui
             let newUser = { ...response.data };
             if (!response.data.rol) {
               console.log("no rol in db");
