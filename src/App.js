@@ -9,8 +9,8 @@ import { DASHBOARD, HISTORY, NEWSESSION, USER_ADMIN } from "./constants/routes";
 import Layout from './components/Layout';
 import { createMuiTheme, MuiThemeProvider, withTheme } from '@material-ui/core/styles';
 import userAdminPage from "./pages/userAdminPage";
-import Timeout from './components/Timeout'
-
+import Timeout from './components/Timeout';
+import SnackbarTrigger from './components/SnackbarTrigger';
 //import {styles} from './styles/MainStyles'; 
 const theme = createMuiTheme({
   palette: {
@@ -35,6 +35,7 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
         <BrowserRouter>
       {this.props.auth.username && <Timeout time={10}/> }
+      {this.props.auth.username&& <SnackbarTrigger/>}
         <Layout auth={this.props.auth}>
             <Switch>  
               <Route exact path='/' component={LoginPage}/>
