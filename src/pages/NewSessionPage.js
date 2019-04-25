@@ -12,6 +12,10 @@ import { DASHBOARD } from "../constants/routes";
 import NewSessionForm from "../components/NewSessionForm";
 import Loading from "../components/Loading";
 import Grow from "@material-ui/core/Grow";
+import { connect } from "react-redux";
+import {
+  newSession,
+} from "../redux/actions/session";
 
 class NewSessionPage extends React.Component {
   state = {
@@ -60,6 +64,7 @@ class NewSessionPage extends React.Component {
       case 0:
         return this.step0;
       case 1:
+        this.props.newSession(this.state.selectedDevice,this.state.selectedWorker);
         return this.step1;
       case 2:
         return "Conexión exitosa!";
@@ -130,4 +135,13 @@ class NewSessionPage extends React.Component {
   }
 }
 
-export default NewSessionPage;
+const mapDispatchToProps = dispatch => {
+  return {
+    newSession: (deviceID,workerID) => {
+      dispatch(newSession(deviceID,workerID))
+    }
+  };
+};
+
+export default connect(null,
+  mapDispatchToProps)(NewSessionPage);

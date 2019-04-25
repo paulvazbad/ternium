@@ -2,7 +2,8 @@ import {
   GET_ACTIVE_SESSIONS,
   FAILED_ACTIVE_SESSIONS,
   FAILED_A_SESSION,
-  FAILED_ATTEMPTS
+  FAILED_ATTEMPTS,
+  NEW_SESSION
 } from "../../constants/index";
 import axios from "axios";
 
@@ -79,7 +80,14 @@ export const getActiveSessions = userInfo => {
   };
 };
 //GET_PAST_SESSIONS
-
+export const newSession = (deviceID,workerID) =>{
+  return dispatch =>{
+    console.log("device ID " + deviceID + "worker ID " + workerID);
+    dispatch({
+      type: NEW_SESSION
+    });
+  }
+}
 //NEW_SESSION
 //END_SESSION
 //CHECK_SESSIONS_ALIVE
