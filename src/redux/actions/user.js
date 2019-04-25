@@ -5,7 +5,7 @@ import {
   LOADED_DEVICES
 } from "../../constants";
 import axios from "axios";
-const linkBack = "https://d31e1bb5-30af-411e-9746-26902dd9fc3a.mock.pstmn.io";
+const linkBack = process.env.REACT_APP_API_BACKEND;
 
 const backedOn = false;
 const workers = [

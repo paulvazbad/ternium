@@ -1,6 +1,7 @@
 const gasInfo = [
     {
         employee: "Aurora Tijerina Berzosa",
+        deviceId:123232,
         gases:
             [
                 {
@@ -37,6 +38,7 @@ const gasInfo = [
     },
     {
         employee: "Paul Vazquez Vadillo",
+        deviceId:256466,
         gases: [
                 {
                     id: 0,
@@ -72,6 +74,7 @@ const gasInfo = [
     },
     {
         employee: "Aurora Tijerina Berzosa",
+        deviceId:123232,
         gases:
             [
                 {
