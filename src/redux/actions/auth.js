@@ -85,41 +85,41 @@ export const loadUser = () => {
       console.log("FOUND A USER");
       const cachedUser = jwt.decode(cookie, secret);
       JSONUSer = cachedUser;
-      if (backedOn) {
-        axios
-          .post(linkBack + "/api/auth", JSONUSer)
-          .then(response => {
-            console.log(response);
-            //Segunda llamada aqui
-            let newUser = { ...response.data };
-            if (!response.data.rol) {
-              console.log("no rol in db");
-              newUser = { ...response.data, rol: "SA" };
-            }
-            dispatch({
-              type: LOAD_USER,
-              payload: newUser
-            });
+      axios
+        .post(linkBack + "/api/auth", JSONUSer)
+        .then(response => {
+          x_auth_token = response.data;
+          axios({
+            method: "get",
+            url: linkBack + "/api/users/me",
+            proxyHeaders: false,
+            credentials: false,
+            headers: { "x-auth-token": x_auth_token }
           })
-          .catch(error => {
-            sessionStorage.removeItem("user");
-            dispatch({
-              type: FAILED_LOGIN
+            .then(response => {
+              let newUser = { ...response.data };
+              dispatch({
+                type: LOAD_USER,
+                payload: newUser
+              });
+            })
+            .catch(error => {
+              console.log(error);
             });
+        })
+        .catch(error => {
+          sessionStorage.removeItem("user");
+          dispatch({
+            type: LOAD_USER,
+            payload: {}
           });
-      } else {
-        dispatch({
-          type: LOAD_USER,
-          payload: newUser
         });
-      }
     } else {
       dispatch({
         type: LOAD_USER,
         payload: {}
       });
     }
-
     //Dispatch loadUser
   };
 };
