@@ -9,10 +9,12 @@ import Grid from '@material-ui/core/Grid';
 const styles = {
     card: {
         width: "100%",
-        display: 'inline-block',
-        textAlign: "center",
+        display: 'flex',
+        alignItems: "center",
+        justifyContent:"center",
         margin: 2,
         marginBottom: 0,
+        height:"100%"
     },
     pos: {
         marginBottom: 1,
