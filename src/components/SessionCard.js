@@ -47,7 +47,7 @@ function Dashboard(props) {
           </Typography>
         </Grid>
         {gasComponent}
-        <GasPlotter/>
+        <GasPlotter bufferInfo={props.bufferInfo}/>
       </Grid>
     </div>
   );

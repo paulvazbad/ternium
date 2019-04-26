@@ -3,7 +3,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
-
 import "../../node_modules/react-vis/dist/style.css";
 import {
   XYPlot,
@@ -13,13 +12,14 @@ import {
   XAxis,
   YAxis
 } from "react-vis";
+import continuousColorLegend from "react-vis/dist/legends/continuous-color-legend";
 
 const styles = {
   card: {
     width: "100%",
     display: "flex",
     textAlign: "center",
-    justifyContent:"center",
+    justifyContent: "center",
     margin: 2,
     marginBottom: 0
   },
@@ -29,6 +29,24 @@ const styles = {
   }
 };
 class GasPlotter extends React.Component {
+  renderLines = () => {
+    //console.log(this.props.bufferInfo);
+    const bufferInfo = this.props.bufferInfo;
+    const gasLines=[]
+    for (var property in bufferInfo) {
+      if (bufferInfo.hasOwnProperty(property)) {
+        var lineData = bufferInfo[property].map((value, index) => {
+          return { x: index, y: value };
+        });
+        console.log("property"+property+" ");
+        gasLines.push(<LineSeries data={lineData} />)
+        
+      }
+      
+    }
+    console.log(gasLines);
+      return gasLines;
+  };
   render() {
     const { classes } = this.props;
     var cardStyle = {
@@ -51,12 +69,12 @@ class GasPlotter extends React.Component {
       <Grid item xs={6}>
         <Card className={classes.card} style={cardStyle}>
           <CardContent>
-            <XYPlot height={200} width={600} yDomain={[0,10]} >
+            <XYPlot height={200} width={600} yDomain={[0, 10]}>
               <VerticalGridLines />
               <HorizontalGridLines />
               <XAxis />
               <YAxis />
-              <LineSeries data={data} />
+              {this.renderLines()}
             </XYPlot>
           </CardContent>
         </Card>
