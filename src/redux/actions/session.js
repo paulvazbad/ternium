@@ -79,7 +79,7 @@ export const getActiveSessions = userInfo => {
       });
   };
 };
-//GET_PAST_SESSIONS
+//NEW_SESSION
 export const newSession = (deviceID,workerID) =>{
   return dispatch =>{
     console.log("device ID " + deviceID + "worker ID " + workerID);
@@ -88,6 +88,7 @@ export const newSession = (deviceID,workerID) =>{
     });
   }
 }
-//NEW_SESSION
+
+//GET_PAST_SESSIONS
 //END_SESSION
 //CHECK_SESSIONS_ALIVE

@@ -28,11 +28,6 @@ const gasInfo = [
                     id: 4,
                     name: "Aquí irá el mapa",
                     lectura: "localización"
-                },
-                {
-                    id: 5,
-                    name: "Aquí irá la gráfica",
-                    lectura: "all gases"
                 }
             ],
     },
@@ -64,11 +59,6 @@ const gasInfo = [
                     id: 4,
                     name: "Aquí irá el mapa",
                     lectura: "localización"
-                },
-                {
-                    id: 5,
-                    name: "Aquí irá la gráfica",
-                    lectura: "all gases"
                 }
                ]
     },
@@ -101,11 +91,6 @@ const gasInfo = [
                     id: 4,
                     name: "Aquí irá el mapa",
                     lectura: "localización"
-                },
-                {
-                    id: 5,
-                    name: "Aquí irá la gráfica",
-                    lectura: "all gases"
                 }
             ],
     },

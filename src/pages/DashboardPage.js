@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import SessionCard from "../components/SessionCard";
 import Search from "../components/Search";
 import GasInfo from "../components/gasData";
+import bufferInfo from '../components/bufferInfo';
 
 class DashboardPage extends Component {
   constructor(props){
@@ -19,6 +20,7 @@ class DashboardPage extends Component {
       gasInfo={gas.gases}
       employee={gas.employee}
       key={gas.employee + index}
+      bufferInfo ={bufferInfo}
     />
   ));
   onSearch = (filteredList) =>{
