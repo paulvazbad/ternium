@@ -13,9 +13,7 @@ import NewSessionForm from "../components/NewSessionForm";
 import Loading from "../components/Loading";
 import Grow from "@material-ui/core/Grow";
 import { connect } from "react-redux";
-import {
-  newSession,
-} from "../redux/actions/session";
+import { newSession } from "../redux/actions/session";
 
 class NewSessionPage extends React.Component {
   state = {
@@ -23,14 +21,33 @@ class NewSessionPage extends React.Component {
     width: 0,
     orientation: "horizontal",
     selectedDevice: null,
-    selectedWorker: null
+    selectedWorker: null,
+    buttonText:"Next"
   };
   componentWillMount() {
+    console.log(this.props);
     this.updateWindowSize();
     window.addEventListener("resize", this.updateWindowSize);
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateWindowSize);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Update")
+    var activeStep = this.state.activeStep;
+    console.log('Loading status' + prevProps.loading);
+    console.log("Loaading status" + this.props.loading);
+    console.log(activeStep);
+    if (!this.props.loading && activeStep === 1) {
+      console.log("check loading");
+      
+      this.setState({ activeStep: this.state.activeStep + 1 });
+    }
+    else if(!this.props.succesful && activeStep===2 && prevState.buttonText!=="Retry"){
+      console.log("Change text")
+      this.setState({buttonText:"Retry"});
+    }
+    
   }
   updateWindowSize = () => {
     this.setState({ width: window.innerWidth });
@@ -64,10 +81,19 @@ class NewSessionPage extends React.Component {
       case 0:
         return this.step0;
       case 1:
-        this.props.newSession(this.state.selectedDevice,this.state.selectedWorker);
+        this.props.newSession(
+          this.state.selectedDevice,
+          this.state.selectedWorker
+        );
         return this.step1;
       case 2:
-        return "Conexión exitosa!";
+        if(this.props.succesful){
+          return "Conexion Exitosa!"
+        } 
+        else{
+          return "Conexion Fallida"
+        }
+        ;
       default:
         return "Unknown step";
     }
@@ -85,15 +111,24 @@ class NewSessionPage extends React.Component {
       console.log(steps.length);
       console.log(this.state.activeStep);
       //this.setState({activeStep:0});
-      this.props.history.push(DASHBOARD);
+      if(this.props.succesful){
+        this.props.history.push(DASHBOARD);
+      }
+      else{
+        this.setState({ activeStep: this.state.activeStep - 1, buttonText:"Next"  });
+      }
     }
-    this.setState({ activeStep: this.state.activeStep + 1 });
+    else{
+      this.setState({ activeStep: this.state.activeStep + 1, buttonText:"Next" });
+    }
+    
   };
 
   render() {
     const { activeStep, selectedDevice, selectedWorker } = this.state;
     const steps = this.getSteps();
     console.log(this.state);
+    console.log(this.props);
     return (
       <Paper style={{ width: "80%", flex: 1, margin: "auto" }}>
         <Stepper activeStep={activeStep} orientation={this.state.orientation}>
@@ -126,7 +161,7 @@ class NewSessionPage extends React.Component {
                   selectedWorker === null)
               }
             >
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              {this.state.buttonText}
             </Button>
           </Grid>
         </Grid>
@@ -137,11 +172,19 @@ class NewSessionPage extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    newSession: (deviceID,workerID) => {
-      dispatch(newSession(deviceID,workerID))
+    newSession: (deviceID, workerID) => {
+      dispatch(newSession(deviceID, workerID));
     }
   };
 };
+const mapStateToProps = (state) =>{
+  return({
+    succesful: state.session.succesful,
+    loading: state.session.loading
+  })
+}
 
-export default connect(null,
-  mapDispatchToProps)(NewSessionPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewSessionPage);
