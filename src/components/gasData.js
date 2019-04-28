@@ -24,11 +24,6 @@ const gasInfo = [
                     name: "Calidad de aire",
                     lectura: 0.6
                 },
-                {
-                    id: 4,
-                    name: "Aquí irá el mapa",
-                    lectura: "localización"
-                }
             ],
     },
     {
@@ -55,11 +50,6 @@ const gasInfo = [
                     name: "Calidad de aire",
                     lectura: 0.6
                 },
-                {
-                    id: 4,
-                    name: "Aquí irá el mapa",
-                    lectura: "localización"
-                }
                ]
     },
     {
