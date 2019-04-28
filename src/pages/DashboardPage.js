@@ -18,6 +18,7 @@ class DashboardPage extends Component {
   renderGasComponent = () => this.state.GasInfo.map((gas, index) => (
     <SessionCard
       gasInfo={gas.gases}
+      deviceId={gas.deviceId}
       employee={gas.employee}
       key={gas.employee + index}
       bufferInfo ={bufferInfo}
