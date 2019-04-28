@@ -1,9 +1,8 @@
-const bcrypt = require("bcrypt");
+
 const _ = require("lodash");
 const { ActiveSession } = require("../models/session");
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 
 /* 
  /api/sessions
