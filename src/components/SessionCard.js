@@ -46,7 +46,7 @@ function Dashboard(props) {
       <Grid container spacing={8}>
         <Grid item xs={12}>
           <Typography variant="h5" component="h2" style={{ color: "black" }}>
-            {props.employee} <Chip avatar={<Avatar><Router/></Avatar> }label={props.deviceId} className={classes.chip}   color="secondary"/>
+            {props.employee} <Chip icon={<Router />}label={props.deviceId} className={classes.chip}   color="secondary"/>
           </Typography>
         </Grid>
         {gasComponent}
