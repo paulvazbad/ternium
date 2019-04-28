@@ -44,14 +44,12 @@ class Search extends React.Component {
                 itemData = itemData.toLowerCase();
                 let searchData = e.target.value.toLowerCase();
                 if (itemData.includes(searchData)) {
-                  console.log("found word");
                   return true;
                 }
               } else if (
                 typeof itemData === "number" &&
-                parseInt(e.target.value) === itemData
+                itemData.toString().includes(e.target.value)
               ) {
-                console.log("FOUnd number");
                 return true;
               }
             }
@@ -73,15 +71,15 @@ class Search extends React.Component {
     return (
       <Paper style={styles.root} elevation={1}>
         <IconButton style={styles.iconButton} color="primary" aria-label="Menu">
-                <AddIcon />
-                </IconButton>
+          <AddIcon />
+        </IconButton>
         <InputBase
           style={styles.input}
           placeholder={placeholder}
           onChange={event => this.onChange(event, searchList)}
         />
         <IconButton style={styles.iconButton} aria-label="Search">
-                <SearchIcon />
+          <SearchIcon />
         </IconButton>
       </Paper>
     );
