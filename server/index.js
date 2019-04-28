@@ -6,6 +6,7 @@ const cors = require('cors');
 const express = require('express');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const session = require('./routes/session');
 const app = express();
 app.use(cors());
 if(!config.get('jwtPrivateKey')) {
@@ -26,6 +27,7 @@ mongoose.connect('mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/tes
 app.use(express.json());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use('/api/sessions',session);
 app.use(helmet());
 app.use(compression());
 

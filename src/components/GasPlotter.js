@@ -38,7 +38,7 @@ class GasPlotter extends React.Component {
         var lineData = bufferInfo[property].map((value, index) => {
           return { x: index, y: value };
         });
-        console.log("property"+property+" ");
+        //console.log("property"+property+" ");
         gasLines.push(<LineSeries data={lineData} />)
         
       }
