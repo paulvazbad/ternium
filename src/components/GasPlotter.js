@@ -2,7 +2,6 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
 import "../../node_modules/react-vis/dist/style.css";
 import {
   XYPlot,
@@ -66,7 +65,6 @@ class GasPlotter extends React.Component {
       { x: 9, y: 4 }
     ];
     return (
-      <Grid item xs={6}>
         <Card className={classes.card} style={cardStyle}>
           <CardContent>
             <XYPlot height={200} width={600} yDomain={[0, 10]}>
@@ -78,7 +76,6 @@ class GasPlotter extends React.Component {
             </XYPlot>
           </CardContent>
         </Card>
-      </Grid>
     );
   }
 }

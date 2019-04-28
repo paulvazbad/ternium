@@ -69,11 +69,12 @@ class userAdminPage extends React.Component {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <EditUserCard
-            id={user.id}
+            username={user.username}
             area={user.area}
             lugar={user.lugar}
             nombre={user.nombre}
             puesto={user.puesto}
+            userpassword={user.userpassword}
           />
         </ExpansionPanelDetails>
       </ExpansionPanel>
