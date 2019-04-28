@@ -15,17 +15,6 @@ var spanStyle = {
     paddingTop: 0,
 };
 
-var spanStyle = {
-    display: "inline-block",
-    textAlign: "left",
-    minWidth: 160,
-    maxWidth: 160,
-    minHeight: 40,
-    maxHeight: 80,
-    paddingRight: 30,
-    paddingTop: 0,
-};
-
 function SimpleCard(props) {
     const { classes } = props;
 

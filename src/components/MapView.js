@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
 import L from "leaflet";
 import ReactDOM from "react-dom";
+
 const styles = {
     card: {
       width: "100%",
@@ -43,13 +43,11 @@ class MapView extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Grid item xs={3} >
       <Card className={classes.card} >
       <CardContent>
       <div id="map"  height={200}/>
       </CardContent>
       </Card>
-      </Grid>
     );
   }
 }

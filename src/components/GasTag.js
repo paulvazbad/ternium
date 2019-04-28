@@ -25,7 +25,7 @@ const styles = {
 function GasTag(props) {
 
     const { classes } = props;
-    const sizes = [6, 3, 3, 3, 3, 6]
+    var sizes = [3, 3, 3, 3]
     const limits = [1, 50, 5, 20]
     const suffix = ["% LEL", " ppm", "%", "%", "", ""]
 
@@ -41,6 +41,7 @@ function GasTag(props) {
 
     var cardStyle = {
         backgroundColor: safe,
+        textAlign: "center",
         //border: "3px solid " + safe,
     }
 

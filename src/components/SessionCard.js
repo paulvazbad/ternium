@@ -9,6 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import Router from "@material-ui/icons/Router";
 import Avatar from '@material-ui/core/Avatar';
 import MapView from './MapView.js'
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -16,12 +17,7 @@ const styles = theme => ({
     width: "80%",
     margin: "auto",
     padding: 10,
-    borderRadius: 15
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: "left",
-    color: theme.palette.text.secondary
+    borderRadius: 15,
   },
   pos: {
     marginBottom: 1,
@@ -30,31 +26,37 @@ const styles = theme => ({
 });
 
 function Dashboard(props) {
-  const { classes } = props;
+    const { classes } = props;
 
-  const gasComponent = props.gasInfo.map((gas, index) => (
+    const gasComponent = props.gasInfo.map((gas, index) => (
     <GasTag
-      id={gas.id}
-      name={gas.name}
-      lectura={gas.lectura}
-      key={gas.id + index}
+        id={gas.id}
+        name={gas.name}
+        lectura={gas.lectura}
+        key={gas.id + index}
     />
-  ));
+    ));
 
-  return (
+    var sizes = [5, 7]
+
+    return (
     <div className={classes.root}>
-      <Grid container spacing={8}>
+        <Grid container spacing={8}>
         <Grid item xs={12}>
-          <Typography variant="h5" component="h2" style={{ color: "black" }}>
+            <Typography variant="h5" component="h2" style={{ color: "black" }}>
             {props.employee} <Chip avatar={<Avatar><Router/></Avatar> }label={props.deviceId} className={classes.chip}   color="secondary"/>
-          </Typography>
+            </Typography>
         </Grid>
         {gasComponent}
-        <MapView/>
-        <GasPlotter bufferInfo={props.bufferInfo}/>
-      </Grid>
+        <Grid item xs={sizes[0]} >
+            <MapView />
+        </Grid>
+        <Grid item xs={sizes[1]} >
+            <GasPlotter bufferInfo={props.bufferInfo}/>
+        </Grid>
+        </Grid>
     </div>
-  );
+    );
 }
 
 Dashboard.propTypes = {
