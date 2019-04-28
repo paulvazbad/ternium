@@ -8,6 +8,7 @@ import GasTag from "./GasTag";
 import Chip from '@material-ui/core/Chip';
 import Router from "@material-ui/icons/Router";
 import Avatar from '@material-ui/core/Avatar';
+import MapView from './MapView.js'
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -49,6 +50,7 @@ function Dashboard(props) {
           </Typography>
         </Grid>
         {gasComponent}
+        <MapView/>
         <GasPlotter bufferInfo={props.bufferInfo}/>
       </Grid>
     </div>
