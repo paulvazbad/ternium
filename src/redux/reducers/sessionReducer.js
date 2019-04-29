@@ -26,11 +26,11 @@ const sessionReducer = (state = defaultState, action) => {
     case GET_ACTIVE_SESSIONS:
       return {
         ...state,
-        failedConnection: true,
         pastSessions: state.currentSessions,
         currentSessions: action.payload.sessions,
         usedDevices: action.payload.devices,
-        usedWorker: action.payload.worker
+        usedWorker: action.payload.worker,
+        loading:false
       };
     case FAILED_ACTIVE_SESSIONS:
       return { ...state, failedAllConnections: true };

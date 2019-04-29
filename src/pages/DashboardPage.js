@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logOut } from "../redux/actions/auth";
-import { getActiveSessions } from "../redux/actions/session";
+
 
 import Typography from "@material-ui/core/Typography";
 
@@ -32,8 +32,8 @@ class DashboardPage extends Component {
     };
   }
   renderGasComponent = () =>{ 
-  if(this.state.GasInfo.length>0){
-    return (this.state.GasInfo.map((gas, index) => (
+  if(this.props.currentSessions.length>0){
+    return (this.props.currentSessions.map((gas, index) => (
       <SessionCard
         gasInfo={gas.data}
         deviceId={gas.mac}
@@ -54,15 +54,7 @@ class DashboardPage extends Component {
     
   onSearch = filteredList => {
     this.setState({ GasInfo: filteredList });
-  };
-  //Make a new component to fetch this info
-  componentDidMount() {
-    this.Interval = setInterval(()=>{
-      this.props.getActiveSessions(this.props.auth.username);
-      this.setState({GasInfo:this.props.currentSessions});
-      console.log(this.props.currentSessions.length);
-    },3000)
-  }
+  }; 
   componentWillUnmount() {
     clearInterval(this.Interval);
   }
@@ -99,9 +91,7 @@ const mapDispatchToProps = dispatch => {
     logOut: () => {
       dispatch(logOut());
     },
-    getActiveSessions: (username) =>{
-      dispatch(getActiveSessions(username));
-    }
+    
   };
 };
 export default connect(

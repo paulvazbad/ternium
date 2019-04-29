@@ -11,6 +11,7 @@ import { createMuiTheme, MuiThemeProvider, withTheme } from '@material-ui/core/s
 import userAdminPage from "./pages/userAdminPage";
 import Timeout from './components/Timeout';
 import SnackbarTrigger from './components/SnackbarTrigger';
+import SessionFetcher from './components/SessionFetcher';
 //import {styles} from './styles/MainStyles'; 
 const theme = createMuiTheme({
   palette: {
@@ -36,6 +37,7 @@ class App extends Component {
         <BrowserRouter>
       {this.props.auth.username && <Timeout time={10}/> }
       {this.props.auth.username&& <SnackbarTrigger/>}
+      {this.props.auth.username && <SessionFetcher />}
         <Layout auth={this.props.auth}>
             <Switch>  
               <Route exact path='/' component={LoginPage}/>
@@ -57,11 +59,12 @@ class App extends Component {
 const mapDispatchToProps = (dispatch) => {
   return(
       {
-          loadUser: () => dispatch(loadUser())
+          loadUser: () => dispatch(loadUser()),
       }
   );
 }
 const mapStateToProps = (state) => ({
-  auth:state.auth
+  auth:state.auth,
+  currentSessions: state.session.currentSessions,
 });
 export default withTheme()(connect (mapStateToProps,mapDispatchToProps)(App));
