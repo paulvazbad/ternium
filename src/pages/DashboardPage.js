@@ -28,12 +28,12 @@ class DashboardPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      GasInfo: GasInfo
+      GasInfo: []
     };
   }
   renderGasComponent = () =>{ 
-  if(this.props.currentSessions.length>0){
-    return (this.props.currentSessions.map((gas, index) => (
+  if(this.state.GasInfo.length>0){
+    return (this.state.GasInfo.map((gas, index) => (
       <SessionCard
         gasInfo={gas.data}
         deviceId={gas.mac}
@@ -59,6 +59,7 @@ class DashboardPage extends Component {
   componentDidMount() {
     this.Interval = setInterval(()=>{
       this.props.getActiveSessions(this.props.auth.username);
+      this.setState({GasInfo:this.props.currentSessions});
       console.log(this.props.currentSessions.length);
     },3000)
   }
@@ -80,7 +81,7 @@ class DashboardPage extends Component {
         </div>
         <Search
           placeholder={"Buscar sesiones activas"}
-          searchList={GasInfo}
+          searchList={this.props.currentSessions}
           onSearch={this.onSearch}
         />
         <br />

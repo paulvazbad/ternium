@@ -22,7 +22,8 @@ class NewSessionPage extends React.Component {
     orientation: "horizontal",
     selectedDevice: null,
     selectedWorker: null,
-    buttonText:"Next"
+    buttonText:"Next",
+    notSent:true
   };
   componentWillMount() {
     console.log(this.props);
@@ -81,11 +82,7 @@ class NewSessionPage extends React.Component {
       case 0:
         return this.step0;
       case 1:
-        this.props.newSession(
-          this.state.selectedDevice,
-          this.state.selectedWorker,
-          this.props.username
-        );
+        
         return this.step1;
       case 2:
         if(this.props.succesful){
@@ -108,6 +105,14 @@ class NewSessionPage extends React.Component {
   };
   handleNext = steps => () => {
     console.log(this.state.activeStep);
+    if(this.state.activeStep !== 1 && this.state.notSent){
+      this.props.newSession(
+        this.state.selectedDevice,
+        this.state.selectedWorker,
+        this.props.username
+      );
+      this.setState({notSent:false});
+    }
     if (this.state.activeStep === steps.length - 1) {
       console.log(steps.length);
       console.log(this.state.activeStep);
@@ -116,7 +121,7 @@ class NewSessionPage extends React.Component {
         this.props.history.push(DASHBOARD);
       }
       else{
-        this.setState({ activeStep: this.state.activeStep - 1, buttonText:"Next"  });
+        this.setState({ activeStep: 1, buttonText:"Next", notSent:true  });
       }
     }
     else{
