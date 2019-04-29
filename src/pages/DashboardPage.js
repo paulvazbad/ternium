@@ -9,6 +9,20 @@ import SessionCard from "../components/SessionCard";
 import Search from "../components/Search";
 import GasInfo from "../components/gasData";
 import bufferInfo from "../components/bufferInfo";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+
+const styles = {
+  root: {
+    flexGrow: 1,
+    backgroundColor: "white",
+    width: "80%",
+    margin: "auto",
+    padding: 10,
+    borderRadius: 15,
+    justifyContent:"center"
+  }
+}
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -28,6 +42,13 @@ class DashboardPage extends Component {
         bufferInfo={bufferInfo}
       />
     )));
+  }
+  else{
+    return( 
+    <div style={styles.root}>
+    <CircularProgress size={100} style={{marginLeft:"45%"}}/>
+    </div>
+    );
   }
 }
     

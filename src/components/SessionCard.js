@@ -19,6 +19,8 @@ const styles = theme => ({
     margin: "auto",
     padding: 10,
     borderRadius: 15,
+    justifyContent:"center",
+    alignItems:"center"
   },
   pos: {
     marginBottom: 1,
