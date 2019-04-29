@@ -43,7 +43,7 @@ class GasPlotter extends React.Component {
       }
       
     }
-    console.log(gasLines);
+    //console.log(gasLines);
       return gasLines;
   };
   render() {

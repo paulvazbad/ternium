@@ -1,33 +1,51 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logOut } from "../redux/actions/auth";
+import { getActiveSessions } from "../redux/actions/session";
+
 import Typography from "@material-ui/core/Typography";
 
 import SessionCard from "../components/SessionCard";
 import Search from "../components/Search";
 import GasInfo from "../components/gasData";
-import bufferInfo from '../components/bufferInfo';
+import bufferInfo from "../components/bufferInfo";
 
 class DashboardPage extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      GasInfo:GasInfo
-    }
+    this.state = {
+      GasInfo: GasInfo
+    };
   }
-  renderGasComponent = () => this.state.GasInfo.map((gas, index) => (
-    <SessionCard
-      gasInfo={gas.gases}
-      deviceId={gas.deviceId}
-      employee={gas.employee}
-      key={gas.employee + index}
-      bufferInfo ={bufferInfo}
-    />
-  ));
-  onSearch = (filteredList) =>{
-    this.setState({GasInfo:filteredList});
+  renderGasComponent = () =>{ 
+  if(this.props.currentSessions.length>0){
+    return (this.props.currentSessions.map((gas, index) => (
+      <SessionCard
+        gasInfo={gas.data}
+        deviceId={gas.mac}
+        employee={gas.staff.name}
+        key={gas.staff.name + index}
+        bufferInfo={bufferInfo}
+      />
+    )));
+  }
+}
+    
+  onSearch = filteredList => {
+    this.setState({ GasInfo: filteredList });
+  };
+  //Make a new component to fetch this info
+  componentDidMount() {
+    this.Interval = setInterval(()=>{
+      this.props.getActiveSessions(this.props.auth.username);
+      console.log(this.props.currentSessions.length);
+    },3000)
+  }
+  componentWillUnmount() {
+    clearInterval(this.Interval);
   }
   render() {
+    console.log(this.props.currentSessions);
     return (
       <div>
         <div style={{ paddingLeft: "10%" }}>
@@ -39,20 +57,28 @@ class DashboardPage extends Component {
             {this.props.auth.rol}
           </Typography>
         </div>
-        <Search placeholder={"Buscar sesiones activas"} searchList={GasInfo} onSearch={this.onSearch}/>
+        <Search
+          placeholder={"Buscar sesiones activas"}
+          searchList={GasInfo}
+          onSearch={this.onSearch}
+        />
         <br />
-        <div>{this.renderGasComponent()}</div>
+        <div>{this.renderGasComponent() }</div>
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
+  currentSessions: state.session.currentSessions,
   auth: state.auth
 });
 const mapDispatchToProps = dispatch => {
   return {
     logOut: () => {
       dispatch(logOut());
+    },
+    getActiveSessions: (username) =>{
+      dispatch(getActiveSessions(username));
     }
   };
 };

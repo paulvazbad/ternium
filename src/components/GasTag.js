@@ -26,19 +26,19 @@ function GasTag(props) {
 
     const { classes } = props;
     var sizes = [3, 3, 3, 3]
-    const limits = [1, 50, 5, 20]
+    const limits = [500, 500, 100, 100]
     const suffix = ["% LEL", " ppm", "%", "%", "", ""]
 
     var safe = "#5DAE55"
     const red = "#DC4545"
     const yellow = "#FFB200"
-    var lectura = props.lectura + suffix[props.id]
+    var lectura = props.lectura //+ suffix[props.id]
 
-    if (props.lectura >= limits[props.id % 4]) {
+   /* if (props.lectura >= limits[props.id % 4]) {
         if (props.lectura <= limits[props.id % 4]*(1.1)) {safe = yellow}
         else {safe = red}
     }
-
+    */
     var cardStyle = {
         backgroundColor: safe,
         textAlign: "center",
@@ -53,7 +53,7 @@ function GasTag(props) {
     }
 
     return (
-        <Grid item xs={sizes[props.id]%7}>
+        <Grid item xs={3}>
             <Card className={classes.card} style={cardStyle}>
                 <CardContent>
                     <Typography className={classes.pos} style={{color: "white"}}>

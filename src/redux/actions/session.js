@@ -55,12 +55,12 @@ const checkIfAll = currentSessions => {
   };
 };
 
-export const getActiveSessions = userInfo => {
+export const getActiveSessions = username => {
   return dispatch => {
     //dummy session
     axios({
       method: "get",
-      url: linkBack + "/api/sessions/active/", //userID,
+      url: linkBack + "api/sessions", //userID,
       proxyHeaders: false,
       credentials: false
     })

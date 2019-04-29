@@ -9,6 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import Router from "@material-ui/icons/Router";
 import Avatar from '@material-ui/core/Avatar';
 import MapView from './MapView.js'
+import { attribute } from "postcss-selector-parser";
 
 const styles = theme => ({
   root: {
@@ -28,14 +29,33 @@ const styles = theme => ({
 function Dashboard(props) {
     const { classes } = props;
 
-    const gasComponent = props.gasInfo.map((gas, index) => (
-    <GasTag
-        id={gas.id}
-        name={gas.name}
-        lectura={gas.lectura}
-        key={gas.id + index}
-    />
-    ));
+
+    const gasComponent = () =>{
+      console.log("Props");
+      console.log(props.gasInfo);
+      let gasses = []
+      let index = 0;
+        for (var property in props.gasInfo) {
+          if (props.gasInfo.hasOwnProperty(property)) {
+            index++;
+            console.log(property)
+            if(property !== "_id"){
+              gasses.push(<GasTag
+                id={index}
+                name={property}
+                lectura={props.gasInfo[property]}
+                key={Math.random() }
+            />)
+            }
+          
+      }
+    }
+    console.log(gasses);
+    return gasses;
+
+      
+}
+    
 
     var sizes = [5, 7]
 
@@ -47,7 +67,7 @@ function Dashboard(props) {
             {props.employee} <Chip icon={<Router />}label={props.deviceId} className={classes.chip}   color="secondary"/>
           </Typography>
         </Grid>
-        {gasComponent}
+        {gasComponent()}
         <Grid item xs={sizes[0]} >
             <MapView />
         </Grid>
