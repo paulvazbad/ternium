@@ -33,11 +33,13 @@ export const fetchWorkers = () => {
     axios
       .get(linkBack + "api/users/" + user)
       .then(function(response) {
-        console.log('Fetched workers');
-        console.log(response.data);
+        var state = getState();
+        let filteredWorkers = response.data.team.filter((value,index)=>{
+          return !state.session.usedWorkers.includes(value.mac);
+        })
         dispatch({
           type: LOADED_WORKERS,
-          payload: response.data.team
+          payload: filteredWorkers
         });
       })
       .catch(function(error) {
@@ -53,11 +55,15 @@ export const fetchDevices = () => {
     axios
       .get(linkBack + "api/devices")
       .then(response => {
-        console.log("Devices fetched ");
+        let state = getState();
         console.log(response);
+        let filteredDevices = response.data.filter((value,index)=>{
+          return !state.session.usedDevices.includes(value.mac);
+        })
+        console.log(filteredDevices);
         dispatch({
           type: LOADED_DEVICES,
-          payload: response.data
+          payload: filteredDevices
         });
       })
       .catch(error => {

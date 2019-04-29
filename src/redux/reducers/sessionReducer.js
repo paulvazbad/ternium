@@ -17,7 +17,9 @@ const defaultState = {
   failedAttempts: null,
   failedAllConnections: false,
   failedConnections: [],
-  loading: true
+  loading: true,
+  usedDevices:[],
+  usedWorker:[]
 };
 const sessionReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -26,7 +28,9 @@ const sessionReducer = (state = defaultState, action) => {
         ...state,
         failedConnection: true,
         pastSessions: state.currentSessions,
-        currentSessions: action.payload
+        currentSessions: action.payload.sessions,
+        usedDevices: action.payload.devices,
+        usedWorker: action.payload.worker
       };
     case FAILED_ACTIVE_SESSIONS:
       return { ...state, failedAllConnections: true };

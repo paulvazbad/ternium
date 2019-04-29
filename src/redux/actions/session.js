@@ -68,9 +68,15 @@ export const getActiveSessions = username => {
         //define the  parameters of a  session
         console.log(response);
         checkIfAll(response.data);
+        var devices=[]
+        var workers=[]
+        for(var i = 0 ; i<response.data.length; i++){
+          devices.push(response.data[i].mac);
+          workers.push(response.data[i].staff.registrationId)
+        }
         dispatch({
           type: GET_ACTIVE_SESSIONS,
-          payload: response.data
+          payload: {sessions: response.data, devices:devices, workers:workers}
         });
       })
       .catch(error => {
