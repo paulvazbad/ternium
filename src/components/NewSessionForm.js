@@ -27,9 +27,9 @@ class NewSessionForm extends React.Component {
   };
 
   componentWillMount() {
-    if (!this.props.workers) {
-      this.props.fetchWorkers();
-    }
+
+    this.props.fetchWorkers();
+ 
 
     this.props.fetchDevices();
   }
@@ -41,14 +41,14 @@ class NewSessionForm extends React.Component {
   renderMenuItems = renderType => {
     if (renderType === "workers") {
       return this.props.workers.map((worker, index) => (
-        <MenuItem key={index} value={worker.id}>
+        <MenuItem key={index} value={worker.registrationId}>
           {worker.name}
         </MenuItem>
       ));
     } else {
       return this.props.devices.map((device, index) => (
-        <MenuItem key={index} value={device.id}>
-          {device.name}
+        <MenuItem key={index} value={device.mac}>
+          {device.mac}
         </MenuItem>
       ));
     }

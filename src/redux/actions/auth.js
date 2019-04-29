@@ -38,6 +38,7 @@ export const logIn = userInfo => {
 
         //GET REST OF INFO
         x_auth_token = response.data;
+        
         axios({
           method: "get",
           url: linkBack + "/api/users/me",
@@ -76,7 +77,7 @@ export const logIn = userInfo => {
   };
 };
 
-export const loadUser = () => {
+export const loadUser =  () => {
   return dispatch => {
     let cookie = "";
     let JSONUSer = {};
@@ -87,8 +88,10 @@ export const loadUser = () => {
       JSONUSer = cachedUser;
       axios
         .post(linkBack + "/api/auth", JSONUSer)
-        .then(response => {
+        .then( response => {
           x_auth_token = response.data;
+          //Delete this          
+          console.log(x_auth_token);
           axios({
             method: "get",
             url: linkBack + "/api/users/me",

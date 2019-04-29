@@ -83,7 +83,8 @@ class NewSessionPage extends React.Component {
       case 1:
         this.props.newSession(
           this.state.selectedDevice,
-          this.state.selectedWorker
+          this.state.selectedWorker,
+          this.props.username
         );
         return this.step1;
       case 2:
@@ -172,15 +173,16 @@ class NewSessionPage extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    newSession: (deviceID, workerID) => {
-      dispatch(newSession(deviceID, workerID));
+    newSession: (deviceID, workerID, username) => {
+      dispatch(newSession(deviceID, workerID, username));
     }
   };
 };
 const mapStateToProps = (state) =>{
   return({
     succesful: state.session.succesful,
-    loading: state.session.loading
+    loading: state.session.loading,
+    username: state.auth.username
   })
 }
 

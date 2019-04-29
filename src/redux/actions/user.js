@@ -2,10 +2,12 @@ import {
   LOADED_WORKERS,
   SELECT_WORKER,
   SELECT_DEVICE,
-  LOADED_DEVICES
+  LOADED_DEVICES,
+  FAILED_DEVICES
 } from "../../constants";
 import axios from "axios";
-const linkBack = process.env.REACT_APP_API_BACKEND;
+const linkBack = "http://terniumapp.herokuapp.com/";
+
 
 const backedOn = false;
 const workers = [
@@ -25,41 +27,45 @@ const workers = [
 export const fetchWorkers = () => {
   return (dispatch, getState) => {
     const { auth } = getState();
-    const user = auth.id;
-    if (backedOn) {
-      //FETCH workers from the api  here
-      axios
-        .get(linkBack + "/trabajadores?username=" + user)
-        .then(function(response) {
-          dispatch({
-            type: LOADED_WORKERS,
-            payload: response.data
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
+    const user = auth._id;
+    console.log(user);
+    //FETCH workers from the api  here
+    axios
+      .get(linkBack + "api/users/" + user)
+      .then(function(response) {
+        console.log('Fetched workers');
+        console.log(response.data);
+        dispatch({
+          type: LOADED_WORKERS,
+          payload: response.data.team
         });
-    } else {
-      dispatch({
-        type: LOADED_WORKERS,
-        payload: workers
+      })
+      .catch(function(error) {
+        console.log(error);
       });
-    }
   };
 };
 
 export const fetchDevices = () => {
   return (dispatch, getState) => {
     //FETCH workers from the api  here
-    let devices = [];
-    for (var i = 0; i < 10; i++) {
-      let device = "Device " + Math.random() * 100;
-      devices.push({ id: i, name: device });
-    }
-    dispatch({
-      type: LOADED_DEVICES,
-      payload: devices
-    });
+
+    axios
+      .get(linkBack + "api/devices")
+      .then(response => {
+        console.log("Devices fetched ");
+        console.log(response);
+        dispatch({
+          type: LOADED_DEVICES,
+          payload: response.data
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: FAILED_DEVICES,
+          payload: error
+        });
+      });
   };
 };
 

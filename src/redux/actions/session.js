@@ -3,11 +3,13 @@ import {
   FAILED_ACTIVE_SESSIONS,
   FAILED_A_SESSION,
   FAILED_ATTEMPTS,
-  NEW_SESSION
+  NEW_SESSION,
+  LOADING_NEW_SESSION,
+  FAILED_NEW_SESSION
 } from "../../constants/index";
 import axios from "axios";
 
-const linkBack = process.env.REACT_APP_API_BACKEND;
+const linkBack = "http://terniumapp.herokuapp.com/";
 
 //GET_ACTIVE_SESSIONS
 const checkIfAll = currentSessions => {
@@ -80,14 +82,37 @@ export const getActiveSessions = userInfo => {
   };
 };
 //NEW_SESSION
-export const newSession = (deviceID,workerID) =>{
-  return dispatch =>{
-    console.log("device ID " + deviceID + "worker ID " + workerID);
+export const newSession = (deviceID, workerID, username) => {
+  return dispatch => {
+    console.log(
+      "device ID " +
+        deviceID +
+        "worker ID " +
+        workerID +
+        "suerpvisor username" +
+        username
+    );
     dispatch({
-      type: NEW_SESSION
+      type:LOADING_NEW_SESSION
     });
-  }
-}
+    axios.post(linkBack + "api/sessions", {
+      staff: workerID,
+      supervisor: username,
+      mac: deviceID
+    }).then(response =>{
+      dispatch({
+        type: NEW_SESSION
+      });
+    })
+    .catch(error =>{
+      dispatch({
+        type:FAILED_NEW_SESSION,
+        payload:error
+      })
+    })
+    
+  };
+};
 
 //GET_PAST_SESSIONS
 //END_SESSION
