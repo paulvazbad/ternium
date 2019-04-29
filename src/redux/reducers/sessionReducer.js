@@ -9,7 +9,8 @@ import {
   FAILED_A_SESSION,
   NEW_SESSION,
   FAILED_NEW_SESSION,
-  LOADING_NEW_SESSION
+  LOADING_NEW_SESSION,
+  END_SESSION
 } from "../../constants/index";
 const defaultState = {
   currentSessions: [],
@@ -42,6 +43,8 @@ const sessionReducer = (state = defaultState, action) => {
       return {...state, loading:false, succesful:false}
     case LOADING_NEW_SESSION:
     return {...state, loading:true}
+    case END_SESSION:
+      return {...state,currentSessions:action.payload}
     default:
       return state;
   }

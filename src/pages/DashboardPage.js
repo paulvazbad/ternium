@@ -10,7 +10,7 @@ import Search from "../components/Search";
 import GasInfo from "../components/gasData";
 import bufferInfo from "../components/bufferInfo";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import { endSession } from "../redux/actions/session";
 
 const styles = {
   root: {
@@ -40,6 +40,8 @@ class DashboardPage extends Component {
         employee={gas.staff.name}
         key={gas.staff.name + index}
         bufferInfo={bufferInfo}
+        sessionId = {gas._id}
+        endSession={(sessionId) => this.props.endSession(sessionId)}
       />
     )));
   }
@@ -91,6 +93,9 @@ const mapDispatchToProps = dispatch => {
     logOut: () => {
       dispatch(logOut());
     },
+    endSession: (sessionId) =>{
+      dispatch(endSession(sessionId));
+    }
     
   };
 };

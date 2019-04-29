@@ -7,9 +7,10 @@ import GasPlotter from './GasPlotter.js';
 import GasTag from "./GasTag";
 import Chip from '@material-ui/core/Chip';
 import Router from "@material-ui/icons/Router";
-import Avatar from '@material-ui/core/Avatar';
 import MapView from './MapView.js'
-import { attribute } from "postcss-selector-parser";
+import CloseIcon from "@material-ui/icons/Close";
+import PersonIcon from "@material-ui/icons/Person";
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
   root: {
@@ -20,11 +21,15 @@ const styles = theme => ({
     padding: 10,
     borderRadius: 15,
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
+    marginBottom:15
   },
   pos: {
     marginBottom: 1,
     fontSize: 20
+  },
+  chip:{
+    margin:"3px"
   }
 });
 
@@ -65,9 +70,12 @@ function Dashboard(props) {
     <div className={classes.root}>
         <Grid container spacing={8}>
         <Grid item xs={12}>
-          <Typography variant="h5" component="h2" style={{ color: "black" }}>
-            {props.employee} <Chip icon={<Router />}label={props.deviceId} className={classes.chip}   color="secondary"/>
-          </Typography>
+            <Chip icon={<PersonIcon />}label={props.employee} className={classes.chip}   color="primary"/>
+            <Chip icon={<Router />}label={props.deviceId} className={classes.chip}   color="secondary"/>
+          <IconButton style={{marginLeft:"2"}} aria-label="Delete" onClick={() => props.endSession(props.sessionId)}>
+        <CloseIcon />
+      </IconButton>
+
         </Grid>
         {gasComponent()}
         <Grid item xs={sizes[0]} >
