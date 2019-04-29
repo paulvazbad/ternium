@@ -17,7 +17,7 @@ const backedOn = true;
 
 export const logIn = userInfo => {
   return dispatch => {
-    console.log(linkBack);
+     
     //dummy user
     //userInfo.password = jwt.encode(userInfo.password,secret);
     //validate user
@@ -31,7 +31,7 @@ export const logIn = userInfo => {
     })
       .then(response => {
         //IF LOGIN SUCCESSFUL
-        console.log(response);
+         
         //SAVE COOKIE WITH USERNAME&PASSWORD
         let cookie = jwt.encode(userInfo, secret);
         sessionStorage.setItem("user", cookie);
@@ -47,11 +47,11 @@ export const logIn = userInfo => {
           headers: { "x-auth-token": x_auth_token }
         })
           .then(response => {
-            console.log("SI PUDE RECIBIR EL RESTO DE LA INFO");
-            console.log(response);
+             
+             
             let newUser = { ...response.data };
             if (!response.data.rol) {
-              console.log("no rol in db");
+               
               newUser = { ...response.data, rol: "SA" };
             }
             dispatch({
@@ -60,16 +60,16 @@ export const logIn = userInfo => {
             });
           })
           .catch(error => {
-            console.log(error);
+             
             dispatch({
               type: FAILED_LOGIN
             });
           });
       })
       .catch(error => {
-        console.log("NO PUDE");
+         
         //Decide what to do in this case
-        console.log(error);
+         
         dispatch({
           type: FAILED_LOGIN
         });
@@ -83,7 +83,7 @@ export const loadUser =  () => {
     let JSONUSer = {};
     cookie = sessionStorage.getItem("user");
     if (cookie) {
-      console.log("FOUND A USER");
+       
       const cachedUser = jwt.decode(cookie, secret);
       JSONUSer = cachedUser;
       axios
@@ -91,7 +91,7 @@ export const loadUser =  () => {
         .then( response => {
           x_auth_token = response.data;
           //Delete this          
-          console.log(x_auth_token);
+           
           axios({
             method: "get",
             url: linkBack + "/api/users/me",
@@ -107,7 +107,7 @@ export const loadUser =  () => {
               });
             })
             .catch(error => {
-              console.log(error);
+               
             });
         })
         .catch(error => {

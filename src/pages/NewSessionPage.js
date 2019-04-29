@@ -26,7 +26,7 @@ class NewSessionPage extends React.Component {
     notSent:true
   };
   componentWillMount() {
-    console.log(this.props);
+     
     this.updateWindowSize();
     window.addEventListener("resize", this.updateWindowSize);
   }
@@ -34,18 +34,18 @@ class NewSessionPage extends React.Component {
     window.removeEventListener("resize", this.updateWindowSize);
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log("Update")
+     
     var activeStep = this.state.activeStep;
-    console.log('Loading status' + prevProps.loading);
-    console.log("Loaading status" + this.props.loading);
-    console.log(activeStep);
+     
+     
+     
     if (!this.props.loading && activeStep === 1) {
-      console.log("check loading");
+       
       
       this.setState({ activeStep: this.state.activeStep + 1 });
     }
     else if(!this.props.succesful && activeStep===2 && prevState.buttonText!=="Retry"){
-      console.log("Change text")
+       
       this.setState({buttonText:"Retry"});
     }
     
@@ -75,7 +75,7 @@ class NewSessionPage extends React.Component {
 
   checkButton = formObj => {
     this.setState({ ...formObj });
-    console.log(formObj);
+     
   };
   getStepContent = step => {
     switch (step) {
@@ -104,7 +104,7 @@ class NewSessionPage extends React.Component {
     ];
   };
   handleNext = steps => () => {
-    console.log(this.state.activeStep);
+     
     if(this.state.activeStep !== 1 && this.state.notSent){
       this.props.newSession(
         this.state.selectedDevice,
@@ -114,8 +114,8 @@ class NewSessionPage extends React.Component {
       this.setState({notSent:false});
     }
     if (this.state.activeStep === steps.length - 1) {
-      console.log(steps.length);
-      console.log(this.state.activeStep);
+       
+       
       //this.setState({activeStep:0});
       if(this.props.succesful){
         this.props.history.push(DASHBOARD);
@@ -133,8 +133,8 @@ class NewSessionPage extends React.Component {
   render() {
     const { activeStep, selectedDevice, selectedWorker } = this.state;
     const steps = this.getSteps();
-    console.log(this.state);
-    console.log(this.props);
+     
+     
     return (
       <Paper style={{ width: "80%", flex: 1, margin: "auto" }}>
         <Stepper activeStep={activeStep} orientation={this.state.orientation}>

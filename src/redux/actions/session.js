@@ -19,24 +19,24 @@ const checkIfAll = currentSessions => {
     let pastSessions = state.sessions.currentSessions;
     const failedAttempts = state.sessions.failedAttempts;
     currentSessions.map((value, index) => {
-      console.log("Element in currentSessions" + value);
+       
       let obj = pastSessions.find(o => o.deviceId === value.deviceId);
       if (!obj) {
-        console.log("No lo encontro en el fetch");
+         
         if (failedAttempts[obj.deviceId]) {
           if (failedAttempts[obj.deviceId] > 1) {
-            console.log("Confirmed it is disconnected");
+             
             failedConnections.push(obj.deviceId);
           } else {
             failedAttempts[obj.deviceId]++;
           }
         } else {
           failedAttempts[obj.value] = 0;
-          console.log("No fallo la primera vez");
+           
         }
       }
-      console.log("Device  that failed this time: " + failedAttempts);
-      console.log("Devices that failed several times now " + failedConnections);
+       
+       
       if (failedAttempts.size > 1) {
         dispatch({
           type: FAILED_ATTEMPTS,
@@ -66,7 +66,7 @@ export const getActiveSessions = username => {
     })
       .then(response => {
         //define the  parameters of a  session
-        console.log(response);
+         
         checkIfAll(response.data);
         var devices=[]
         var workers=[]
@@ -80,7 +80,7 @@ export const getActiveSessions = username => {
         });
       })
       .catch(error => {
-        console.log(error);
+         
         dispatch({
           type: FAILED_ACTIVE_SESSIONS
         });
@@ -90,14 +90,8 @@ export const getActiveSessions = username => {
 //NEW_SESSION
 export const newSession = (deviceID, workerID, username) => {
   return dispatch => {
-    console.log(
-      "device ID " +
-        deviceID +
-        "worker ID " +
-        workerID +
-        "suerpvisor username" +
-        username
-    );
+     
+  
     dispatch({
       type:LOADING_NEW_SESSION
     });

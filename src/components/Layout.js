@@ -47,7 +47,7 @@ class Layout extends React.Component {
     drawer: null
   };
   handleDrawerToggle = () => {
-    console.log("TOGGLEE");
+     
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
   componentDidUpdate(){

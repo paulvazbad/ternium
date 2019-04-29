@@ -14,8 +14,8 @@ class LoginPage extends Component {
   };
   redirectOnAlreadyLogged = () => {
     if (this.props.auth.rol === "SU") {
-      console.log("GOES TO SU");
-      console.log(USER_ADMIN);
+       
+       
       this.props.history.push("/user_admin");
     } else if (this.props.auth.username) {
       this.props.history.push(DASHBOARD);

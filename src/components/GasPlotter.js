@@ -29,7 +29,7 @@ const styles = {
 };
 class GasPlotter extends React.Component {
   renderLines = () => {
-    //console.log(this.props.bufferInfo);
+    // 
     const bufferInfo = this.props.bufferInfo;
     const gasLines=[]
     for (var property in bufferInfo) {
@@ -37,13 +37,13 @@ class GasPlotter extends React.Component {
         var lineData = bufferInfo[property].map((value, index) => {
           return { x: index, y: value };
         });
-        //console.log("property"+property+" ");
+        // 
         gasLines.push(<LineSeries data={lineData} />)
         
       }
       
     }
-    //console.log(gasLines);
+    // 
       return gasLines;
   };
   render() {

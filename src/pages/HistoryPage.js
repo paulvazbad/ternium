@@ -42,12 +42,12 @@ class HistoryPage extends React.Component {
       this.setState({ filter: selection });
       this.preFilter(selection);
     }
-    console.log(selection);
+     
     
   };
   preFilter = (filter) => {
     let preFilteredList = historyData.filter(element => {
-        console.log("filter inside "+filter)
+         
       if (filter === "Alertas") {
         return element.type === "alert";
       } else if(filter === "Monitoreo") {
@@ -57,8 +57,8 @@ class HistoryPage extends React.Component {
           return true;
       }
     });
-    console.log(this.state);
-    console.log(preFilteredList);
+     
+     
     this.setState({historyData:preFilteredList});
   };
   onSearch = filteredList => {

@@ -28,7 +28,7 @@ export const fetchWorkers = () => {
   return (dispatch, getState) => {
     const { auth } = getState();
     const user = auth._id;
-    console.log(user);
+     
     //FETCH workers from the api  here
     axios
       .get(linkBack + "api/users/" + user)
@@ -43,7 +43,7 @@ export const fetchWorkers = () => {
         });
       })
       .catch(function(error) {
-        console.log(error);
+         
       });
   };
 };
@@ -56,11 +56,11 @@ export const fetchDevices = () => {
       .get(linkBack + "api/devices")
       .then(response => {
         let state = getState();
-        console.log(response);
+         
         let filteredDevices = response.data.filter((value,index)=>{
           return !state.session.usedDevices.includes(value.mac);
         })
-        console.log(filteredDevices);
+         
         dispatch({
           type: LOADED_DEVICES,
           payload: filteredDevices

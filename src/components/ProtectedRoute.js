@@ -12,10 +12,10 @@ class ProtectedRoute extends Component {
 
   render() {
     if (this.props.auth.rol && (this.props.rol.indexOf(this.props.auth.rol)>=0)) {
-      console.log("ALLOWED");
-      console.log(this.props.auth.rol);
-      console.log(this.props.rol);
-      console.log((this.props.rol==="SA" || this.props.rol==="SS"));
+       
+       
+       
+       
       return (
         <Route {...this.props} />
       );

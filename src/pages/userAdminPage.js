@@ -49,7 +49,7 @@ class userAdminPage extends React.Component {
   }
 
   addUser = () => {
-    console.log("add user");
+     
     this.setState({modalOpen:true});
   };
 

@@ -59,7 +59,7 @@ class DashboardPage extends Component {
     clearInterval(this.Interval);
   }
   render() {
-    console.log(this.props.currentSessions);
+     
     return (
       <div>
         <div style={{ paddingLeft: "10%" }}>

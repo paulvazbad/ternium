@@ -13,12 +13,12 @@ class NewUserModal extends React.Component {
     super(props);
   }
   newUser = () =>{
-      console.log("new user");
+       
       this.props.handleClose();
 
   }
   render() {
-    console.log(this.props.open)
+     
     return (
       <Dialog
         open={this.props.open}

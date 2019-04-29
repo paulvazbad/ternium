@@ -28,12 +28,12 @@ class Timeout extends React.Component {
 
   componentDidMount() {
     document.addEventListener("mousedown", this.updateActive);
-    console.log(this.props);
-    console.log(this.state.initDate);
+     
+     
     this.setState({
       interval: setInterval(this.checkTime, this.maxTime / 2)
     });
-    console.log("MOunted timeout");
+     
   }
 
   componentWillUnmount() {
@@ -45,13 +45,13 @@ class Timeout extends React.Component {
   checkTime = () => {
     const currenD = new Date();
     const difference = currenD.getTime() - this.state.time.getTime();
-    console.log(this.state.time);
-    console.log(currenD);
-    console.log("Difference" + difference);
-    console.log("maxTimeOut" + this.state.maxTimeOut);
+     
+     
+     
+     
     if (difference >= this.state.maxTimeOut) {
       clearInterval(this.state.interval);
-      console.log("Open Dialog");
+       
       this.setState({
         open: true,
         timeLeftInterval: setInterval(this.checkExit, 1000)
@@ -65,9 +65,9 @@ class Timeout extends React.Component {
   };
 
   checkExit = () => {
-    console.log(this.state.timeLeft);
+     
     if (this.state.timeLeft <= 0) {
-      console.log("exit");
+       
       this.handleClose();
       this.props.logOut();
     } else {

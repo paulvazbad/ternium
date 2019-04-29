@@ -12,10 +12,10 @@ import { NEWSESSION } from "../constants/routes";
 
 class ResponsiveDrawer extends React.Component {
   componentWillMount() {
-    console.log(this.props.drawer);
+     
   }
   componentWillUpdate() {
-    console.log(this.props);
+     
   }
   render() {
     const drawerRender = (
