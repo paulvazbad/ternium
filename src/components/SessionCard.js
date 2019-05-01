@@ -45,7 +45,6 @@ function Dashboard(props) {
         for (var property in props.gasInfo) {
           if (props.gasInfo.hasOwnProperty(property)) {
             index++;
-             
             if(property !== "_id"){
               gasses.push(<GasTag
                 id={index}
@@ -79,7 +78,7 @@ function Dashboard(props) {
         </Grid>
         {gasComponent()}
         <Grid item xs={sizes[0]} >
-            <MapView />
+            <MapView location={[25.7217, -100.3008]} />
         </Grid>
         <Grid item xs={sizes[1]} >
             <GasPlotter bufferInfo={props.bufferInfo}/>
