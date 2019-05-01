@@ -78,7 +78,7 @@ function Dashboard(props) {
         </Grid>
         {gasComponent()}
         <Grid item xs={sizes[0]} >
-            <MapView location={[25.7217, -100.3008]} />
+            <MapView location={[25.72197,-100.30275]} />
         </Grid>
         <Grid item xs={sizes[1]} >
             <GasPlotter bufferInfo={props.bufferInfo}/>

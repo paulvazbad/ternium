@@ -88,7 +88,7 @@ const WindingNumber = (Polygon, lat, long) => {
 };
 //TEST POINTS
 
-const REDI = [[1, 1], [1, 1], [1, 1], [1, 1]];
+const REDI = [[0.1, 0.1], [0.1, 1], [1, 1], [1, 1]];
 
 
 //TEST
