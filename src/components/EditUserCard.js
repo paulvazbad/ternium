@@ -31,14 +31,6 @@ const styles = theme => ({
     },
 });
 
-var buttonStyle1 = {
-    width: "10%",
-    marginLeft: "30%",
-    marginRight: 10,
-    textAlign: "right",
-    backgroundColor: "#FF8000",
-}
-
 const areas = [
     {
         value: 'Aceria',
@@ -66,7 +58,11 @@ const lugares = [
 ];
 
 class userCard extends React.Component{
+
     state = {
+        enableSave: false,
+        showPassword: false,
+
         nombre: this.props.nombre,
         lugar: this.props.lugar,
         area: this.props.area,
@@ -74,9 +70,22 @@ class userCard extends React.Component{
         username: this.props.username,
         userpassword: this.props.userpassword,
 
-        enableSave: false,
-        showPassword: false,
-        };
+        formInfo: null,
+    };
+
+    handleSave = () => {
+        const forminfo = {
+            formNombre: this.state.nombre,
+            formLugar: this.state.lugar,
+            formArea: this.state.area,
+            puesto: this.state.puesto,
+            username: this.state.username,
+            userpassword: this.state.userpassword,
+        }
+        this.setState(state => ({ formInfo: this.forminfo }))
+        //this.props.handleSave(this.state.formInfo);
+        alert("agregar funcionalidad de guardar datos")
+    };
 
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value })
@@ -87,13 +96,18 @@ class userCard extends React.Component{
         this.setState(state => ({ showPassword: !state.showPassword }));
     };
 
-    handleSave = () => {
-        //this.props.handleSave(this.state.formInfo);
-        alert("agregar funcionalidad de guardar datos")
-    };
-
     render() {
         const { classes } = this.props;
+
+        var buttonColor = (this.state.enableSave) ? "#FF8000" : "gray"
+
+        var buttonStyle1 = {
+            width: "10%",
+            marginLeft: "30%",
+            marginRight: 10,
+            textAlign: "right",
+            backgroundColor: buttonColor,
+        }
 
         return (
             <FormControl component="fieldset" className={classes.formControl}>
@@ -124,24 +138,26 @@ class userCard extends React.Component{
                                 />
                             </TableCell>
                             <TableCell align="left">
-                                <InputLabel htmlFor="adornment-password">Password</InputLabel>
-                                <Input
-                                    id="password"
-                                    defaultValue={this.props.userpassword}
-                                    type={this.state.showPassword ? 'text' : 'password'}
-                                    value={this.state.password}
-                                    onChange={this.handleChange('password')}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="Toggle password visibility"
-                                                onClick={this.handleClickShowPassword}
-                                            >
-                                                {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
+                                <FormControl>
+                                    <InputLabel htmlFor="adornment-password">Password</InputLabel>
+                                    <Input
+                                        id="password"
+                                        defaultValue={this.props.userpassword}
+                                        type={this.state.showPassword ? 'text' : 'password'}
+                                        value={this.state.password}
+                                        onChange={this.handleChange('password')}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="Toggle password visibility"
+                                                    onClick={this.handleClickShowPassword}
+                                                >
+                                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                    />
+                                </FormControl>
                             </TableCell>
                             <td align="right">
                                 <Button
