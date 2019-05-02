@@ -8,11 +8,7 @@
     "start": "node index.js"
   },
   "engines": {
-<<<<<<< HEAD
     "node": "11.10.1"
-=======
-    "node": "8.15.1"
->>>>>>> 66006e78da089b088c55e4a7a5e165fd039cf019
   },
   "keywords": [],
   "author": "",

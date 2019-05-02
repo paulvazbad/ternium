@@ -163,3 +163,5 @@
 {"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-04-29T08:57:00.317Z"}
 {"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-02T00:01:15.160Z"}
 {"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-02T00:01:16.978Z"}
+{"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-02T04:31:28.026Z"}
+{"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-02T04:31:29.763Z"}
