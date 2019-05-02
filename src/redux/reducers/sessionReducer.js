@@ -30,7 +30,7 @@ const sessionReducer = (state = defaultState, action) => {
         pastSessions: state.currentSessions,
         currentSessions: action.payload.sessions,
         usedDevices: action.payload.devices,
-        usedWorkers: action.payload.worker,
+        usedWorkers: action.payload.workers,
         loading:false
       };
     case FAILED_ACTIVE_SESSIONS:

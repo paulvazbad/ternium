@@ -35,7 +35,9 @@ export const fetchWorkers = () => {
       .then(function(response) {
         var state = getState();
         let filteredWorkers = response.data.team.filter((value,index)=>{
-          return !state.session.usedWorkers.includes(value.mac);
+          console.log(value);
+          console.log(state.session.usedWorkers);
+          return !state.session.usedWorkers.includes(value.registrationId);
         })
         dispatch({
           type: LOADED_WORKERS,
