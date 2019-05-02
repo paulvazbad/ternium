@@ -45,12 +45,15 @@ class DashboardPage extends Component {
       />
     )));
   }
-  else{
+  else if(this.props.loading){
     return( 
     <div style={styles.root}>
     <CircularProgress size={100} style={{marginLeft:"45%"}}/>
     </div>
     );
+  }
+  else{
+    return <div style={styles.root} ><Typography variant="subtitle1" align="center">No active sessions to display</Typography></div>
   }
 }
     
@@ -86,6 +89,7 @@ class DashboardPage extends Component {
 }
 const mapStateToProps = state => ({
   currentSessions: state.session.currentSessions,
+  loading:state.session.loading,
   auth: state.auth
 });
 const mapDispatchToProps = dispatch => {

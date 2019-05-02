@@ -9,8 +9,8 @@ import {
   END_SESSION
 } from "../../constants/index";
 import axios from "axios";
-
-const linkBack = "http://terniumapp.herokuapp.com/";
+const linkBack = process.env.REACT_APP_API_BACKEND;
+//const linkBack = http://terniumapp.herokuapp.com/";
 
 //GET_ACTIVE_SESSIONS
 const checkIfAll = currentSessions => {
@@ -56,7 +56,7 @@ export const getActiveSessions = username => {
     //dummy session
     axios({
       method: "get",
-      url: linkBack + "api/sessions", //userID,
+      url: linkBack + "/api/sessions", //userID,
       proxyHeaders: false,
       credentials: false
     })
@@ -93,7 +93,7 @@ export const newSession = (deviceID, workerID, username) => {
       type: LOADING_NEW_SESSION
     });
     axios
-      .post(linkBack + "api/sessions", {
+      .post(linkBack + "/api/sessions", {
         staff: workerID,
         supervisor: username,
         mac: deviceID
@@ -118,7 +118,7 @@ export const newSession = (deviceID, workerID, username) => {
 export const endSession = sessionId => {
   return (dispatch, getState) => {
     axios
-      .delete(linkBack + "api/sessions/" + sessionId)
+      .delete(linkBack + "/api/sessions/" + sessionId)
       .then(response => {
         var sessions = getState().session.currentSessions;
         var newSessions = sessions.filter((value, index) => {

@@ -25,12 +25,16 @@ class NewSessionPage extends React.Component {
     orientation: "horizontal",
     selectedDevice: null,
     selectedWorker: null,
+<<<<<<< HEAD
     buttonText:"Next",
       notSent: true,
       showQR: false,
+=======
+    buttonText: "Next",
+    notSent: true
+>>>>>>> 66006e78da089b088c55e4a7a5e165fd039cf019
   };
   componentWillMount() {
-     
     this.updateWindowSize();
     window.addEventListener("resize", this.updateWindowSize);
   }
@@ -38,21 +42,17 @@ class NewSessionPage extends React.Component {
     window.removeEventListener("resize", this.updateWindowSize);
   }
   componentDidUpdate(prevProps, prevState) {
-     
     var activeStep = this.state.activeStep;
-     
-     
-     
+
     if (!this.props.loading && activeStep === 1) {
-       
-      
       this.setState({ activeStep: this.state.activeStep + 1 });
+    } else if (
+      !this.props.succesful &&
+      activeStep === 2 &&
+      prevState.buttonText !== "Retry"
+    ) {
+      this.setState({ buttonText: "Retry" });
     }
-    else if(!this.props.succesful && activeStep===2 && prevState.buttonText!=="Retry"){
-       
-      this.setState({buttonText:"Retry"});
-    }
-    
   }
   updateWindowSize = () => {
     this.setState({ width: window.innerWidth });
@@ -93,23 +93,24 @@ class NewSessionPage extends React.Component {
 
   checkButton = formObj => {
     this.setState({ ...formObj });
-     
   };
   getStepContent = step => {
     switch (step) {
       case 0:
-        return this.step0;
+        if (this.props.loading) {
+          return <Loading withIcon={false} redirect={"TBD"} />;
+        } else {
+          return this.step0;
+        }
+        break;
       case 1:
-        
         return this.step1;
       case 2:
-        if(this.props.succesful){
-          return "Conexion Exitosa!"
-        } 
-        else{
-          return "Conexion Fallida"
+        if (this.props.succesful) {
+          return "Conexion Exitosa!";
+        } else {
+          return "Conexion Fallida";
         }
-        ;
       default:
         return "Unknown step";
     }
@@ -122,37 +123,33 @@ class NewSessionPage extends React.Component {
     ];
   };
   handleNext = steps => () => {
-     
-    if(this.state.activeStep !== 1 && this.state.notSent){
+    if (this.state.activeStep !== 1 && this.state.notSent) {
       this.props.newSession(
         this.state.selectedDevice,
         this.state.selectedWorker,
         this.props.username
       );
-      this.setState({notSent:false});
+      this.setState({ notSent: false });
     }
     if (this.state.activeStep === steps.length - 1) {
-       
-       
       //this.setState({activeStep:0});
-      if(this.props.succesful){
+      if (this.props.succesful) {
         this.props.history.push(DASHBOARD);
+      } else {
+        this.setState({ activeStep: 1, buttonText: "Next", notSent: true });
       }
-      else{
-        this.setState({ activeStep: 1, buttonText:"Next", notSent:true  });
-      }
+    } else {
+      this.setState({
+        activeStep: this.state.activeStep + 1,
+        buttonText: "Next"
+      });
     }
-    else{
-      this.setState({ activeStep: this.state.activeStep + 1, buttonText:"Next" });
-    }
-    
   };
 
   render() {
     const { activeStep, selectedDevice, selectedWorker } = this.state;
     const steps = this.getSteps();
-     
-     
+
     return (
       <Paper style={{ width: "80%", flex: 1, margin: "auto" }}>
         <Stepper activeStep={activeStep} orientation={this.state.orientation}>
@@ -211,13 +208,13 @@ const mapDispatchToProps = dispatch => {
     }
   };
 };
-const mapStateToProps = (state) =>{
-  return({
+const mapStateToProps = state => {
+  return {
     succesful: state.session.succesful,
     loading: state.session.loading,
     username: state.auth.username
-  })
-}
+  };
+};
 
 export default connect(
   mapStateToProps,

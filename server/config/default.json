@@ -1,3 +1,4 @@
 {
-    "jwtPrivateKey": "Paul"
+  "jwtPrivateKey": "Paul_ROcks",
+  "db": "mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true"
 }

@@ -3,8 +3,8 @@ const _ = require('lodash');
 const Joi = require('joi');
 const { User } = require('../models/user');
 const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
+const router = express.Router();
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);

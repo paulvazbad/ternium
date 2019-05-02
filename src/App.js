@@ -37,7 +37,7 @@ class App extends Component {
         <BrowserRouter>
       {this.props.auth.username && <Timeout time={10}/> }
       {this.props.auth.username&& <SnackbarTrigger/>}
-      {this.props.auth.username && <SessionFetcher />}
+      {(this.props.auth.rol==="SA"|| this.props.auth.rol==="SS") && <SessionFetcher />}
         <Layout auth={this.props.auth}>
             <Switch>  
               <Route exact path='/' component={LoginPage}/>

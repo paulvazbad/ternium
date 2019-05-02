@@ -6,8 +6,8 @@ import {
   FAILED_DEVICES
 } from "../../constants";
 import axios from "axios";
-const linkBack = "http://terniumapp.herokuapp.com/";
-
+//const linkBack = "http://terniumapp.herokuapp.com";
+const linkBack = process.env.REACT_APP_API_BACKEND;
 
 const backedOn = false;
 const workers = [
@@ -31,11 +31,13 @@ export const fetchWorkers = () => {
      
     //FETCH workers from the api  here
     axios
-      .get(linkBack + "api/users/" + user)
+      .get(linkBack + "/api/users/" + user)
       .then(function(response) {
         var state = getState();
         let filteredWorkers = response.data.team.filter((value,index)=>{
-          return !state.session.usedWorkers.includes(value.mac);
+          console.log(value);
+          console.log(state.session.usedWorkers);
+          return !state.session.usedWorkers.includes(value.registrationId);
         })
         dispatch({
           type: LOADED_WORKERS,
@@ -43,7 +45,8 @@ export const fetchWorkers = () => {
         });
       })
       .catch(function(error) {
-         
+        console.log(error);
+         console.log("Cant get workers");
       });
   };
 };
@@ -53,7 +56,7 @@ export const fetchDevices = () => {
     //FETCH workers from the api  here
 
     axios
-      .get(linkBack + "api/devices")
+      .get(linkBack + "/api/devices")
       .then(response => {
         let state = getState();
          
