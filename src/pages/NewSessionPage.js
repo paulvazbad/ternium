@@ -10,7 +10,10 @@ import {
 } from "@material-ui/core";
 import { DASHBOARD } from "../constants/routes";
 import NewSessionForm from "../components/NewSessionForm";
+import QR from "../components/QR"
+
 import Loading from "../components/Loading";
+
 import Grow from "@material-ui/core/Grow";
 import { connect } from "react-redux";
 import { newSession } from "../redux/actions/session";
@@ -22,8 +25,9 @@ class NewSessionPage extends React.Component {
     orientation: "horizontal",
     selectedDevice: null,
     selectedWorker: null,
-    buttonText: "Next",
-    notSent: true
+    buttonText:"Next",
+      notSent: true,
+      showQR: false,
   };
   componentWillMount() {
     this.updateWindowSize();
@@ -53,18 +57,32 @@ class NewSessionPage extends React.Component {
     } else {
       this.setState({ orientation: "horizontal" });
     }
-  };
+    };
 
-  step0 = (
-    <Grow in={true}>
+    readQR = () => {
+        alert("click!")
+        this.setState({ showQR: !this.state.showQR })
+    }
+
+    step0 = (
+      <div>
       <div>
         <Typography style={{ padding: "2%" }}>
           Introduce la información del wearable y del usuario
         </Typography>
-        <NewSessionForm setParent={formObj => this.checkButton(formObj)} />
+              <NewSessionForm setParent={formObj => this.checkButton(formObj)} />
+          </div>
+            <div style={{ marginLeft: "40%"}}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => { this.setState({ showQR: !this.state.showQR }) }}
+                >
+                    Leer QR
+                </Button>
+            </div>
       </div>
-    </Grow>
-  );
+    );
 
   step1 = <Loading withIcon={true} redirect={"TBD"} />;
 
@@ -140,13 +158,22 @@ class NewSessionPage extends React.Component {
         </Stepper>
         <Grid
           container
-          direction="column"
+          //direction="column"
           justify="flex-start"
-          spacing={16}
+          spacing={8}
           alignItems="center"
-        >
-          <Grid item>{this.getStepContent(activeStep)}</Grid>
-          <Grid item>
+            >
+                <Grid item xs={3}></Grid>
+                <Grid item xs={6}>{this.getStepContent(activeStep)}</Grid>
+                <Grid item xs={3}></Grid>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={4}>
+                    {(this.state.showQR && activeStep=== 0) ? <QR /> : null}
+                </Grid>
+                <Grid item xs={4}></Grid>
+
+                <Grid item xs={12}>
+                    <div style={{ textAlign: "center" }}>
             <Button
               variant="contained"
               color="primary"
@@ -160,9 +187,10 @@ class NewSessionPage extends React.Component {
               }
             >
               {this.state.buttonText}
-            </Button>
-          </Grid>
-        </Grid>
+                        </Button>
+                        </div>
+                </Grid>
+            </Grid>
       </Paper>
     );
   }

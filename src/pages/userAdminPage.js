@@ -36,8 +36,13 @@ const styles = {
     bottom: "15%",
     left: "auto",
     position: "fixed"
-  }
+    },
 };
+
+const expansionpanel = {
+    textAlign: "left",
+    width: "100%",
+}
 
 class userAdminPage extends React.Component {
   constructor(props) {
@@ -53,9 +58,10 @@ class userAdminPage extends React.Component {
     this.setState({modalOpen:true});
   };
 
-  renderUsers = () => {
-    return this.state.userData.map((user,index) => (
-      <ExpansionPanel style={{ textAlign: "left" }} key={user.id+index}>
+    renderUsers = () => {
+        const { classes } = this.props;
+        return this.state.userData.map((user, index) => (
+            <ExpansionPanel style={expansionpanel} key={user.id + index}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography style={styles.heading} variant="h6">
             {user.nombre}
@@ -86,7 +92,8 @@ class userAdminPage extends React.Component {
   handleClose = () =>{
     this.setState({modalOpen:false});
   }
-  render() {
+    render() {
+        const { classes } = this.props;
     return (
       <div>
         <div style={styles.main}>

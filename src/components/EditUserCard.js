@@ -15,19 +15,15 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import FormControl from '@material-ui/core/FormControl';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Grid from "@material-ui/core/Grid";
 
 import save from "./images/save"
 
 const styles = theme => ({
     root: {
-        width: '100%',
         marginTop: "0%",
         overflowX: 'auto',
-    },
-    table: {
-        width: "100%",
-        minWidth: 200,
-        //fontSize: '200%',
     },
 });
 
@@ -84,8 +80,12 @@ class userCard extends React.Component{
         }
         this.setState(state => ({ formInfo: this.forminfo }))
         //this.props.handleSave(this.state.formInfo);
-        alert("agregar funcionalidad de guardar datos")
+        alert("handleSave function datos")
     };
+
+    handleDelete = () => {
+        alert("handleDelete function")
+    }
 
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value })
@@ -110,11 +110,8 @@ class userCard extends React.Component{
         }
 
         return (
-            <FormControl component="fieldset" className={classes.formControl}>
-                <Table className={classes.table}>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell align="left">
+            <Grid container spacing={24}>
+                <Grid item xs={3} align="left">
                                 <TextField
                                     id="name"
                                     label="Nombre"
@@ -123,8 +120,8 @@ class userCard extends React.Component{
                                     margin="normal"
                                     onChange={this.handleChange('nombre')}
                                 />
-                            </TableCell>
-                            <TableCell align="left">
+                </Grid>
+                <Grid item xs={3} align="left">
                                 <TextField
                                     id="username"
                                     label="Username"
@@ -136,10 +133,9 @@ class userCard extends React.Component{
                                     }}
                                     margin="normal"
                                 />
-                            </TableCell>
-                            <TableCell align="left">
-                                <FormControl>
-                                    <InputLabel htmlFor="adornment-password">Password</InputLabel>
+                            </Grid>
+                <Grid item xs={3} align="left">
+                    <InputLabel htmlFor="adornment-password" style={{fontSize: "12px"}}>Password</InputLabel>
                                     <Input
                                         id="password"
                                         defaultValue={this.props.userpassword}
@@ -157,9 +153,8 @@ class userCard extends React.Component{
                                             </InputAdornment>
                                         }
                                     />
-                                </FormControl>
-                            </TableCell>
-                            <td align="right">
+                            </Grid>
+                <Grid item xs={3} align="right">
                                 <Button
                                     variant="contained"
                                     color="primary"
@@ -169,10 +164,8 @@ class userCard extends React.Component{
                                 >
                                         {save()}
                                 </Button>
-                            </td>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align="left">
+                            </Grid>
+                <Grid item xs={3} align="left">
                                 <TextField
                                     select
                                     label="Lugar"
@@ -188,8 +181,8 @@ class userCard extends React.Component{
                                         </MenuItem>
                                     ))}
                                 </TextField>
-                            </TableCell>
-                            <TableCell align="left">
+                            </Grid>
+                <Grid item xs={3} align="left">
                                 <TextField
                                     select
                                     label="Area"
@@ -203,10 +196,10 @@ class userCard extends React.Component{
                                         <MenuItem key={option.value} value={option.value}>
                                             {option.label}
                                         </MenuItem>
-                                    ))}
-                                </TextField>
-                            </TableCell>
-                            <TableCell align="left" colSpan={2}>
+                        ))}
+                    </TextField>
+                                </Grid>
+                    <Grid item xs={3} align="left">
                                 <TextField
                                     id="puesto"
                                     label="Puesto"
@@ -218,11 +211,18 @@ class userCard extends React.Component{
                                     }}
                                     margin="normal"
                                 />
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </FormControl>
+                            </Grid>
+                <Grid item xs={3} align="right" onClick={() => { this.handleDelete() }}>
+                    <IconButton
+                        style={{ marginRight: "7%" }}
+                        className={classes.button}
+                        aria-label="Delete"
+                        fontSize="large"
+                    >
+                        <DeleteIcon/>
+                                </IconButton>
+                    </Grid>
+                </Grid>
         );
     }
 }
