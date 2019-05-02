@@ -25,14 +25,9 @@ class NewSessionPage extends React.Component {
     orientation: "horizontal",
     selectedDevice: null,
     selectedWorker: null,
-<<<<<<< HEAD
     buttonText:"Next",
       notSent: true,
       showQR: false,
-=======
-    buttonText: "Next",
-    notSent: true
->>>>>>> 66006e78da089b088c55e4a7a5e165fd039cf019
   };
   componentWillMount() {
     this.updateWindowSize();
