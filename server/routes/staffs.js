@@ -73,10 +73,10 @@ router.delete('/:id', [ validateObjectId], async (req, res) => {
   res.send(staff);
 });
 
-router.get('/:id', validateObjectId, async (req, res) => {
-  const staff = await Staff.findById(req.params.id);
+router.get('/:id', async (req, res) => {
+  const staff = await Staff.findOne({registrationId: req.params.id});
 
-  if (!staff) return res.status(404).send('The staff with the given ID was not found.');
+  if (!staff) return res.status(404).send('The staff with the given registration id was not found.');
 
   res.send(staff);
 });

@@ -48,23 +48,38 @@ const sessionSchema = new mongoose.Schema({
     type: new mongoose.Schema({
         gasNatural: {
             type: Number,
-            default: 0
+            required: true,
         },
         co2:  {
             type: Number,
-            default: 0
+            required: true,
         },
         hidrogeno:  {
             type: Number,
-            default: 0
+            required: true,
         },
         temperatura:  {
             type: Number,
-            default: 0
+            required: true,
         },
+    }),
+    default: () => ({
+      gasNatural: 0,
+      co2: 0,
+      hidrogeno: 0,
+      temperatura: 0
     })
   },
-  mac: String
+  mac: {
+    type: String,
+    required: true,
+    minlength: 2,
+    maxlength: 1024
+  },
+  alert: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const Session = mongoose.model('Session', sessionSchema);
@@ -73,12 +88,12 @@ function validateSession(session) {
   const schema = {
     staff: Joi.string().required(),
     supervisor: Joi.string().required(),
-    mac: Joi.string()
+    mac: Joi.string().required()
   };
 
   return Joi.validate(session, schema);
 }
 
-//exports.sessionSchema = sessionSchema;
+exports.sessionSchema = sessionSchema;
 exports.Session = Session; 
 exports.validate = validateSession;

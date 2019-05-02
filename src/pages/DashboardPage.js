@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logOut } from "../redux/actions/auth";
 
-
 import Typography from "@material-ui/core/Typography";
-
+import { toast } from "react-toastify";
 import SessionCard from "../components/SessionCard";
 import Search from "../components/Search";
 import GasInfo from "../components/gasData";
@@ -20,9 +19,9 @@ const styles = {
     margin: "auto",
     padding: 10,
     borderRadius: 15,
-    justifyContent:"center"
+    justifyContent: "center"
   }
-}
+};
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -31,40 +30,55 @@ class DashboardPage extends Component {
       GasInfo: []
     };
   }
-  renderGasComponent = () =>{ 
-  if(this.props.currentSessions.length>0){
-    return (this.props.currentSessions.map((gas, index) => (
-      <SessionCard
-        gasInfo={gas.data}
-        deviceId={gas.mac}
-        employee={gas.staff.name}
-        key={gas.staff.name + index}
-        bufferInfo={bufferInfo}
-        sessionId = {gas._id}
-        endSession={(sessionId) => this.props.endSession(sessionId)}
-      />
-    )));
-  }
-  else if(this.props.loading){
-    return( 
-    <div style={styles.root}>
-    <CircularProgress size={100} style={{marginLeft:"45%"}}/>
-    </div>
-    );
-  }
-  else{
-    return <div style={styles.root} ><Typography variant="subtitle1" align="center">No active sessions to display</Typography></div>
-  }
-}
-    
+  renderGasComponent = () => {
+    if (this.props.currentSessions.length > 0) {
+      return this.props.currentSessions.map((gas, index) => {
+        if(gas.alerta){
+          toast.error("Alerta en: " +gas.staff.name , {
+            position: "bottom-right",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true
+          })
+        }
+        return (
+          <SessionCard
+            gasInfo={gas.data}
+            deviceId={gas.mac}
+            employee={gas.staff.name}
+            key={gas.staff.name + index}
+            bufferInfo={bufferInfo}
+            sessionId={gas._id}
+            endSession={sessionId => this.props.endSession(sessionId)}
+          />
+        );
+      });
+    } else if (this.props.loading) {
+      return (
+        <div style={styles.root}>
+          <CircularProgress size={100} style={{ marginLeft: "45%" }} />
+        </div>
+      );
+    } else {
+      return (
+        <div style={styles.root}>
+          <Typography variant="subtitle1" align="center">
+            No active sessions to display
+          </Typography>
+        </div>
+      );
+    }
+  };
+
   onSearch = filteredList => {
     this.setState({ GasInfo: filteredList });
-  }; 
+  };
   componentWillUnmount() {
     clearInterval(this.Interval);
   }
   render() {
-     
     return (
       <div>
         <div style={{ paddingLeft: "10%" }}>
@@ -82,14 +96,14 @@ class DashboardPage extends Component {
           onSearch={this.onSearch}
         />
         <br />
-        <div>{this.renderGasComponent() }</div>
+        <div>{this.renderGasComponent()}</div>
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
   currentSessions: state.session.currentSessions,
-  loading:state.session.loading,
+  loading: state.session.loading,
   auth: state.auth
 });
 const mapDispatchToProps = dispatch => {
@@ -97,10 +111,9 @@ const mapDispatchToProps = dispatch => {
     logOut: () => {
       dispatch(logOut());
     },
-    endSession: (sessionId) =>{
+    endSession: sessionId => {
       dispatch(endSession(sessionId));
     }
-    
   };
 };
 export default connect(
