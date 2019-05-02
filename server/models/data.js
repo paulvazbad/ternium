@@ -5,7 +5,8 @@ const Data = mongoose.model('Data', new mongoose.Schema({
     mac: String,
     co2: Number,
     hidrogeno: Number,
-    temperatura: Number
+    temperatura: Number,
+    alert: Boolean
 }));
 
 exports.Data = Data;
