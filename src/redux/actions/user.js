@@ -6,7 +6,7 @@ import {
   FAILED_DEVICES
 } from "../../constants";
 import axios from "axios";
-//const linkBack = "http://terniumapp.herokuapp.com/";
+//const linkBack = "http://terniumapp.herokuapp.com";
 const linkBack = process.env.REACT_APP_API_BACKEND;
 
 const backedOn = false;
@@ -43,7 +43,8 @@ export const fetchWorkers = () => {
         });
       })
       .catch(function(error) {
-         
+        console.log(error);
+         console.log("Cant get workers");
       });
   };
 };
