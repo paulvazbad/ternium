@@ -15,6 +15,7 @@ import QR from "../components/QR";
 import Loading from "../components/Loading";
 
 import Grow from "@material-ui/core/Grow";
+import Collapse from '@material-ui/core/Collapse';
 import { connect } from "react-redux";
 import { newSession } from "../redux/actions/session";
 
@@ -83,7 +84,10 @@ class NewSessionPage extends React.Component {
           Leer QR
         </Button>
         <div style={{flex:1, justifyContent:"center", padding:"1%"}}>
-        {this.state.showQR ?<QR/> : null}
+        <Collapse in={this.state.showQR}>
+        {this.state.showQR?<QR/>:null}
+        </Collapse>
+         
            </div>
         
       </div>
