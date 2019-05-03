@@ -27,7 +27,7 @@ const workers = [
 export const fetchWorkers = () => {
   return (dispatch, getState) => {
     const { auth } = getState();
-    const user = auth._id;
+    const user = auth.username;
      
     //FETCH workers from the api  here
     axios
