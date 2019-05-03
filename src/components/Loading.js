@@ -12,9 +12,6 @@ const styles = {
     zIndex: 1
   },
   fabProgress: {
-    position: "absolute",
-    top: "8%",
-    left: "10%",
     zIndex: 0,
     width: 85,
     height: 85
@@ -30,7 +27,7 @@ class Loading extends React.Component {
     }
   render() {
     return (
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", flex:1,justifyContent:"center", alignContent:"center" }}>
         {this.props.withIcon && (
           <Fab style={styles.fabProgress}>
             <Router style={{ fontSize: "3.5em"}} />

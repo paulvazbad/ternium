@@ -64,7 +64,7 @@ class NewSessionPage extends React.Component {
     this.setState({ showQR: !this.state.showQR });
   };
 
-  step0 = (
+   step0 = () =>(
     <div>
       <div>
         <Typography style={{ padding: "2%" }}>
@@ -82,11 +82,15 @@ class NewSessionPage extends React.Component {
         >
           Leer QR
         </Button>
+        <div style={{flex:1, justifyContent:"center", padding:"1%"}}>
+        {this.state.showQR ?<QR/> : null}
+           </div>
+        
       </div>
     </div>
   );
 
-  step1 = <Loading withIcon={true} redirect={"TBD"} />;
+  step1 = <Loading withIcon={false} redirect={"TBD"} />;
 
   checkButton = formObj => {
     this.setState({ ...formObj });
@@ -97,7 +101,7 @@ class NewSessionPage extends React.Component {
         if (this.props.loading) {
           return <Loading withIcon={false} redirect={"TBD"} />;
         } else {
-          return this.step0;
+          return this.step0();
         }
         break;
       case 1:
@@ -178,12 +182,6 @@ class NewSessionPage extends React.Component {
           <Grid item xs={6}>
             {this.getStepContent(activeStep)}
           </Grid>
-          <Grid item xs={3} />
-          <Grid item xs={4} />
-          <Grid item xs={4}>
-            {this.state.showQR && activeStep === 0 ? <QR /> : null}
-          </Grid>
-          <Grid item xs={4} />
 
           <Grid item xs={12}>
             <div style={{ textAlign: "center" }}>
