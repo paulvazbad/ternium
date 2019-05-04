@@ -12,7 +12,7 @@ class NewUserModal extends React.Component {
   constructor(props) {
     super(props);
   }
-  newUser = () =>{
+  exit = () =>{
        
       this.props.handleClose();
 
@@ -45,8 +45,8 @@ class NewUserModal extends React.Component {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={this.newUser} color="primary">
-            Guardar
+          <Button onClick={this.exit} color="primary">
+            Cancelar
           </Button>
         </DialogActions>
       </Dialog>

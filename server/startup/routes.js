@@ -7,6 +7,7 @@ const users = require('../routes/users');
 const datas = require('../routes/datas');
 const auth = require('../routes/auth');
 const error = require('../middleware/error');
+const history = require('../routes/history');
 
 module.exports = function(app) {
   app.use(express.json());
@@ -17,5 +18,7 @@ module.exports = function(app) {
   app.use('/api/datas', datas);
   app.use('/api/users', users);
   app.use('/api/auth', auth);
+  app.use('/api/history', history);
   app.use(error);
+  
 }

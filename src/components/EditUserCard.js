@@ -43,6 +43,20 @@ const areas = [
     label: "ALCO"
   }
 ];
+const roles = [
+  {
+    value: "SA",
+    label: "Supervisor de Area"
+  },
+  {
+    value: "SS",
+    label: "Supervisor de Seguridad"
+  },
+  {
+    value: "SU",
+    label: "Super Usuario"
+  }
+];
 
 const lugares = [
   {
@@ -62,7 +76,7 @@ class EditUserCard extends React.Component {
 
     name: this.props.name,
     area: this.props.area,
-    puesto: this.props.puesto,
+    rol: this.props.rol,
     username: this.props.username,
     password: "",
 
@@ -73,7 +87,7 @@ class EditUserCard extends React.Component {
     const forminfo = {
       name: this.state.name,
       area: this.state.area,
-      rol: this.state.puesto,
+      rol: this.state.rol,
       username: this.state.username,
       password: this.state.password
     };
@@ -92,7 +106,7 @@ class EditUserCard extends React.Component {
     const forminfo = {
       name: this.state.name,
       area: this.state.area,
-      rol: this.state.puesto,
+      rol: this.state.rol,
       username: this.state.username,
       password: this.state.password
     };
@@ -196,15 +210,20 @@ class EditUserCard extends React.Component {
         </Grid>
         <Grid item xs={3} align="left">
           <TextField
-            label="Puesto"
-            className={classes.textField}
-            defaultValue={this.props.puesto}
-            onChange={this.handleChange("puesto")}
+            select
+            label="Rol"
+            value={this.state.rol}
+            onChange={this.handleChange("rol")}
             InputProps={{
               readOnly: this.state.readOnly
             }}
-            margin="normal"
-          />
+          >
+            {roles.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </Grid>
         <Grid item xs={3} align="left" />
         {!this.props.newUserCard && (

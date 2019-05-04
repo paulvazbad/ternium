@@ -82,7 +82,11 @@ class userAdminPage extends React.Component {
             {user.name}
           </Typography>
           <Typography style={styles.heading} variant="subtitle1">
-            {user.rol}
+            {user.rol === "SA"
+                ? "Supervisor de Area"
+                : user.rol === "SS"
+                ? "Supervisor de Seguridad"
+                : "Super Usuario"}
           </Typography>
           <Typography style={styles.heading} variant="subtitle1">
             {user.area}
@@ -93,12 +97,8 @@ class userAdminPage extends React.Component {
             username={user.username}
             area={user.area}
             name={user.name}
-            puesto={
-              user.rol === "SA"
-                ? "Supervisor de Area"
-                : user.rol === "SS"
-                ? "Supervisor de Seguridad"
-                : "Super Usuario"
+            rol={
+              user.rol
             }
             userpassword={""}
             index={index}
