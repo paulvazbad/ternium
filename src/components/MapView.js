@@ -5,7 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import L from "leaflet";
 import ReactDOM from "react-dom";
-import { MC2, Aceria } from "../utils/GeoFences.js";
+import { MC2, Aceria, REDI } from "../utils/GeoFences.js";
 import Router from "@material-ui/icons/Router";
 import pointInPolygon from "../utils/PIP.js";
 const styles = {
@@ -53,7 +53,7 @@ class MapView extends React.Component {
     });
     L.polygon(MC2, { color: "purple", stroke: false }).addTo(this.map);
     L.polygon(Aceria, { color: "blue", stroke: false }).addTo(this.map);
-
+    L.polygon(REDI, {color:"orange",stroke:false}).addTo(this.map);
     //var myIcon = L.divIcon();
   }
   componentWillUnmount() {
