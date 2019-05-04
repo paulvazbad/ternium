@@ -7,7 +7,8 @@ import {
   FAILED_USER,
   NEW_USER,
   DELETED_USER,
-  GET_USERS
+  GET_USERS,
+  ERROR_NOTIFIED
 } from "../../constants";
 import axios from "axios";
 //const linkBack = "http://terniumapp.herokuapp.com";
@@ -176,3 +177,6 @@ export const deleteUser = (userInfo, index) => {
       });
   };
 };
+export const errorNotified = ()=>({
+  type:ERROR_NOTIFIED
+});

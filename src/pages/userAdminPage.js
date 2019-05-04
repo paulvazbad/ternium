@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {getUsers} from "../redux/actions/user";
+import {getUsers, errorNotified} from "../redux/actions/user";
 import { Typography, Paper, Fab } from "@material-ui/core/";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -70,6 +70,7 @@ class userAdminPage extends React.Component {
         pauseOnHover: true,
         draggable: true
       })
+      this.props.errorNotified()
     }
   }
   renderUsers = () => {
@@ -151,6 +152,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getUsers: ()=>{
       dispatch(getUsers())
+    },
+    errorNotified: () =>{
+      dispatch(errorNotified())
     }
 
   };

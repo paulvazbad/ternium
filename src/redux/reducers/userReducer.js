@@ -7,7 +7,8 @@ import {
   NEW_USER,
   FAILED_USER,
   DELETED_USER,
-  GET_USERS
+  GET_USERS,
+  ERROR_NOTIFIED
 } from "../../constants";
 
 const defaultState = {
@@ -41,6 +42,8 @@ const userReducer = (state = defaultState, action) => {
       return { ...state, users:newUsers };
     case FAILED_USER:
       return { ...state, error:action.payload };
+    case ERROR_NOTIFIED:
+      return{...state,error:null}
     default:
       return state;
   }
