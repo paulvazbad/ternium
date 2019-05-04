@@ -6,6 +6,10 @@ class SessionFetcher extends React.Component {
     this.Interval = setInterval(() => {
       this.props.getActiveSessions(this.props.auth.username);
     }, 3000);
+    console.log("Interval set ");
+  }
+  componentWillMount(){
+    console.log("Mounting SessionFetcher")
   }
   componentWillUnmount(){
       clearInterval(this.Interval);

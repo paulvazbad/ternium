@@ -11,6 +11,10 @@ export const SELECT_WORKER = "SELECT_WORKER";
 export const SELECT_DEVICE = "SELECT_DEVICE";
 export const LOADED_DEVICES = "LOADED_DEVICES";
 export const FAILED_DEVICES = "FAILED_DEVICES";
+export const NEW_USER = "NEW_USER";
+export const FAILED_USER = "FAILED_USER";
+export const DELETED_USER = "FAILED_USER";
+export const GET_USERS = "GET_USERS";
 //sessionReducer
 export const GET_ACTIVE_SESSIONS = "GET_ACTIVE_SESSIONS";
 export const FAILED_ACTIVE_SESSIONS = "FAILED_ACTIVE_SESSIONS";

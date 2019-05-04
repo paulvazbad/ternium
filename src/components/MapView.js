@@ -26,7 +26,6 @@ const styles = {
 
 class MapView extends React.Component {
   shouldComponentUpdate(nextProps) {
-    console.log(this.props);
     if (this.props && nextProps) {
       if (nextProps.location.length > 1 && this.props.location.length > 1) {
         var difLat = nextProps.location[0] !== this.props.location[0];

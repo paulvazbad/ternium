@@ -53,7 +53,6 @@ const checkIfAll = currentSessions => {
 
 export const getActiveSessions = username => {
   return dispatch => {
-    //dummy session
     axios({
       method: "get",
       url: linkBack + "/api/sessions", //userID,
