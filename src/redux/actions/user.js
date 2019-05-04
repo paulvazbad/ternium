@@ -77,7 +77,7 @@ export const setSelectedDevice = id => ({
   payload: id
 });
 //Get users
-export const getUsers = userInfo => {
+export const getUsers = () => {
   return dispatch => {
     axios
       .get(linkBack + "/api/users")
@@ -171,7 +171,7 @@ export const deleteUser = (userInfo, index) => {
       .catch(error => {
         dispatch({
           type: FAILED_USER,
-          payload: error
+          payload: "Can't delete user"
         });
       });
   };

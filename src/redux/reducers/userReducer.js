@@ -36,11 +36,11 @@ const userReducer = (state = defaultState, action) => {
     case NEW_USER:
       return { ...state, users: [...state.users, action.payload], error: null };
     case DELETED_USER:
-      let newState = [...state];
-      newState.splice(action.payload, 1);
-      return { newState };
+      let newUsers = [...state.users];
+      newUsers.splice(action.payload, 1);
+      return { ...state, users:newUsers };
     case FAILED_USER:
-      return { ...state, error: action.payload };
+      return { ...state, error:action.payload };
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import {connect} from "react-redux";
+import {deleteUser,editUser} from "../redux/actions/user";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -53,14 +55,13 @@ const lugares = [
     },
 ];
 
-class userCard extends React.Component{
+class EditUserCard extends React.Component{
 
     state = {
         enableSave: false,
         showPassword: false,
 
         nombre: this.props.nombre,
-        lugar: this.props.lugar,
         area: this.props.area,
         puesto: this.props.puesto,
         username: this.props.username,
@@ -72,19 +73,26 @@ class userCard extends React.Component{
     handleSave = () => {
         const forminfo = {
             formNombre: this.state.nombre,
-            formLugar: this.state.lugar,
             formArea: this.state.area,
             puesto: this.state.puesto,
             username: this.state.username,
             userpassword: this.state.userpassword,
         }
         this.setState(state => ({ formInfo: this.forminfo }))
+        this.props.editUser(forminfo);
         //this.props.handleSave(this.state.formInfo);
         alert("handleSave function datos")
     };
 
     handleDelete = () => {
-        alert("handleDelete function")
+        const forminfo = {
+            formNombre: this.state.nombre,
+            formArea: this.state.area,
+            puesto: this.state.puesto,
+            username: this.state.username,
+            userpassword: this.state.userpassword,
+        }
+        this.props.deleteUser(forminfo,this.props.index);
     }
 
     handleChange = prop => event => {
@@ -168,23 +176,6 @@ class userCard extends React.Component{
                 <Grid item xs={3} align="left">
                                 <TextField
                                     select
-                                    label="Lugar"
-                                    value={this.state.lugar}
-                                    onChange={this.handleChange('lugar')}
-                                    InputProps={{
-                                        readOnly: this.state.readOnly,
-                                    }}
-                                >
-                                    {lugares.map(option => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                <Grid item xs={3} align="left">
-                                <TextField
-                                    select
                                     label="Area"
                                     value={this.state.area}
                                     onChange={this.handleChange('area')}
@@ -212,6 +203,9 @@ class userCard extends React.Component{
                                     margin="normal"
                                 />
                             </Grid>
+                            <Grid item xs={3} align="left">
+                                
+                            </Grid>
                 <Grid item xs={3} align="right" onClick={() => { this.handleDelete() }}>
                     <IconButton
                         style={{ marginRight: "7%" }}
@@ -227,8 +221,24 @@ class userCard extends React.Component{
     }
 }
 
-userCard.propTypes = {
+EditUserCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+const mapDispatchToProps = dispatch => {
+    return {
+      editUser: (userInfo) => {
+        dispatch(editUser(userInfo));
+      },
+      deleteUser: (userInfo,index) => {
+        dispatch(deleteUser(userInfo,index));
+      },  
+    };
+  };
 
-export default withStyles(styles)(userCard);
+  export default withStyles(styles)(
+    connect(
+      null,
+      mapDispatchToProps
+    )(EditUserCard)
+  );
+  
