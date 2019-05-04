@@ -32,7 +32,17 @@ class NewUserModal extends React.Component {
           <DialogContentText>
             Llena todos los campos con la información del nuevo usuario.
           </DialogContentText>
-          <EditUserCard/>
+          <EditUserCard
+          username={""}
+          area={""}
+          name={""}
+          rol={
+            ""
+          }
+          userpassword={""}
+          index={0}
+          newUserCard={true}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={this.newUser} color="primary">

@@ -60,22 +60,22 @@ class EditUserCard extends React.Component {
     enableSave: false,
     showPassword: false,
 
-    nombre: this.props.nombre,
+    name: this.props.name,
     area: this.props.area,
     puesto: this.props.puesto,
     username: this.props.username,
-    userpassword: this.props.userpassword,
+    password: "",
 
     formInfo: null
   };
 
   handleSave = () => {
     const forminfo = {
-      formNombre: this.state.nombre,
-      formArea: this.state.area,
-      puesto: this.state.puesto,
+      name: this.state.name,
+      area: this.state.area,
+      rol: this.state.puesto,
       username: this.state.username,
-      userpassword: this.state.userpassword
+      password: this.state.password
     };
 
     this.setState(state => ({ formInfo: this.forminfo }));
@@ -91,11 +91,11 @@ class EditUserCard extends React.Component {
 
   handleDelete = () => {
     const forminfo = {
-      formNombre: this.state.nombre,
-      formArea: this.state.area,
-      puesto: this.state.puesto,
+      name: this.state.name,
+      area: this.state.area,
+      rol: this.state.puesto,
       username: this.state.username,
-      userpassword: this.state.userpassword
+      password: this.state.password
     };
     this.props.deleteUser(forminfo, this.props.index);
   };
@@ -122,20 +122,19 @@ class EditUserCard extends React.Component {
       backgroundColor: buttonColor
     };
     return (
+      <form>
       <Grid container spacing={24}>
         <Grid item xs={3} align="left">
           <TextField
-            id="name"
             label="Nombre"
             className={classes.textField}
-            defaultValue={this.props.nombre}
+            defaultValue={this.props.name}
             margin="normal"
-            onChange={this.handleChange("nombre")}
+            onChange={this.handleChange("name")}
           />
         </Grid>
         <Grid item xs={3} align="left">
           <TextField
-            id="username"
             label="Username"
             className={classes.textField}
             defaultValue={this.props.username}
@@ -153,8 +152,6 @@ class EditUserCard extends React.Component {
             Password
           </InputLabel>
           <Input
-            id="password"
-            defaultValue={this.props.userpassword}
             type={this.state.showPassword ? "text" : "password"}
             value={this.state.password}
             onChange={this.handleChange("password")}
@@ -200,7 +197,6 @@ class EditUserCard extends React.Component {
         </Grid>
         <Grid item xs={3} align="left">
           <TextField
-            id="puesto"
             label="Puesto"
             className={classes.textField}
             defaultValue={this.props.puesto}
@@ -232,6 +228,7 @@ class EditUserCard extends React.Component {
           </Grid>
         )}
       </Grid>
+      </form>
     );
   }
 }

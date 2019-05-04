@@ -117,7 +117,7 @@ export const editUser = userInfo => {
       .catch(error => {
         dispatch({
           type: FAILED_USER,
-          payload: error
+          payload: error.response.data
         });
       });
   };

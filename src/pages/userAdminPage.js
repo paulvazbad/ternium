@@ -79,7 +79,7 @@ class userAdminPage extends React.Component {
           <EditUserCard
             username={user.username}
             area={user.area}
-            nombre={user.name}
+            name={user.name}
             puesto={
               user.rol === "SA"
                 ? "Supervisor de Area"
