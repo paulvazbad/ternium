@@ -7,6 +7,7 @@ const defaultState = {
     loaded:null,
     fetching:false,
     failed:false,
+    x_auth_token:null,
 }
 const  authReducer = (state=defaultState,action) =>{
     switch(action.type){

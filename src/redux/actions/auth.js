@@ -48,8 +48,7 @@ export const logIn = userInfo => {
         })
           .then(response => {
              
-             
-            let newUser = { ...response.data };
+            let newUser = { ...response.data, x_auth_token:x_auth_token };
             if (!response.data.rol) {
                
               newUser = { ...response.data, rol: "SA" };
@@ -100,7 +99,7 @@ export const loadUser =  () => {
             headers: { "x-auth-token": x_auth_token }
           })
             .then(response => {
-              let newUser = { ...response.data };
+              let newUser = { ...response.data, x_auth_token:x_auth_token };
               dispatch({
                 type: LOAD_USER,
                 payload: newUser

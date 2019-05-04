@@ -1,15 +1,15 @@
 const { History } = require('../models/history');
-const { Alarms } = require('../models/alarms');
+const { Alarm } = require('../models/alarms');
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 
 router.get('/:Number', auth, async (req, res) => {
     const history = await History.find().limit(req.params.Number / 2);
-    const alarms = await Alarms.find().limit(req.params.Number / 2);
+    const alarms = await Alarm.find().limit(req.params.Number / 2);
     res.json([history, alarms]);
 });
-
+/*
 router.get('/search/:Data', auth, async (req, res) => {
     var data = req.params.Data;
     const historySesion = await History.find({ idSesion: { $regex: `${data}`, $options: 'i' } });
@@ -31,5 +31,5 @@ router.get('/search/:Data', auth, async (req, res) => {
 
     res.json([ObjHistory, ObjAlarms]);
 });
-
+*/
 module.exports = router;

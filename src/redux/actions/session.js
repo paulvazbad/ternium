@@ -6,7 +6,9 @@ import {
   NEW_SESSION,
   LOADING_NEW_SESSION,
   FAILED_NEW_SESSION,
-  END_SESSION
+  END_SESSION,
+  GET_PAST_SESSIONS,
+  FAILED_SESSIONS
 } from "../../constants/index";
 import axios from "axios";
 const linkBack = process.env.REACT_APP_API_BACKEND;
@@ -112,6 +114,33 @@ export const newSession = (deviceID, workerID, username) => {
 };
 
 //GET_PAST_SESSIONS
+export const getPastSessions = (cant) =>{
+  console.log(cant);
+  return (dispatch, getState) =>{
+    var x_auth_token = getState().auth.x_auth_token
+    axios({
+      method: "get",
+      url: linkBack + "/api/history/"+cant,
+      proxyHeaders: false,
+      credentials: false,
+      headers: { "x-auth-token": x_auth_token }
+    })
+    .then((response)=>{
+      dispatch({
+        type:GET_PAST_SESSIONS,
+        payload:response.data
+      });
+    })
+    .catch((error)=>{
+      console.log(error);
+      dispatch({
+        type:FAILED_SESSIONS,
+        payload:error.response.data
+      })
+    })
+  }
+}
+
 //END_SESSION
 
 export const endSession = sessionId => {

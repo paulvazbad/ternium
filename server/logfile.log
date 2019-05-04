@@ -193,3 +193,19 @@
 {"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-04T22:37:01.921Z"}
 {"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-04T22:37:17.867Z"}
 {"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-04T22:37:18.502Z"}
+{"message":"Cannot read property 'find' of undefined","stack":"TypeError: Cannot read property 'find' of undefined\n    at router.get (C:\\Users\\pev\\Documents\\TEC\\6to semestre\\ternium\\server\\routes\\history.js:9:33)\n    at processTicksAndRejections (internal/process/next_tick.js:81:5)","level":"error","timestamp":"2019-05-04T23:16:59.231Z"}
+{"message":"Cannot read property 'find' of undefined","stack":"TypeError: Cannot read property 'find' of undefined\n    at router.get (C:\\Users\\pev\\Documents\\TEC\\6to semestre\\ternium\\server\\routes\\history.js:9:33)\n    at processTicksAndRejections (internal/process/next_tick.js:81:5)","level":"error","timestamp":"2019-05-04T23:17:37.749Z"}
+{"message":"Cannot read property 'find' of undefined","stack":"TypeError: Cannot read property 'find' of undefined\n    at router.get (C:\\Users\\pev\\Documents\\TEC\\6to semestre\\ternium\\server\\routes\\history.js:9:33)\n    at processTicksAndRejections (internal/process/next_tick.js:81:5)","level":"error","timestamp":"2019-05-04T23:21:01.810Z"}
+{"message":"Cannot read property 'find' of undefined","stack":"TypeError: Cannot read property 'find' of undefined\n    at router.get (C:\\Users\\pev\\Documents\\TEC\\6to semestre\\ternium\\server\\routes\\history.js:9:33)\n    at processTicksAndRejections (internal/process/next_tick.js:81:5)","level":"error","timestamp":"2019-05-04T23:21:33.415Z"}
+{"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-04T23:28:21.768Z"}
+{"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-04T23:28:22.520Z"}
+{"message":"Cannot read property 'find' of undefined","stack":"TypeError: Cannot read property 'find' of undefined\n    at router.get (C:\\Users\\pev\\Documents\\TEC\\6to semestre\\ternium\\server\\routes\\history.js:10:33)\n    at processTicksAndRejections (internal/process/next_tick.js:81:5)","level":"error","timestamp":"2019-05-04T23:28:53.970Z"}
+{"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-04T23:32:18.848Z"}
+{"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-04T23:32:19.589Z"}
+{"message":"Cannot read property 'find' of undefined","stack":"TypeError: Cannot read property 'find' of undefined\n    at router.get (C:\\Users\\pev\\Documents\\TEC\\6to semestre\\ternium\\server\\routes\\history.js:9:33)\n    at processTicksAndRejections (internal/process/next_tick.js:81:5)","level":"error","timestamp":"2019-05-04T23:32:46.415Z"}
+{"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-04T23:33:16.245Z"}
+{"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-04T23:33:16.872Z"}
+{"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-04T23:35:50.171Z"}
+{"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-04T23:35:50.867Z"}
+{"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-04T23:37:39.750Z"}
+{"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-04T23:37:40.434Z"}

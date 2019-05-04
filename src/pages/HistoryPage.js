@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-
+import {connect} from 'react-redux';
+import { getPastSessions } from "../redux/actions/session";
 import historyData from "../components/historyData";
 import HistoryCard from "../components/HistoryCard";
 import Search from "../components/Search";
@@ -28,6 +29,9 @@ class HistoryPage extends React.Component {
       filter: null,
       historyData: historyData
     };
+  }
+  componentWillMount(){
+    this.props.getPastSessions(10);
   }
   setFilter = selection => {
     if (this.state.filter) {
@@ -110,4 +114,14 @@ class HistoryPage extends React.Component {
   }
 }
 
-export default HistoryPage;
+const mapDispatchToProps = dispatch => {
+  return {
+    getPastSessions: (cant) => {
+      dispatch(getPastSessions(cant));
+    },
+  };
+};
+export default connect(
+  null,
+  mapDispatchToProps
+)(HistoryPage);

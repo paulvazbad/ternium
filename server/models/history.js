@@ -120,7 +120,7 @@ const StaffSchema = mongoose.Schema({
         }
 });
 
-const History = mongoose.model('History', new mongoose.Schema({
+const HistorySchema = new mongoose.Schema({
     idSesion: {
         type: String,
         required: true,
@@ -156,6 +156,6 @@ const History = mongoose.model('History', new mongoose.Schema({
     }
 }, {
         timestamps: true
-    }));
-
+    });
+const History = mongoose.model('History',HistorySchema)
 exports.History = History;
