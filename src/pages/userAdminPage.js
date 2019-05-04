@@ -11,7 +11,7 @@ import Add from "@material-ui/icons/Add";
 import EditUserCard from "../components/EditUserCard";
 import userData from "../components/userData";
 import NewUserModal from "../components/NewUserModal";
-
+import { toast } from "react-toastify";
 const styles = {
   main: {
     textAlign: "center",
@@ -59,6 +59,18 @@ class userAdminPage extends React.Component {
   };
   componentWillMount(){
     this.props.getUsers()
+  }
+  componentDidUpdate(){
+    if(this.props.error){
+      toast.error(this.props.error, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true
+      })
+    }
   }
   renderUsers = () => {
     const { classes } = this.props;
@@ -132,7 +144,8 @@ class userAdminPage extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  users:state.user.users
+  users:state.user.users,
+  error:state.user.error
 });
 const mapDispatchToProps = dispatch => {
   return {

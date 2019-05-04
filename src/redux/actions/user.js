@@ -90,7 +90,7 @@ export const getUsers = () => {
       .catch(error => {
         dispatch({
           type: FAILED_USER,
-          payload: error
+          payload: error.response.data
         });
       });
   };
@@ -117,7 +117,7 @@ export const editUser = userInfo => {
       .catch(error => {
         dispatch({
           type: FAILED_USER,
-          payload: error.response.data
+          payload: 'Cant update user'
         });
       });
   };
@@ -144,7 +144,7 @@ export const newUser = userInfo => {
       .catch(error => {
         dispatch({
           type: FAILED_USER,
-          payload: error
+          payload: error.response.data
         });
       });
   };
@@ -171,7 +171,7 @@ export const deleteUser = (userInfo, index) => {
       .catch(error => {
         dispatch({
           type: FAILED_USER,
-          payload: "Can't delete user"
+          payload: "Cant delete user"
         });
       });
   };

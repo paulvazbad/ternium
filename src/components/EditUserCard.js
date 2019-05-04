@@ -86,7 +86,6 @@ class EditUserCard extends React.Component {
     }
 
     //this.props.handleSave(this.state.formInfo);
-    alert("handleSave function datos");
   };
 
   handleDelete = () => {
