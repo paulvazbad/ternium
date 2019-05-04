@@ -79,7 +79,7 @@ class userAdminPage extends React.Component {
           <EditUserCard
             username={user.username}
             area={user.area}
-            nombre={user.nombre}
+            nombre={user.name}
             puesto={
               user.rol === "SA"
                 ? "Supervisor de Area"
@@ -89,6 +89,7 @@ class userAdminPage extends React.Component {
             }
             userpassword={""}
             index={index}
+            newUserCard={false}
           />
         </ExpansionPanelDetails>
       </ExpansionPanel>
