@@ -21,13 +21,11 @@ class NewSessionForm extends React.Component {
   state = {
     labelWidth: 0,
     requiredWorker: "",
-    requiredDevice: "",
+    requiredDevice: ""
   };
 
   componentWillMount() {
-
     this.props.fetchWorkers();
- 
 
     this.props.fetchDevices();
   }
@@ -52,13 +50,9 @@ class NewSessionForm extends React.Component {
     }
   };
   handleChange = name => event => {
-     
-     
-     
-    this.props.setParent({[event.target.name]:event.target.value});
+    this.props.setParent({ [event.target.name]: event.target.value });
     if (name === "selectedWorker") {
       this.props.setSelectedWorker(event.target.value);
-      
     } else {
       this.props.setSelectedDevice(event.target.value);
     }
@@ -71,11 +65,11 @@ class NewSessionForm extends React.Component {
     }
   };
 
-  checkP = () =>{
-      if(this.props.selectedDevice!==""){
-        this.setState({ requiredDevice: { color: "#F25C29" } });
-      }
-  }
+  checkP = () => {
+    if (this.props.selectedDevice !== "") {
+      this.setState({ requiredDevice: { color: "#F25C29" } });
+    }
+  };
   render() {
     const { requiredWorker, requiredDevice } = this.state;
     return (
@@ -114,9 +108,14 @@ class NewSessionForm extends React.Component {
         </div>
 
         <div style={{ display: "flex", wrap: "nowrap" }}>
-          <Router
-            style={{ fontSize: "3em", padding: "1%", ...requiredDevice }}
-          />
+          {this.props.selectedDevice !== "" && (
+            <Router
+              style={{ fontSize: "3em", padding: "1%", color: "#F25C29"  }}
+            />
+          )}
+          {this.props.selectedDevice==="" && <Router
+              style={{ fontSize: "3em", padding: "1%", ...requiredDevice }}
+            /> }
           <FormControl variant="outlined" fullWidth={true}>
             <InputLabel
               ref={ref => {
