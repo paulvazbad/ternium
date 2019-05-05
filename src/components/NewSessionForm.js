@@ -22,8 +22,6 @@ class NewSessionForm extends React.Component {
     labelWidth: 0,
     requiredWorker: "",
     requiredDevice: "",
-    selectedDevice: "",
-    selectedWorker: ""
   };
 
   componentWillMount() {
@@ -60,10 +58,9 @@ class NewSessionForm extends React.Component {
     this.props.setParent({[event.target.name]:event.target.value});
     if (name === "selectedWorker") {
       this.props.setSelectedWorker(event.target.value);
-      this.setState({ selectedWorker: event.target.value });
+      
     } else {
       this.props.setSelectedDevice(event.target.value);
-      this.setState({ selectedDevice: event.target.value });
     }
     let colorName =
       name === "selectedWorker" ? "requiredWorker" : "requiredDevice";
@@ -73,6 +70,12 @@ class NewSessionForm extends React.Component {
       this.setState({ [colorName]: { color: "" } });
     }
   };
+
+  checkP = () =>{
+      if(this.props.selectedDevice!==""){
+        this.setState({ requiredDevice: { color: "#F25C29" } });
+      }
+  }
   render() {
     const { requiredWorker, requiredDevice } = this.state;
     return (
@@ -92,7 +95,7 @@ class NewSessionForm extends React.Component {
             </InputLabel>
 
             <Select
-              value={this.state.selectedWorker}
+              value={this.props.selectedWorker}
               onChange={this.handleChange("selectedWorker")}
               input={
                 <OutlinedInput
@@ -124,7 +127,7 @@ class NewSessionForm extends React.Component {
               Wearable
             </InputLabel>
             <Select
-              value={this.state.selectedDevice}
+              value={this.props.selectedDevice}
               onChange={this.handleChange("selectedDevice")}
               input={
                 <OutlinedInput
@@ -165,7 +168,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     workers: state.user.workers,
-    devices: state.user.devices
+    devices: state.user.devices,
+    selectedDevice: state.user.selectedDevice,
+    selectedWorker: state.user.selectedWorker
   };
 };
 export default connect(

@@ -13,8 +13,8 @@ import {
 
 const defaultState = {
   workers: null,
-  selectedWorker: null,
-  selectedDevice: null,
+  selectedWorker: "",
+  selectedDevice: "",
   devices: null,
   users: [],
   error: null

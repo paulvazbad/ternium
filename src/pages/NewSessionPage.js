@@ -152,7 +152,8 @@ class NewSessionPage extends React.Component {
   };
 
   render() {
-    const { activeStep, selectedDevice, selectedWorker } = this.state;
+    const { activeStep,  } = this.state;
+    const {selectedDevice, selectedWorker} = this.props;
     const steps = this.getSteps();
 
     return (
@@ -222,7 +223,9 @@ const mapStateToProps = state => {
   return {
     succesful: state.session.succesful,
     loading: state.session.loading,
-    username: state.auth.username
+    username: state.auth.username,
+    selectedDevice: state.user.selectedDevice,
+    selectedWorker: state.user.selectedWorker
   };
 };
 
