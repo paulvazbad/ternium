@@ -114,6 +114,12 @@ class HistoryPage extends React.Component {
   }
 }
 
+const mapStateToProps = state =>{
+  return({
+    historyData: state.session.pastSessions
+  })
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     getPastSessions: (cant) => {
@@ -122,6 +128,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(HistoryPage);

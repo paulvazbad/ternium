@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, LOAD_USER, FAILED_LOGIN } from "../../constants/index";
+import { LOGIN, LOGOUT, LOAD_USER, FAILED_LOGIN, FETCHING_USER } from "../../constants/index";
 import axios from "axios";
 import jwt from "jwt-simple";
 // Encrypt with jwt standard encryption
@@ -21,7 +21,9 @@ export const logIn = userInfo => {
     //dummy user
     //userInfo.password = jwt.encode(userInfo.password,secret);
     //validate user
-
+    dispatch({
+      type:FETCHING_USER
+    });
     axios({
       method: "post",
       url: linkBack + "/api/auth/",
@@ -82,7 +84,9 @@ export const loadUser =  () => {
     let JSONUSer = {};
     cookie = sessionStorage.getItem("user");
     if (cookie) {
-       
+       dispatch({
+         type:FETCHING_USER
+       })
       const cachedUser = jwt.decode(cookie, secret);
       JSONUSer = cachedUser;
       axios

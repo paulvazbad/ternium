@@ -12,7 +12,7 @@ const defaultState = {
 const  authReducer = (state=defaultState,action) =>{
     switch(action.type){
         case LOGIN:
-            return{...state,fetching:false,  ...action.payload};
+            return{...state,fetching:false, ...action.payload};
         case LOGOUT:
             return {...defaultState, loaded:true};
         case LOAD_USER:

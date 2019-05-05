@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 router.get('/:Number', auth, async (req, res) => {
     const history = await History.find().limit(req.params.Number / 2);
     const alarms = await Alarms.find().limit(req.params.Number / 2);
-    res.json([history, alarms]);
+    res.json([...history, ...alarms]);
 });
 
 router.get('/search/:Data', async (req, res) => {

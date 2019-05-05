@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Joi = require("joi");
 const SensorSchema = mongoose.Schema({
     NombreSensor: {
         type: String,
@@ -58,3 +58,4 @@ function validateAlarms(user) {
 }
 
 exports.validateAlarms = validateAlarms;
+exports.Alarms = Alarms;
