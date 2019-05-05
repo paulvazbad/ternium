@@ -11,6 +11,10 @@ const alertSchema = new mongoose.Schema({
   session: {
       type: sessionSchema,
       required: true
+  },
+  type: {
+    type: String,
+    required: true
   }
 });
 

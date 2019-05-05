@@ -107,8 +107,9 @@ export const editUser = userInfo => {
       area: "REDI",
       rol: "SA"
     };
+    console.log(userInfo);
     axios
-      .put(linkBack + "/api/users", userInfo)
+      .put(linkBack + "/api/users/"+userInfo.username, userInfo)
       .then(response => {
         dispatch({
           type: NEW_USER,
@@ -116,6 +117,7 @@ export const editUser = userInfo => {
         });
       })
       .catch(error => {
+        console.log(error);
         dispatch({
           type: FAILED_USER,
           payload: 'Cant update user'
@@ -162,7 +164,7 @@ export const deleteUser = (userInfo, index) => {
       rol: "SA"
     };
     axios
-      .delete(linkBack + "/api/users/", userInfo.username)
+      .delete(linkBack + "/api/users/"+ userInfo.username)
       .then(response => {
         dispatch({
           type: DELETED_USER,

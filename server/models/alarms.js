@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Joi = require("Joi");
 
 const SensorSchema = mongoose.Schema({
     NombreSensor: {
@@ -12,7 +11,7 @@ const SensorSchema = mongoose.Schema({
     }
 })
 
-const Alarm = mongoose.model('Alarm', new mongoose.Schema({
+const Alarms = mongoose.model('Alarms', new mongoose.Schema({
     idAlarma: {
         type: String,
         required: true
@@ -59,4 +58,3 @@ function validateAlarms(user) {
 }
 
 exports.validateAlarms = validateAlarms;
-exports.Alarm = Alarm;

@@ -84,13 +84,16 @@ class EditUserCard extends React.Component {
   };
 
   handleSave = () => {
+
     const forminfo = {
       name: this.state.name,
       area: this.state.area,
       rol: this.state.rol,
       username: this.state.username,
-      password: this.state.password
     };
+    if(this.state.password!==""){
+      forminfo.password = this.state.password
+    }
 
     this.setState(state => ({ formInfo: this.forminfo }));
     if (this.props.newUserCard) {

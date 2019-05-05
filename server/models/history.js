@@ -120,11 +120,11 @@ const StaffSchema = mongoose.Schema({
         }
 });
 
-const HistorySchema = new mongoose.Schema({
+const History = mongoose.model('History', new mongoose.Schema({
     idSesion: {
         type: String,
         required: true,
-        unique: true
+        //unique: true
     },
     initialDate: {
         type: Date,
@@ -132,7 +132,8 @@ const HistorySchema = new mongoose.Schema({
     },
     endDate: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now
     },
     supervisor: {
         type: SupervisorSchema,
@@ -156,6 +157,6 @@ const HistorySchema = new mongoose.Schema({
     }
 }, {
         timestamps: true
-    });
-const History = mongoose.model('History',HistorySchema)
+    }));
+
 exports.History = History;

@@ -18,17 +18,20 @@ router.post('/', async (req, res) => {
     if (!session) return res.status(400).send('Session no activa.');
 
     let data = new Data({
+        longitud: req.body.longitud,
+        latitud: req.body.latitud,
         gasNatural: req.body.gasNatural,
         mac: req.body.mac,
         co2: req.body.co2,
         hidrogeno: req.body.hidrogeno,
         temperatura: req.body.temperatura,
-        alert: req.body.alert
+        alertaBoton: req.body.alertaBoton,
+        alertaMetrica: req.body.alertaMetrica,
+        alertaCaida: req.body.alertaCaida,
     });
     data = await data.save();
     console.log(data);
-    // si alerta es true guardar en el historial de alertas
-    if (data.alert === true) {
+    if (data.alertaBoton === true) {
         let alert = new Alert({
             session: {
                 initialDate: session.initialDate,
@@ -48,21 +51,94 @@ router.post('/', async (req, res) => {
                     hidrogeno: data.hidrogeno,
                     temperatura: data.temperatura
                 },
+                gps: {
+                    longitud: data.longitud,
+                    latitud: data.latitud
+                },
                 mac: session.mac                
-            }
+            },
+            type: 'Boton'
         });
         await alert.save();
     }
-    await Session.findByIdAndUpdate(session._id,
-        {   
-            alert: data.alert,
-            data : {
-                gasNatural: data.gasNatural,
-                co2: data.co2,
-                hidrogeno: data.hidrogeno,
-                temperatura: data.temperatura
-            }
+
+    if (data.alertaCaida === true) {
+        let alert = new Alert({
+            session: {
+                initialDate: session.initialDate,
+                supervisor: {
+                    _id: session.supervisor._id,
+                    name: session.supervisor.name,
+                    username: session.supervisor.username
+                },
+                staff: {
+                    _id: session.staff._id,
+                    name: session.staff.name,
+                    registrationId: session.staff.registrationId
+                },
+                data: {
+                    gasNatural: data.gasNatural,
+                    co2: data.co2,
+                    hidrogeno: data.hidrogeno,
+                    temperatura: data.temperatura
+                },
+                gps: {
+                    longitud: data.longitud,
+                    latitud: data.latitud
+                },
+                mac: session.mac                
+            },
+            type: 'Caida'
         });
+        await alert.save();
+    }
+
+    if (data.alertaMetrica !== '') {
+        let alert = new Alert({
+            session: {
+                initialDate: session.initialDate,
+                supervisor: {
+                    _id: session.supervisor._id,
+                    name: session.supervisor.name,
+                    username: session.supervisor.username
+                },
+                staff: {
+                    _id: session.staff._id,
+                    name: session.staff.name,
+                    registrationId: session.staff.registrationId
+                },
+                data: {
+                    gasNatural: data.gasNatural,
+                    co2: data.co2,
+                    hidrogeno: data.hidrogeno,
+                    temperatura: data.temperatura
+                },
+                gps: {
+                    longitud: data.longitud,
+                    latitud: data.latitud
+                },
+                mac: session.mac,
+                alertaMetrica: data.alertaMetrica               
+            },
+            type: 'Metrica' 
+        });
+        await alert.save();
+    }
+    await Session.findByIdAndUpdate(session._id,{   
+        alertaBoton: data.alertaBoton,
+        alertaMetrica: data.alertaMetrica,
+        alertaCaida: data.alertaCaida, 
+        data : {
+            gasNatural: data.gasNatural,
+            co2: data.co2,
+            hidrogeno: data.hidrogeno,
+            temperatura: data.temperatura
+        },
+        gps: {
+            longitud: data.longitud,
+            latitud: data.latitud
+        }
+    });
 
     res.send(data);
 });
