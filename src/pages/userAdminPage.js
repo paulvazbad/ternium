@@ -9,7 +9,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Search from "../components/Search";
 import Add from "@material-ui/icons/Add";
 import EditUserCard from "../components/EditUserCard";
-import userData from "../components/userData";
+import CircularProgress from "@material-ui/core/CircularProgress";
+//import userData from "../components/userData";
 import NewUserModal from "../components/NewUserModal";
 import { toast } from "react-toastify";
 const styles = {
@@ -49,7 +50,7 @@ class userAdminPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userData: userData,
+      userData: [],
       modalOpen: false
     };
   }
@@ -75,40 +76,59 @@ class userAdminPage extends React.Component {
   }
   renderUsers = () => {
     const { classes } = this.props;
-    return this.props.users.map((user, index) => (
-      <ExpansionPanel style={expansionpanel} key={user.username + index}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography style={styles.heading} variant="h6">
-            {user.name}
+    if(this.state.userData.length>0){
+      return this.state.userData.map((user, index) => (
+        <ExpansionPanel style={expansionpanel} key={user.username + index}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography style={styles.heading} variant="h6">
+              {user.name}
+            </Typography>
+            <Typography style={styles.heading} variant="subtitle1">
+              {user.rol === "SA"
+                  ? "Supervisor de Area"
+                  : user.rol === "SS"
+                  ? "Supervisor de Seguridad"
+                  : "Super Usuario"}
+            </Typography>
+            <Typography style={styles.heading} variant="subtitle1">
+              {user.area}
+            </Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <EditUserCard
+              username={user.username}
+              area={user.area}
+              name={user.name}
+              rol={
+                user.rol
+              }
+              userpassword={""}
+              index={index}
+              newUserCard={false}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      ));
+    }
+    else if (this.props.loading) {
+      return (
+        <div style={styles.root}>
+          <CircularProgress size={100} />
+        </div>
+      );
+    } else {
+      return (
+        <div style={styles.root}>
+          <Typography variant="subtitle1" align="center">
+            No users to display
           </Typography>
-          <Typography style={styles.heading} variant="subtitle1">
-            {user.rol === "SA"
-                ? "Supervisor de Area"
-                : user.rol === "SS"
-                ? "Supervisor de Seguridad"
-                : "Super Usuario"}
-          </Typography>
-          <Typography style={styles.heading} variant="subtitle1">
-            {user.area}
-          </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <EditUserCard
-            username={user.username}
-            area={user.area}
-            name={user.name}
-            rol={
-              user.rol
-            }
-            userpassword={""}
-            index={index}
-            newUserCard={false}
-          />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    ));
+        </div>
+      );
+    }
+    
   };
   onSearch = filteredList => {
+    console.log(filteredList);
     this.setState({ userData: filteredList });
   };
   handleClose = () => {
@@ -116,6 +136,7 @@ class userAdminPage extends React.Component {
   };
   render() {
     const { classes } = this.props;
+    console.log(this.props.users)
     return (
       <div>
         <div style={styles.main}>
@@ -124,12 +145,12 @@ class userAdminPage extends React.Component {
             handleClose={this.handleClose}
           />
           <Typography variant="h5">User Administration</Typography>
-          <Search
+          {this.props.users.length>0&&<Search
             style={styles.search}
-            searchList={userData}
+            searchList={this.props.users}
             onSearch={this.onSearch}
             placeholder="Buscar usuarios"
-          />
+          />}
           <Paper style={styles.paper}>{this.renderUsers()}</Paper>
         </div>
         <Fab
@@ -146,7 +167,8 @@ class userAdminPage extends React.Component {
 }
 const mapStateToProps = state => ({
   users:state.user.users,
-  error:state.user.error
+  error:state.user.error,
+  loading:state.user.loading
 });
 const mapDispatchToProps = dispatch => {
   return {

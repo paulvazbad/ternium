@@ -8,7 +8,8 @@ import {
   FAILED_USER,
   DELETED_USER,
   GET_USERS,
-  ERROR_NOTIFIED
+  ERROR_NOTIFIED,
+  LOADING_USERS
 } from "../../constants";
 
 const defaultState = {
@@ -17,7 +18,8 @@ const defaultState = {
   selectedDevice: "",
   devices: null,
   users: [],
-  error: null
+  error: null,
+  loading:false,
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -30,10 +32,12 @@ const userReducer = (state = defaultState, action) => {
       return { ...state, selectedWorker: action.payload };
     case LOADED_DEVICES:
       return { ...state, devices: action.payload };
+    case LOADING_USERS:
+      return {...state,loading:true}
     case FAILED_DEVICES:
       return { ...state, devices: [] };
     case GET_USERS:
-      return { ...state, users: action.payload };
+      return { ...state, users: action.payload, loading:false };
     case NEW_USER:
       return { ...state, users: [...state.users, action.payload], error: null };
     case DELETED_USER:
@@ -41,7 +45,7 @@ const userReducer = (state = defaultState, action) => {
       newUsers.splice(action.payload, 1);
       return { ...state, users:newUsers };
     case FAILED_USER:
-      return { ...state, error:action.payload };
+      return { ...state, error:action.payload, loading:false };
     case ERROR_NOTIFIED:
       return{...state,error:null}
     default:

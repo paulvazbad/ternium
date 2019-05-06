@@ -8,7 +8,8 @@ import {
   NEW_USER,
   DELETED_USER,
   GET_USERS,
-  ERROR_NOTIFIED
+  ERROR_NOTIFIED,
+  LOADING_USERS
 } from "../../constants";
 import axios from "axios";
 //const linkBack = "http://terniumapp.herokuapp.com";
@@ -80,6 +81,10 @@ export const setSelectedDevice = id => ({
 //Get users
 export const getUsers = () => {
   return dispatch => {
+  dispatch({
+    type:LOADING_USERS
+  });
+
     axios
       .get(linkBack + "/api/users")
       .then(response => {
