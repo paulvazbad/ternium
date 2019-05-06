@@ -65,9 +65,28 @@ class HistoryPage extends React.Component {
      
     this.setState({historyData:preFilteredList});
   };
-  onSearch = filteredList => {
-    this.setState({ historyData: filteredList });
+  preFilterS = (filter,data) => {
+    let preFilteredList = data.filter(element => {
+         
+      if (filter === "Alertas") {
+        return element.type === "alert";
+      } else if(filter === "Monitoreo") {
+        return !(element.type === "alert");
+      }
+      else{
+          return true;
+      }
+    });
+    return preFilteredList;
+    
   };
+
+
+  onSearch = filteredList => {
+    var allfilters = this.preFilterS(this.state.filter,filteredList);
+    this.setState({ historyData: allfilters });
+  };
+
   renderHistory = () =>
     this.state.historyData.map(hd => (
       <HistoryCard
