@@ -10,6 +10,7 @@ import MapView from './MapView.js'
 import CloseIcon from "@material-ui/icons/Close";
 import PersonIcon from "@material-ui/icons/Person";
 import IconButton from '@material-ui/core/IconButton';
+import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
   root: {
@@ -21,7 +22,8 @@ const styles = theme => ({
     borderRadius: 15,
     justifyContent:"center",
     alignItems:"center",
-    marginBottom:15
+    marginBottom:15,
+    position:"relative"
   },
   pos: {
     marginBottom: 1,
@@ -29,6 +31,18 @@ const styles = theme => ({
   },
   chip:{
     margin:"3px"
+  },
+  layer:{
+    backgroundColor:"white",
+    position: "absolute",
+    opacity: 0.5,
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    justifyContent:"center",
+    alignItems:"center",
+    zIndex:1
   }
 });
 
@@ -37,7 +51,6 @@ function Dashboard(props) {
 
 
     const gasComponent = () =>{
-       
        
       let gasses = []
       let index = 0;
@@ -75,6 +88,11 @@ function Dashboard(props) {
       </IconButton>
 
         </Grid>
+        {props.disconnected && <div className={classes.layer}>
+        <Typography variant="h4" component="h2" style={{ color: "black" }}align="center">
+        Disconnected
+        </Typography>
+        </div>}
         {gasComponent()}
         <Grid item xs={sizes[0]} >
             <MapView location={[25.72197,-100.30275]} />

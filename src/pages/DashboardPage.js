@@ -54,6 +54,10 @@ class DashboardPage extends Component {
             draggable: true
           })
         }
+
+        var updatedSeconds = (Date.now() - Date.parse(gas.updatedAt))/1000;
+        var disconnected = (updatedSeconds>=60)
+        console.log(disconnected)
         return (
           <SessionCard
             gasInfo={gas.data}
@@ -63,6 +67,7 @@ class DashboardPage extends Component {
             bufferInfo={bufferInfo}
             sessionId={gas._id}
             endSession={sessionId => this.props.endSession(sessionId)}
+            disconnected={disconnected}
           />
         );
       });

@@ -17,9 +17,7 @@ import {
 const defaultState = {
   currentSessions: [],
   pastSessions: [],
-  failedAttempts: null,
   failedAllConnections: false,
-  failedConnections: [],
   loading: true,
   usedDevices:[],
   usedWorkers:[],
@@ -38,8 +36,6 @@ const sessionReducer = (state = defaultState, action) => {
       };
     case FAILED_ACTIVE_SESSIONS:
       return { ...state, failedAllConnections: true,loading:false };
-    case FAILED_A_SESSION:
-      return { ...state, failedConnections: action.payload };
     case NEW_SESSION:
       return { ...state, loading: false,succesful:true };
     case FAILED_NEW_SESSION:
@@ -51,7 +47,7 @@ const sessionReducer = (state = defaultState, action) => {
     case GET_PAST_SESSIONS:
       return {...state, pastSessions:action.payload}
     case FAILED_SESSIONS:
-      return{...state}
+      return{...state, failedAllConnections:true}
     default:
       return state;
   }

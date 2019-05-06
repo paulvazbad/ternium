@@ -15,43 +15,6 @@ const linkBack = process.env.REACT_APP_API_BACKEND;
 //const linkBack = http://terniumapp.herokuapp.com/";
 
 //GET_ACTIVE_SESSIONS
-const checkIfAll = currentSessions => {
-  return (dispatch, getState) => {
-    const failedConnections = [];
-    const state = getState();
-    let pastSessions = state.sessions.currentSessions;
-    const failedAttempts = state.sessions.failedAttempts;
-    currentSessions.map((value, index) => {
-      let obj = pastSessions.find(o => o.deviceId === value.deviceId);
-      if (!obj) {
-        if (failedAttempts[obj.deviceId]) {
-          if (failedAttempts[obj.deviceId] > 1) {
-            failedConnections.push(obj.deviceId);
-          } else {
-            failedAttempts[obj.deviceId]++;
-          }
-        } else {
-          failedAttempts[obj.value] = 0;
-        }
-      }
-
-      if (failedAttempts.size > 1) {
-        dispatch({
-          type: FAILED_ATTEMPTS,
-          payload: failedAttempts
-        });
-      }
-
-      if (failedConnections.size > 1) {
-        dispatch({
-          type: FAILED_A_SESSION,
-          payload: failedConnections
-        });
-      }
-      return false;
-    });
-  };
-};
 
 export const getActiveSessions = username => {
   return dispatch => {
@@ -62,9 +25,7 @@ export const getActiveSessions = username => {
       credentials: false
     })
       .then(response => {
-        //define the  parameters of a  session
-
-        checkIfAll(response.data);
+        //define the  parameters of a  session        
         var devices = [];
         var workers = [];
         for (var i = 0; i < response.data.length; i++) {
@@ -81,6 +42,7 @@ export const getActiveSessions = username => {
         });
       })
       .catch(error => {
+        console.log(error);
         dispatch({
           type: FAILED_ACTIVE_SESSIONS
         });

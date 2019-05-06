@@ -6,8 +6,8 @@ import CardContent from "@material-ui/core/CardContent";
 import L from "leaflet";
 import ReactDOM from "react-dom";
 import { MC2, Aceria, REDI } from "../utils/GeoFences.js";
-import Router from "@material-ui/icons/Router";
 import pointInPolygon from "../utils/PIP.js";
+
 const styles = {
   card: {
     width: "100%",
@@ -16,11 +16,15 @@ const styles = {
     justifyContent: "center",
     margin: 2,
     marginBottom: 0,
-    height: "100%"
+    height: "100%",
+    position:"relative"
   },
   pos: {
     marginBottom: 1,
     fontSize: 20
+  },
+  map:{
+    position:"relative"
   }
 };
 
@@ -74,7 +78,7 @@ class MapView extends React.Component {
   };
 
   render() {
-    const { classes, location } = this.props;
+    const { location } = this.props;
     if (this.map) {
       this.determineZone(location);
       this.marker = L.marker(location).addTo(this.map);
@@ -83,13 +87,13 @@ class MapView extends React.Component {
       }
     }
     return (
-      <Card className={classes.card}>
-        <CardContent>
-          <div id="map" height={200} />
+      <Card style={styles.card}>
+        <CardContent style={{position:"relative"}}>
+          <div id="map" style={{position:"relative"}} height={200} />
         </CardContent>
       </Card>
     );
   }
 }
 
-export default withStyles(styles)(MapView);
+export default (MapView);

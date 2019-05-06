@@ -20,7 +20,8 @@ const styles = {
     textAlign: "center",
     justifyContent: "center",
     margin: 2,
-    marginBottom: 0
+    marginBottom: 0,
+    position:"relative"
   },
   pos: {
     marginBottom: 1,
@@ -49,7 +50,8 @@ class GasPlotter extends React.Component {
   render() {
     const { classes } = this.props;
     var cardStyle = {
-      backgroundColor: "white"
+      backgroundColor: "white",
+      position:"relative"
       //border: "3px solid " + safe,
     };
     const data = [
