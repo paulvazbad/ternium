@@ -31,8 +31,8 @@ class DashboardPage extends Component {
     };
   }
   renderGasComponent = () => {
-    if (this.props.currentSessions.length > 0) {
-      return this.props.currentSessions.map((gas, index) => {
+    if (this.state.GasInfo.length > 0) {
+      return this.state.GasInfo.map((gas, index) => {
         if(gas.alertaBoton  || gas.alertaCaida || gas.alertaMetrica!==""){
           var errorMsg="";
         if(gas.alertaBoton){
@@ -107,11 +107,11 @@ class DashboardPage extends Component {
             {this.props.auth.rol}
           </Typography>
         </div>
-        <Search
+        {this.props.currentSessions.length >0 &&<Search
           placeholder={"Buscar sesiones activas"}
           searchList={this.props.currentSessions}
           onSearch={this.onSearch}
-        />
+        />}
         <br />
         <div>{this.renderGasComponent()}</div>
       </div>

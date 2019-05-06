@@ -31,6 +31,10 @@ const styles = {
 };
 
 class Search extends React.Component {
+  componentDidMount(){
+    this.props.onSearch(this.props.searchList);
+  }
+
   onChange = (e, searchList) => {
     let newList = [];
     if (e.target.value !== "") {
