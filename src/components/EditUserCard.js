@@ -19,7 +19,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
-
+import ConfirmationDialog from "./ConfirmationDialog.js";
 import save from "./images/save";
 
 const styles = theme => ({
@@ -79,20 +79,19 @@ class EditUserCard extends React.Component {
     rol: this.props.rol,
     username: this.props.username,
     password: "",
-
+    open: false,
     formInfo: null
   };
 
   handleSave = () => {
-
     const forminfo = {
       name: this.state.name,
       area: this.state.area,
       rol: this.state.rol,
-      username: this.state.username,
+      username: this.state.username
     };
-    if(this.state.password!==""){
-      forminfo.password = this.state.password
+    if (this.state.password !== "") {
+      forminfo.password = this.state.password;
     }
 
     this.setState(state => ({ formInfo: this.forminfo }));
@@ -124,7 +123,9 @@ class EditUserCard extends React.Component {
   handleClickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
-
+  handleClose = () => {
+    this.setState({ open: false });
+  };
   render() {
     const { classes } = this.props;
 
@@ -139,116 +140,129 @@ class EditUserCard extends React.Component {
     };
     return (
       <form>
-      <Grid container spacing={24}>
-        <Grid item xs={3} align="left">
-          <TextField
-            label="Nombre"
-            className={classes.textField}
-            defaultValue={this.props.name}
-            margin="normal"
-            onChange={this.handleChange("name")}
-          />
-        </Grid>
-        <Grid item xs={3} align="left">
-          <TextField
-            label="Username"
-            className={classes.textField}
-            defaultValue={this.props.username}
-            onChange={this.handleChange("username")}
-            InputProps={
-              {
-                //readOnly: true,
-              }
-            }
-            margin="normal"
-          />
-        </Grid>
-        <Grid item xs={3} align="left">
-          <InputLabel htmlFor="adornment-password" style={{ fontSize: "12px" }}>
-            Password
-          </InputLabel>
-          <Input
-            type={this.state.showPassword ? "text" : "password"}
-            value={this.state.password}
-            onChange={this.handleChange("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="Toggle password visibility"
-                  onClick={this.handleClickShowPassword}
-                >
-                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </Grid>
-        <Grid item xs={3} align="right">
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={!this.state.enableSave}
-            style={buttonStyle1}
-            onClick={this.handleSave} //change
-          >
-            {save()}
-          </Button>
-        </Grid>
-        <Grid item xs={3} align="left">
-          <TextField
-            select
-            label="Area"
-            value={this.state.area}
-            onChange={this.handleChange("area")}
-            InputProps={{
-              readOnly: this.state.readOnly
-            }}
-          >
-            {areas.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={3} align="left">
-          <TextField
-            select
-            label="Rol"
-            value={this.state.rol}
-            onChange={this.handleChange("rol")}
-            InputProps={{
-              readOnly: this.state.readOnly
-            }}
-          >
-            {roles.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid item xs={3} align="left" />
-        {!this.props.newUserCard && (
-          <Grid
-            item
-            xs={3}
-            align="right"
-            onClick={() => {
-              this.handleDelete();
-            }}
-          >
-            <IconButton
-              style={{ marginRight: "7%" }}
-              className={classes.button}
-              aria-label="Delete"
-              fontSize="large"
-            >
-              <DeleteIcon />
-            </IconButton>
+        <Grid container spacing={24}>
+          <Grid item xs={3} align="left">
+            <TextField
+              label="Nombre"
+              className={classes.textField}
+              defaultValue={this.props.name}
+              margin="normal"
+              onChange={this.handleChange("name")}
+            />
           </Grid>
-        )}
-      </Grid>
+          <Grid item xs={3} align="left">
+            <TextField
+              label="Username"
+              className={classes.textField}
+              defaultValue={this.props.username}
+              onChange={this.handleChange("username")}
+              InputProps={
+                {
+                  //readOnly: true,
+                }
+              }
+              margin="normal"
+            />
+          </Grid>
+          <Grid item xs={3} align="left">
+            <InputLabel
+              htmlFor="adornment-password"
+              style={{ fontSize: "12px" }}
+            >
+              Password
+            </InputLabel>
+            <Input
+              type={this.state.showPassword ? "text" : "password"}
+              value={this.state.password}
+              onChange={this.handleChange("password")}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="Toggle password visibility"
+                    onClick={this.handleClickShowPassword}
+                  >
+                    {this.state.showPassword ? (
+                      <Visibility />
+                    ) : (
+                      <VisibilityOff />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </Grid>
+          <Grid item xs={3} align="right">
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={!this.state.enableSave}
+              style={buttonStyle1}
+              onClick={this.handleSave} //change
+            >
+              {save()}
+            </Button>
+          </Grid>
+          <Grid item xs={3} align="left">
+            <TextField
+              select
+              label="Area"
+              value={this.state.area}
+              onChange={this.handleChange("area")}
+              InputProps={{
+                readOnly: this.state.readOnly
+              }}
+            >
+              {areas.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={3} align="left">
+            <TextField
+              select
+              label="Rol"
+              value={this.state.rol}
+              onChange={this.handleChange("rol")}
+              InputProps={{
+                readOnly: this.state.readOnly
+              }}
+            >
+              {roles.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item xs={3} align="left" />
+          {!this.props.newUserCard && (
+            <Grid
+              item
+              xs={3}
+              align="right"
+              onClick={() => this.setState({ open: true })}
+            >
+              <IconButton
+                style={{ marginRight: "7%" }}
+                className={classes.button}
+                aria-label="Delete"
+                fontSize="large"
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Grid>
+          )}
+        </Grid>
+        <ConfirmationDialog
+          handleDelete={this.handleDelete}
+          open={this.state.open}
+          handleClose={this.handleClose}
+          name={this.props.name}
+        >
+          Esta accion es irreversible.
+        </ConfirmationDialog>
       </form>
     );
   }
