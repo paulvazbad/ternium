@@ -33,8 +33,19 @@ class DashboardPage extends Component {
   renderGasComponent = () => {
     if (this.props.currentSessions.length > 0) {
       return this.props.currentSessions.map((gas, index) => {
-        if(gas.alerta){
-          toast.error("Alerta en: " +gas.staff.name , {
+        if(gas.alertaBoton  || gas.alertaCaida || gas.alertaMetrica!==""){
+          var errorMsg="";
+        if(gas.alertaBoton){
+          errorMsg = "Alerta en: " +gas.staff.name + "por boton de panico";
+          
+        }
+        else if(gas.alertaCaida){
+          errorMsg = "Alerta en" + gas.staff.name + "por caida";
+        }
+        else{
+          errorMsg = "Alerta en" + gas.staff.name + "por" + gas.alertaMetrica;
+        }
+          toast.error(errorMsg, {
             position: "bottom-right",
             autoClose: false,
             hideProgressBar: false,

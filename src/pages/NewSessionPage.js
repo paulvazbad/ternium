@@ -107,7 +107,6 @@ class NewSessionPage extends React.Component {
         } else {
           return this.step0();
         }
-        break;
       case 1:
         return this.step1;
       case 2:

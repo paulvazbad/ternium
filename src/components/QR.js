@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import QrReader from "react-qr-reader";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
@@ -36,7 +36,6 @@ class QR extends React.Component {
     console.error(err);
   };
   render() {
-    const { classes } = this.props;
     return (
       <div style={{ margin: "auto" }}>
         <QrReader
