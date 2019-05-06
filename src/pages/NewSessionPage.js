@@ -130,8 +130,8 @@ class NewSessionPage extends React.Component {
   handleNext = steps => () => {
     if (this.state.activeStep !== 1 && this.state.notSent) {
       this.props.newSession(
-        this.state.selectedDevice,
-        this.state.selectedWorker,
+        this.props.selectedDevice,
+        this.props.selectedWorker,
         this.props.username
       );
       this.setState({ notSent: false });

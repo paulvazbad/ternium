@@ -22,7 +22,8 @@ const defaultState = {
   failedConnections: [],
   loading: true,
   usedDevices:[],
-  usedWorkers:[]
+  usedWorkers:[],
+  succesful:true
 };
 const sessionReducer = (state = defaultState, action) => {
   switch (action.type) {

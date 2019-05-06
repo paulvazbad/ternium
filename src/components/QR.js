@@ -17,10 +17,19 @@ class QR extends React.Component {
 
   handleScan = data => {
     if (data) {
-      this.setState({
-        result: data
-      });
-      this.props.setSelectedDevice(data)
+      console.log(data)
+      var patt = /([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})/;
+      var result = patt.test(data);
+      if (result) {
+        this.setState({
+          result: data
+        });
+        this.props.setSelectedDevice(data);
+      } else {
+        this.setState({
+          result: "Not a valid device sticker"
+        });
+      }
     }
   };
   handleError = err => {

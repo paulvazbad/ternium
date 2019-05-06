@@ -89,6 +89,8 @@ export const getActiveSessions = username => {
 };
 //NEW_SESSION
 export const newSession = (deviceID, workerID, username) => {
+  console.log(workerID);
+  console.log(deviceID);
   return (dispatch, getState) => {
     dispatch({
       type: LOADING_NEW_SESSION
