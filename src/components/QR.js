@@ -42,7 +42,7 @@ class QR extends React.Component {
           delay={300}
           onError={this.handleError}
           onScan={this.handleScan}
-          style={{ width: "100%" }}
+          style={{ width: "50%", margin:'auto' }}
         />
         <Typography style={QRDetectedStyle}>{this.state.result}</Typography>
       </div>

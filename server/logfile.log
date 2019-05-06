@@ -231,3 +231,4 @@
 {"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-06T19:05:29.494Z"}
 {"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-06T19:56:48.074Z"}
 {"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-06T19:56:48.827Z"}
+{"message":"Cannot read property 'hidrogeno' of undefined","stack":"TypeError: Cannot read property 'hidrogeno' of undefined\n    at router.delete (C:\\Users\\pev\\Documents\\TEC\\6to semestre\\ternium\\server\\routes\\sessions.js:73:34)\n    at processTicksAndRejections (internal/process/next_tick.js:81:5)","level":"error","timestamp":"2019-05-06T21:05:46.208Z"}
