@@ -35,11 +35,12 @@ const styles = theme => ({
   layer:{
     backgroundColor:"white",
     position: "absolute",
-    opacity: 0.5,
-    top: "0",
-    left: "0",
+    display:"flex",
+    opacity: 0.8,
+    bottom: "0",
+    right: "0",
     width: "100%",
-    height: "100%",
+    height: "85.87%",
     justifyContent:"center",
     alignItems:"center",
     zIndex:1
@@ -89,13 +90,13 @@ function Dashboard(props) {
 
         </Grid>
         {props.disconnected && <div className={classes.layer}>
-        <Typography variant="h4" component="h2" style={{ color: "black" }}align="center">
-        Disconnected
+        <Typography variant="h4" component="h2" style={{ color: "black", opacity:1}}align="center">
+        Desconectado
         </Typography>
         </div>}
         {gasComponent()}
         <Grid item xs={sizes[0]} >
-            <MapView location={[25.72197,-100.30275]} />
+            <MapView location={[25.72197,-100.30275]} disconnected={props.disconnected}/>
         </Grid>
         <Grid item xs={sizes[1]} >
             <GasPlotter bufferInfo={props.bufferInfo}/>
