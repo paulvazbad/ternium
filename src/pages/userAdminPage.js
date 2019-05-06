@@ -51,8 +51,10 @@ class userAdminPage extends React.Component {
     super(props);
     this.state = {
       userData: [],
-      modalOpen: false
+      modalOpen: false,
+      isLoading:false
     };
+    // Binds our scroll event handler
   }
 
   addUser = () => {
@@ -61,6 +63,8 @@ class userAdminPage extends React.Component {
   componentWillMount(){
     this.props.getUsers()
   }
+
+  
   componentDidUpdate(){
     if(this.props.error){
       toast.error(this.props.error, {

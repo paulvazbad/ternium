@@ -81,6 +81,9 @@ export const newSession = (deviceID, workerID, username) => {
 export const getPastSessions = (cant) =>{
   console.log(cant);
   return (dispatch, getState) =>{
+    dispatch({
+      type: LOADING_NEW_SESSION
+    });
     var x_auth_token = getState().auth.x_auth_token
     axios({
       method: "get",
