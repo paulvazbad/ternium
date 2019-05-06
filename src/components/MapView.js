@@ -67,7 +67,10 @@ class MapView extends React.Component {
     }
   }
   componentWillUnmount() {
-    this.map.remove();
+    if(this.map){
+      this.map.remove();
+    }
+    
   }
 
   determineZone = location => {
