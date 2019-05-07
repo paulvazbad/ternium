@@ -28,7 +28,6 @@ const sessionReducer = (state = defaultState, action) => {
     case GET_ACTIVE_SESSIONS:
       return {
         ...state,
-        pastSessions: state.currentSessions,
         currentSessions: action.payload.sessions,
         usedDevices: action.payload.devices,
         usedWorkers: action.payload.workers,
