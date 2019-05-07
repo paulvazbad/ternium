@@ -46,7 +46,7 @@ class App extends Component {
     if (this.props.auth.loaded) {
       return (
         <MuiThemeProvider theme={theme}>
-          <BrowserRouter>
+          <BrowserRouter basename="/app/">
             {this.props.auth.username && <Timeout time={10} />}
             {this.props.auth.username && <SnackbarTrigger />}
             {(this.props.auth.rol === "SA" || this.props.auth.rol === "SS") && (

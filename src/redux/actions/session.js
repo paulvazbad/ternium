@@ -17,12 +17,14 @@ const linkBack = process.env.REACT_APP_API_BACKEND;
 //GET_ACTIVE_SESSIONS
 
 export const getActiveSessions = username => {
-  return dispatch => {
+  return (dispatch,getState) => {
+      const x_auth_token = getState().auth.x_auth_token; 
     axios({
       method: "get",
-      url: linkBack + "/api/sessions", //userID,
+      url: "/api/sessions", //userID,
       proxyHeaders: false,
-      credentials: false
+      credentials: false,
+      headers: { "x-auth-token": x_auth_token }
     })
       .then(response => {
         //define the  parameters of a  session        
@@ -54,11 +56,12 @@ export const newSession = (deviceID, workerID, username) => {
   console.log(workerID);
   console.log(deviceID);
   return (dispatch, getState) => {
+    const x_auth_token = getState().auth.x_auth_token; 
     dispatch({
       type: LOADING_NEW_SESSION
     });
     axios
-      .post(linkBack + "/api/sessions", {
+      .post("/api/sessions", {
         staff: workerID,
         supervisor: username,
         mac: deviceID
@@ -79,15 +82,15 @@ export const newSession = (deviceID, workerID, username) => {
 
 //GET_PAST_SESSIONS
 export const getPastSessions = (cant) =>{
-  console.log(cant);
+  console.log(cant);  
   return (dispatch, getState) =>{
+    const x_auth_token = getState().auth.x_auth_token; 
     dispatch({
       type: LOADING_NEW_SESSION
     });
-    var x_auth_token = getState().auth.x_auth_token
     axios({
       method: "get",
-      url: linkBack + "/api/history/"+cant,
+      url: "/api/history/"+cant,
       proxyHeaders: false,
       credentials: false,
       headers: { "x-auth-token": x_auth_token }
@@ -111,9 +114,11 @@ export const getPastSessions = (cant) =>{
 //END_SESSION
 
 export const endSession = sessionId => {
+  
   return (dispatch, getState) => {
+    const x_auth_token = getState().auth.x_auth_token;
     axios
-      .delete(linkBack + "/api/sessions/" + sessionId)
+      .delete("/api/sessions/" + sessionId)
       .then(response => {
         var sessions = getState().session.currentSessions;
         var newSessions = sessions.filter((value, index) => {

@@ -22,7 +22,7 @@ export const fetchWorkers = () => {
 
     //FETCH workers from the api  here
     axios
-      .get(linkBack + "/api/users/" + user)
+      .get("/api/users/" + user)
       .then(function(response) {
         var state = getState();
         let filteredWorkers = response.data.team.filter((value, index) => {
@@ -47,7 +47,7 @@ export const fetchDevices = () => {
     //FETCH workers from the api  here
 
     axios
-      .get(linkBack + "/api/devices")
+      .get("/api/devices")
       .then(response => {
         let state = getState();
 
@@ -86,7 +86,7 @@ export const getUsers = () => {
   });
 
     axios
-      .get(linkBack + "/api/users")
+      .get("/api/users")
       .then(response => {
         dispatch({
           type: GET_USERS,
@@ -114,7 +114,7 @@ export const editUser = userInfo => {
     };
     console.log(userInfo);
     axios
-      .put(linkBack + "/api/users/"+userInfo.username, userInfo)
+      .put("/api/users/"+userInfo.username, userInfo)
       .then(response => {
         dispatch({
           type: NEW_USER,
@@ -142,7 +142,7 @@ export const newUser = userInfo => {
       rol: "SA"
     };
     axios
-      .post(linkBack + "/api/users", userInfo)
+      .post( "/api/users", userInfo)
       .then(response => {
         dispatch({
           type: NEW_USER,
@@ -169,7 +169,7 @@ export const deleteUser = (userInfo, index) => {
       rol: "SA"
     };
     axios
-      .delete(linkBack + "/api/users/"+ userInfo.username)
+      .delete("/api/users/"+ userInfo.username)
       .then(response => {
         dispatch({
           type: DELETED_USER,

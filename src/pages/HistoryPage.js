@@ -118,6 +118,7 @@ class HistoryPage extends React.Component {
   };
   render() {
     if(this.props.historyData.length>0){
+      console.log(this.props.historyData);
       return (
         <div styles={{ margin: "auto" }}>
           <Search

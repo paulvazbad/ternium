@@ -26,7 +26,7 @@ export const logIn = userInfo => {
     });
     axios({
       method: "post",
-      url: linkBack + "/api/auth/",
+      url: "/api/auth/",
       proxyHeaders: false,
       credentials: false,
       data: { username: userInfo.username, password: userInfo.password }
@@ -43,7 +43,7 @@ export const logIn = userInfo => {
         
         axios({
           method: "get",
-          url: linkBack + "/api/users/me",
+          url: "/api/users/me",
           proxyHeaders: false,
           credentials: false,
           headers: { "x-auth-token": x_auth_token }
@@ -84,20 +84,21 @@ export const loadUser =  () => {
     let JSONUSer = {};
     cookie = sessionStorage.getItem("user");
     if (cookie) {
-       dispatch({
+      console.log() 
+      dispatch({
          type:FETCHING_USER
        })
       const cachedUser = jwt.decode(cookie, secret);
       JSONUSer = cachedUser;
       axios
-        .post(linkBack + "/api/auth", JSONUSer)
+        .post("/api/auth", JSONUSer)
         .then( response => {
           x_auth_token = response.data;
           //Delete this          
            
           axios({
             method: "get",
-            url: linkBack + "/api/users/me",
+            url: "/api/users/me",
             proxyHeaders: false,
             credentials: false,
             headers: { "x-auth-token": x_auth_token }
@@ -110,7 +111,11 @@ export const loadUser =  () => {
               });
             })
             .catch(error => {
-               
+              sessionStorage.removeItem("user");
+              dispatch({
+                type: LOAD_USER,
+                payload: {}
+              });     
             });
         })
         .catch(error => {
