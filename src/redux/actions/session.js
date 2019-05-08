@@ -96,9 +96,12 @@ export const getPastSessions = (cant) =>{
       headers: { "x-auth-token": x_auth_token }
     })
     .then((response)=>{
+       var pastSessions = response.data[0];
+       var alerts = response.data[1];
+      var all = [...pastSessions.map(value=>({...value,type:"history"})),...alerts.map(value=>({...value,type:"alert"}))]
       dispatch({
         type:GET_PAST_SESSIONS,
-        payload:response.data
+        payload:all
       });
     })
     .catch((error)=>{

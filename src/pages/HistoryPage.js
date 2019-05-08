@@ -25,6 +25,17 @@ var buttonStyle1 = {
 };
 
 class HistoryPage extends React.Component {
+  /* 
+    this.props.historyData : tiene alertas y sesiones pasadas
+    cada objeto tiene un atributo que indica si es alerta o sesion pasada
+    {
+      type:"alert"
+    }
+    {
+      type:"history"
+    }
+  
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +81,7 @@ class HistoryPage extends React.Component {
     }
   };
   preFilter = filter => {
-    let preFilteredList = historyData.filter(element => {
+    let preFilteredList = this.props.historyData.filter(element => {
       if (filter === "Alertas") {
         return element.type === "alert";
       } else if (filter === "Monitoreo") {
@@ -118,13 +129,12 @@ class HistoryPage extends React.Component {
   };
   render() {
     if(this.props.historyData.length>0){
-      console.log(this.props.historyData);
       return (
         <div styles={{ margin: "auto" }}>
           <Search
             placeholder={"Buscar sesiones pasadas e incidentes"}
             onSearch={this.onSearch}
-            searchList={historyData}
+            searchList={this.props.historyData}
           />
           <br />
           <div>
