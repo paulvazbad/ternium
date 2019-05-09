@@ -9,14 +9,16 @@ import {
   DELETED_USER,
   GET_USERS,
   ERROR_NOTIFIED,
-  LOADING_USERS
+  LOADING_USERS,
+  NEW_DEVICE,
+  ERROR
 } from "../../constants";
 
 const defaultState = {
   workers: null,
   selectedWorker: "",
   selectedDevice: "",
-  devices: null,
+  devices: [],
   users: [],
   error: null,
   loading:false,
@@ -40,6 +42,10 @@ const userReducer = (state = defaultState, action) => {
       return { ...state, users: action.payload, loading:false };
     case NEW_USER:
       return { ...state, users: [...state.users, action.payload], error: null };
+    case NEW_DEVICE:
+      return {...state,devices: [...state.devices,action.payload]};
+    case ERROR:
+      return {...state, error:action.payload};
     case DELETED_USER:
       let newUsers = [...state.users];
       newUsers.splice(action.payload, 1);

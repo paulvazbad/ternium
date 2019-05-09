@@ -17,6 +17,8 @@ export const DELETED_USER = "DELETED_USER";
 export const GET_USERS = "GET_USERS";
 export const ERROR_NOTIFIED = "ERROR_NOTIFIED";
 export const LOADING_USERS = "LOADING_USERS";
+export const NEW_DEVICE = "NEW_DEVICE";
+export const ERROR = "ERROR";
 //sessionReducer
 export const GET_ACTIVE_SESSIONS = "GET_ACTIVE_SESSIONS";
 export const FAILED_ACTIVE_SESSIONS = "FAILED_ACTIVE_SESSIONS";

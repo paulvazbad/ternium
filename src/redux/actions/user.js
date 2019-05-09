@@ -9,7 +9,9 @@ import {
   DELETED_USER,
   GET_USERS,
   ERROR_NOTIFIED,
-  LOADING_USERS
+  LOADING_USERS,
+  NEW_DEVICE,
+  ERROR
 } from "../../constants";
 import axios from "axios";
 //const linkBack = "http://terniumapp.herokuapp.com";
@@ -69,21 +71,67 @@ export const fetchDevices = () => {
   };
 };
 
+//New Device
+export const newDevice = id => {
+  return (dispatch, getState) => {
+    //FETCH workers from the api  here
+    let state = getState();
+    console.log(state.session.usedDevices.includes(id));
+    console.log(state.user.devices.includes(id));
+    console.log(
+      !(
+        state.session.usedDevices.includes(id) ||
+        state.user.devices.includes(id)
+      )
+    );
+    const { x_auth_token } = getState().auth;
+    axios({
+      method: "post",
+      url: "/api/devices",
+      proxyHeaders: false,
+      credentials: false,
+      headers: { "x-auth-token": x_auth_token },
+      data: { mac: id }
+    })
+      .then(response => {
+        dispatch({
+          type: NEW_DEVICE,
+          payload: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
 export const setSelectedWorker = id => ({
   type: SELECT_WORKER,
   payload: id
 });
 
-export const setSelectedDevice = id => ({
-  type: SELECT_DEVICE,
-  payload: id
-});
+export const setSelectedDevice = id => {
+  return (dispatch, getState) => {
+    let state = getState();
+    if (!state.session.usedDevices.includes(id)) {
+      dispatch({
+        type: SELECT_DEVICE,
+        payload: id
+      });
+    } else {
+      dispatch({
+        type: ERROR,
+        payload: "Device already in use"
+      });
+    }
+  };
+};
 //Get users
 export const getUsers = () => {
   return dispatch => {
-  dispatch({
-    type:LOADING_USERS
-  });
+    dispatch({
+      type: LOADING_USERS
+    });
 
     axios
       .get("/api/users")
@@ -114,7 +162,7 @@ export const editUser = userInfo => {
     };
     console.log(userInfo);
     axios
-      .put("/api/users/"+userInfo.username, userInfo)
+      .put("/api/users/" + userInfo.username, userInfo)
       .then(response => {
         dispatch({
           type: NEW_USER,
@@ -125,7 +173,7 @@ export const editUser = userInfo => {
         console.log(error);
         dispatch({
           type: FAILED_USER,
-          payload: 'Cant update user'
+          payload: "Cant update user"
         });
       });
   };
@@ -142,7 +190,7 @@ export const newUser = userInfo => {
       rol: "SA"
     };
     axios
-      .post( "/api/users", userInfo)
+      .post("/api/users", userInfo)
       .then(response => {
         dispatch({
           type: NEW_USER,
@@ -169,7 +217,7 @@ export const deleteUser = (userInfo, index) => {
       rol: "SA"
     };
     axios
-      .delete("/api/users/"+ userInfo.username)
+      .delete("/api/users/" + userInfo.username)
       .then(response => {
         dispatch({
           type: DELETED_USER,
@@ -184,6 +232,6 @@ export const deleteUser = (userInfo, index) => {
       });
   };
 };
-export const errorNotified = ()=>({
-  type:ERROR_NOTIFIED
+export const errorNotified = () => ({
+  type: ERROR_NOTIFIED
 });

@@ -45,7 +45,7 @@ class DashboardPage extends Component {
           if (!this.stat[gas.mac]) {
             toast.error(errorMsg, {
               position: "bottom-right",
-              autoClose: false,
+              autoClose: 10000,
               hideProgressBar: false,
               closeOnClick: false,
               pauseOnHover: true,
