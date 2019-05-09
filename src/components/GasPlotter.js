@@ -5,11 +5,12 @@ import CardContent from "@material-ui/core/CardContent";
 import "../../node_modules/react-vis/dist/style.css";
 import {
   XYPlot,
-  LineSeries,
+  LineMarkSeries,
   VerticalGridLines,
   HorizontalGridLines,
   XAxis,
-  YAxis
+  YAxis,
+  DiscreteColorLegend
 } from "react-vis";
 import continuousColorLegend from "react-vis/dist/legends/continuous-color-legend";
 
@@ -22,7 +23,8 @@ const styles = {
     margin: 2,
     marginBottom: 0,
     position:"relative",
-    padding:2,
+    height:"100%",
+    padding:10,
   },
   pos: {
     marginBottom: 1,
@@ -34,19 +36,26 @@ class GasPlotter extends React.Component {
     // 
     const bufferInfo = this.props.bufferInfo;
     const gasLines=[];
+    var legends = [];
     for (var property in bufferInfo) {
       if (bufferInfo.hasOwnProperty(property)) {
-        var lineData = bufferInfo[property].map((value, index) => {
-          return { x: index, y: value };
-        });
-        // 
-        gasLines.push(<LineSeries data={lineData} />)
+        if(property!=="__id"){
+          var lineData = bufferInfo[property].map((value, index) => {
+            return { x: index, y: value};
+          }); 
+          legends.push(property);
+          console.log(lineData);
+          gasLines.push(<LineMarkSeries data={lineData} />)
+
+        }
         
       }
       
     }
     // 
-      return gasLines;
+    console.log(legends);
+   
+      return  [...gasLines,<DiscreteColorLegend orientation="horizontal" items={legends}/> ];
   };
   render() {
     console.log(this.props.bufferInfo);
@@ -54,14 +63,15 @@ class GasPlotter extends React.Component {
     var cardStyle = {
       backgroundColor: "white",
       position:"relative",
-      padding:"2px"
       //border: "3px solid " + safe,
     };
-   
+   var graph = window.innerWidth < 800? 300:500;
+   console.log(graph);
     return (
         <Card className={classes.card} style={cardStyle}>
           <CardContent>
-            <XYPlot height={200} width={400} yDomain={[0, 1000]}>
+            <XYPlot height={250} width={graph} yDomain={[0, 1000]}>
+            
               <VerticalGridLines />
               <HorizontalGridLines />
               <XAxis />

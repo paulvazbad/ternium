@@ -87,8 +87,8 @@ class MapView extends React.Component {
   render() {
     if(this.map && this.props.disconnected){
       console.log("remove map");
-      this.layerGroup.clearLayers();
-      this.map.off();
+      //this.layerGroup.clearLayers();
+     // this.map.off();
     }
     const { location } = this.props;
     if (this.map && !this.props.disconnected) {
@@ -102,10 +102,10 @@ class MapView extends React.Component {
       <Card style={styles.card}>
         <CardContent style={{ position: "relative" }}>
           {!this.props.disconnected && (
-            <div id="map" style={{ position: "relative" }} height={200} />
+            <div id="map" style={{ position: "relative" }} height={250} />
           )}
           {this.props.disconnected && (
-            <div style={{ position: "relative" }} height={200}>
+            <div style={{ position: "relative" }} height={250}>
               <Typography
                 variant="h6"
                 component="h2"
