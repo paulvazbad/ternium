@@ -21,7 +21,8 @@ const styles = {
     justifyContent: "center",
     margin: 2,
     marginBottom: 0,
-    position:"relative"
+    position:"relative",
+    padding:2,
   },
   pos: {
     marginBottom: 1,
@@ -52,14 +53,15 @@ class GasPlotter extends React.Component {
     const { classes } = this.props;
     var cardStyle = {
       backgroundColor: "white",
-      position:"relative"
+      position:"relative",
+      padding:"2px"
       //border: "3px solid " + safe,
     };
    
     return (
         <Card className={classes.card} style={cardStyle}>
           <CardContent>
-            <XYPlot height={200} width={600} yDomain={[0, 10]}>
+            <XYPlot height={200} width={400} yDomain={[0, 1000]}>
               <VerticalGridLines />
               <HorizontalGridLines />
               <XAxis />

@@ -37,7 +37,7 @@ class MapView extends React.Component {
       if (nextProps.location.length > 1 && this.props.location.length > 1) {
         var difLat = nextProps.location[0] !== this.props.location[0];
         var difLong = nextProps.location[1] !== this.props.location[1];
-        return difLat || difLong || !this.marker;
+        return difLat || difLong || !this.marker || (this.props.disconnected!==nextProps.disconnected);
       } else {
         return true;
       }
@@ -51,19 +51,17 @@ class MapView extends React.Component {
       this.map = L.map(ReactDOM.findDOMNode(this), {
         center: this.props.location || [25.7217, -100.3008],
         zoom: 15,
-        zoomControl: false,
-        layers: [
-          L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-            attribution:
-              '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          })
-        ]
+        zoomControl: false
       });
-      L.polygon(MC2, { color: "purple", stroke: false }).addTo(this.map);
-      L.polygon(Aceria, { color: "blue", stroke: false }).addTo(this.map);
-      L.polygon(REDI, { color: "orange", stroke: false }).addTo(this.map);
+      
+      this.layerGroup = L.layerGroup().addTo(this.map);
+      L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+            attribution:false
+          }).addTo(this.layerGroup);
+      L.polygon(MC2, { color: "purple", stroke: false }).addTo(this.layerGroup);
+      L.polygon(Aceria, { color: "blue", stroke: false }).addTo(this.layerGroup);
+      L.polygon(REDI, { color: "orange", stroke: false }).addTo(this.layerGroup);
       //var myIcon = L.divIcon();
-    } else {
     }
   }
   componentWillUnmount() {
@@ -87,10 +85,15 @@ class MapView extends React.Component {
   };
 
   render() {
+    if(this.map && this.props.disconnected){
+      console.log("remove map");
+      this.layerGroup.clearLayers();
+      this.map.off();
+    }
     const { location } = this.props;
-    if (this.map) {
+    if (this.map && !this.props.disconnected) {
       this.determineZone(location);
-      this.marker = L.marker(location).addTo(this.map);
+      this.marker = L.marker(location).addTo(this.layerGroup);
       if (this.zone) {
         this.marker = this.marker.bindPopup(this.zone).openPopup();
       }

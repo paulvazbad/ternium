@@ -63,7 +63,7 @@ class DashboardPage extends Component {
         }
         var updatedSeconds = (Date.now() - Date.parse(gas.updatedAt)) / 1000;
         console.log(updatedSeconds);
-        var disconnected = updatedSeconds >= 60;
+        var disconnected = updatedSeconds >= 10;
         console.log(disconnected);
         return (
           <SessionCard

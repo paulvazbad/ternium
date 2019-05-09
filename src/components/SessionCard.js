@@ -50,13 +50,14 @@ const styles = theme => ({
 class Dashboard extends React.Component {
    constructor(props){
      super(props);
+     this.maxSize = 10; 
      this.bufferInfo={};
      for (var property in props.gasInfo) {
       if (props.gasInfo.hasOwnProperty(property)) {
         this.bufferInfo[property]=[];
       }
     }
-
+     
    }
 
 
@@ -68,8 +69,12 @@ class Dashboard extends React.Component {
         for (var property in props.gasInfo) {
           if (props.gasInfo.hasOwnProperty(property)) {  
             if(property !== "_id"){
+
               this.bufferInfo[property].push(props.gasInfo[property]);
               
+              if(this.bufferInfo[property].length>this.maxSize){
+                this.bufferInfo[property].shift();
+              }
               gasses.push(<GasTag
                 id={index}
                 name={property}
