@@ -25,24 +25,14 @@ var buttonStyle1 = {
 };
 
 class HistoryPage extends React.Component {
-  /* 
-    this.props.historyData : tiene alertas y sesiones pasadas
-    cada objeto tiene un atributo que indica si es alerta o sesion pasada
-    {
-      type:"alert"
-    }
-    {
-      type:"history"
-    }
-  
-  */
+
   constructor(props) {
     super(props);
     this.state = {
-      filter: null,
-      historyData: historyData,
-      loading: false,
-      quantity: 10
+        filter: null,
+        historyData: this.props.historyData,
+        loading: false,
+        quantity: 10
     };
 
     window.onscroll = () => {
@@ -109,24 +99,44 @@ class HistoryPage extends React.Component {
   onSearch = filteredList => {
     var allfilters = this.preFilterS(this.state.filter, filteredList);
     this.setState({ historyData: allfilters, loading: false });
-  };
+    };
 
-  renderHistory = () => {
-    if(this.state.loading){
-      this.setState({loading:false});
-    }
-    return this.state.historyData.map(hd => (
-      <HistoryCard
-        date={hd.date}
-        btime={hd.begin_time}
-        etime={hd.end_time}
-        area={hd.area}
-        place={hd.place}
-        detected={hd.detected}
-        type={hd.type}
-      />
-    ));
-  };
+
+    renderHistory = () => {
+        if (this.state.loading) {
+            this.setState({ loading: false });
+        }
+        
+        if (this.state.historyData.length>0) {
+
+            return this.state.historyData.map((cardData) => {
+                if (cardData.type !== "history") {
+                    return (
+                        <HistoryCard
+                            date={cardData.date}
+                            data={cardData.data}
+                            type={cardData.type}
+                            sensor={cardData.sensor}
+                            place={cardData.gps}
+                            staff={cardData.staff}
+                        />)
+                } else {
+                    return (
+                        <HistoryCard
+                            idate={cardData.initialDate}
+                            edate={cardData.endDate}
+                            gases={cardData.Data}
+                            place={cardData.GPS}
+                            staff={cardData.staff}
+                        />
+                    )
+                }
+            })
+
+            return ("loading...")
+        }
+    };
+
   render() {
     if(this.props.historyData.length>0){
       return (
