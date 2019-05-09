@@ -32,7 +32,7 @@ class GasPlotter extends React.Component {
   renderLines = () => {
     // 
     const bufferInfo = this.props.bufferInfo;
-    const gasLines=[]
+    const gasLines=[];
     for (var property in bufferInfo) {
       if (bufferInfo.hasOwnProperty(property)) {
         var lineData = bufferInfo[property].map((value, index) => {
@@ -48,24 +48,14 @@ class GasPlotter extends React.Component {
       return gasLines;
   };
   render() {
+    console.log(this.props.bufferInfo);
     const { classes } = this.props;
     var cardStyle = {
       backgroundColor: "white",
       position:"relative"
       //border: "3px solid " + safe,
     };
-    const data = [
-      { x: 0, y: 7 },
-      { x: 1, y: 5 },
-      { x: 2, y: 4 },
-      { x: 3, y: 7 },
-      { x: 4, y: 5 },
-      { x: 5, y: 4 },
-      { x: 6, y: 6 },
-      { x: 7, y: 5 },
-      { x: 8, y: 5 },
-      { x: 9, y: 4 }
-    ];
+   
     return (
         <Card className={classes.card} style={cardStyle}>
           <CardContent>

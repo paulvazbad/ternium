@@ -71,7 +71,6 @@ class DashboardPage extends Component {
             deviceId={gas.mac}
             employee={gas.staff.name}
             key={gas.staff.name + index}
-            bufferInfo={bufferInfo}
             sessionId={gas._id}
             endSession={sessionId => this.props.endSession(sessionId)}
             disconnected={disconnected}

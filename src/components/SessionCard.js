@@ -47,17 +47,28 @@ const styles = theme => ({
   }
 });
 
-function Dashboard(props) {
-    const { classes } = props;
+class Dashboard extends React.Component {
+   constructor(props){
+     super(props);
+     this.bufferInfo={};
+     for (var property in props.gasInfo) {
+      if (props.gasInfo.hasOwnProperty(property)) {
+        this.bufferInfo[property]=[];
+      }
+    }
+
+   }
 
 
-    const gasComponent = () =>{
-       
+     gasComponent = () =>{
+      const { classes } = this.props;
       let gasses = []
+      var props = this.props;
       var index = 0;
         for (var property in props.gasInfo) {
           if (props.gasInfo.hasOwnProperty(property)) {  
             if(property !== "_id"){
+              this.bufferInfo[property].push(props.gasInfo[property]);
               
               gasses.push(<GasTag
                 id={index}
@@ -76,9 +87,10 @@ function Dashboard(props) {
       
 }
     
-
+render(){
     var sizes = [5, 7]
-
+    const { classes } = this.props;
+    var props = this.props;
     return (
     <div className={classes.root}>
         <Grid container spacing={8}>
@@ -95,16 +107,17 @@ function Dashboard(props) {
         Desconectado
         </Typography>
         </div>}
-        {gasComponent()}
+        {this.gasComponent()}
         <Grid item xs={sizes[0]} >
             <MapView location={[25.72197,-100.30275]} disconnected={props.disconnected}/>
         </Grid>
         <Grid item xs={sizes[1]} >
-            <GasPlotter bufferInfo={props.bufferInfo}/>
+            <GasPlotter bufferInfo={this.bufferInfo}/>
         </Grid>
         </Grid>
     </div>
     );
+}
 }
 
 Dashboard.propTypes = {

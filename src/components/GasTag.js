@@ -27,7 +27,7 @@ function GasTag(props) {
     const { classes } = props;
     var sizes = [3, 3, 3, 3]
     const limits = [1200, 1200, 1200, 34]
-    const suffix = ["% LEL", " ppm", "%", "C"]
+    const suffix = [" ppm", " ppm", " ppm", "C"]
 
     var safe = "#5DAE55"
     const red = "#DC4545"
