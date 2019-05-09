@@ -22,9 +22,9 @@ const styles = {
     justifyContent: "center",
     margin: 2,
     marginBottom: 0,
-    position:"relative",
-    height:"100%",
-    padding:10,
+    position: "relative",
+    height: "100%",
+    padding: 10
   },
   pos: {
     marginBottom: 1,
@@ -33,53 +33,52 @@ const styles = {
 };
 class GasPlotter extends React.Component {
   renderLines = () => {
-    // 
+    //
     const bufferInfo = this.props.bufferInfo;
-    const gasLines=[];
+    const gasLines = [];
     var legends = [];
     for (var property in bufferInfo) {
       if (bufferInfo.hasOwnProperty(property)) {
-        if(property!=="__id"){
+        if (property !== "_id") {
           var lineData = bufferInfo[property].map((value, index) => {
-            return { x: index, y: value};
-          }); 
+            return { x: index, y: value };
+          });
           legends.push(property);
           console.log(lineData);
-          gasLines.push(<LineMarkSeries data={lineData} />)
-
+          gasLines.push(<LineMarkSeries data={lineData} />);
         }
-        
       }
-      
     }
-    // 
+    //
     console.log(legends);
-   
-      return  [...gasLines,<DiscreteColorLegend orientation="horizontal" items={legends}/> ];
+
+    return [
+      ...gasLines,
+      <DiscreteColorLegend orientation="horizontal" items={legends} />
+    ];
   };
   render() {
     console.log(this.props.bufferInfo);
     const { classes } = this.props;
     var cardStyle = {
       backgroundColor: "white",
-      position:"relative",
+      position: "relative"
       //border: "3px solid " + safe,
     };
-   var graph = window.innerWidth < 800? 300:500;
-   console.log(graph);
+    var graph = window.innerWidth < 800 ? 300 : 500;
+    console.log(graph);
     return (
-        <Card className={classes.card} style={cardStyle}>
-          <CardContent>
-            <XYPlot height={250} width={graph} yDomain={[0, 1000]}>
-            
-              <VerticalGridLines />
-              <HorizontalGridLines />
-              <XAxis />
-              <YAxis />
-              {this.renderLines()}
-            </XYPlot>
-          </CardContent>
-        </Card>
+      <Card className={classes.card} style={cardStyle}>
+        <CardContent>
+          <XYPlot height={250} width={graph} yDomain={[0, 1000]}>
+            <VerticalGridLines />
+            <HorizontalGridLines />
+            <XAxis />
+            <YAxis />
+            {this.renderLines()}
+          </XYPlot>
+        </CardContent>
+      </Card>
     );
   }
 }
