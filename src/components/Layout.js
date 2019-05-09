@@ -85,6 +85,7 @@ class Layout extends React.Component {
               classes={classes}
               drawer={drawer}
               monitoreo={auth.rol === "SA"}
+              registerWork={auth.rol ==="SA"}
               handleDrawerToggle={this.handleDrawerToggle}
               mobileOpen={this.state.mobileOpen}
             />

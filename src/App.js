@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 //import Navbar from "./components/Navbar";
-import { DashboardPage, LoginPage, HistoryPage, NewSessionPage } from "./pages";
+import { DashboardPage, LoginPage, HistoryPage, NewSessionPage, MyTeamPage } from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { loadUser } from "./redux/actions/auth";
-import { DASHBOARD, HISTORY, NEWSESSION, USER_ADMIN } from "./constants/routes";
+import { DASHBOARD, HISTORY, NEWSESSION, USER_ADMIN, ADMINWORKERS } from "./constants/routes";
 import Layout from "./components/Layout";
 import {
   createMuiTheme,
@@ -78,6 +78,12 @@ class App extends Component {
                   path={USER_ADMIN}
                   component={userAdminPage}
                   rol={["SU"]}
+                />
+                <ProtectedRoute
+                  exact
+                  path={ADMINWORKERS}
+                  component={MyTeamPage}
+                  rol={["SA"]}
                 />
               </Switch>
             </Layout>

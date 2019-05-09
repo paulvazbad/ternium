@@ -6,9 +6,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Add from "@material-ui/icons/Add";
+import Group from "@material-ui/icons/Group";
 import Divider from "@material-ui/core/Divider";
 import { NavLink } from "react-router-dom";
-import { NEWSESSION } from "../constants/routes";
+import { NEWSESSION, ADMINWORKERS } from "../constants/routes";
 
 class ResponsiveDrawer extends React.Component {
   componentWillMount() {
@@ -38,6 +39,21 @@ class ResponsiveDrawer extends React.Component {
         </List>
         <Divider />
         <List>
+          {this.props.registerWork && (
+            <ListItem
+              button
+              component={NavLink}
+              to={ADMINWORKERS}
+              key={"Mi Equipo"}
+            >
+              <ListItemIcon>
+                            <Group />
+              </ListItemIcon>
+              <ListItemText primary={"Mi Equipo"} />
+            </ListItem>
+          )}
+        </List>
+        <List>
           {this.props.monitoreo && (
             <ListItem
               button
@@ -52,6 +68,7 @@ class ResponsiveDrawer extends React.Component {
             </ListItem>
           )}
         </List>
+        
       </div>
     );
     return (
