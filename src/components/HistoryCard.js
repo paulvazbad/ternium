@@ -13,7 +13,7 @@ const styles = theme => ({
         borderColor:"#787878",
         borderStyle:"solid",
         borderWidth: 1,
-        width: "55%",
+        width: "80%",
         padding: 0,
         paddingTop: 0,
         margin: "auto",
@@ -29,17 +29,34 @@ const styles = theme => ({
     },
 });
 
-function MediaControlCard(props) {
+function HistoryCard(props) {
+    //console.log(props.gases);
     const { classes } = props;
 
     var backgroudColorCard = {
-        backgroundColor: props.type === "alert" ? "#EE836C" : "white"
+        backgroundColor: (props.type) ? "#EE836C" : "white"
     }
 
-    const date = <HistoryDataTag upper={props.date} lower={props.btime + "-" + props.etime}/>;
-    const place = <HistoryDataTag upper={props.area} lower={props.place}/>; 
-    const type = <HistoryDataTag detected={props.detected} type={props.type}/>;
-    const img = <HistoryDataTag img="go" type={props.type} />;
+    var infoInCard;
+
+    if (props.type) {
+        const date = <HistoryDataTag upper={props.date.substring(0, 10)} lower={props.date.substring(11, 16)} />;
+        const worker = <HistoryDataTag upper={props.staff.name} lower={props.staff.registrationId} />;
+        const place = <HistoryDataTag upper={props.place.latitud} lower={props.place.longitud} />;
+        const gasData = <HistoryDataTag data={[props.data.GasNatural, props.data.CO, props.data.Hidrogeno, props.data.Temperatura]} />
+        const type = <HistoryDataTag type={props.type} />
+
+        infoInCard = { date, worker, place, gasData, type }
+
+    } else {
+        const date = <HistoryDataTag upper={props.idate.substring(0, 10)} lower={props.idate.substring(11, 16) + "-" + props.edate.substring(11, 16)} />;
+        const worker = <HistoryDataTag upper={props.staff.name} lower={props.staff.registrationId} />;
+        const place = <HistoryDataTag upper={props.place.latitud} lower={props.place.longitud} />;
+        const gasData = <HistoryDataTag gasData={[props.gases.GasNatural, props.gases.CO, props.gases.Hidrogeno, props.gases.Temperatura]} />
+
+        infoInCard = [ date, worker, place, gasData ]
+    }
+
 
     return (
         <div>
@@ -47,11 +64,9 @@ function MediaControlCard(props) {
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
                         <Typography component="h5" variant="h5">
-                                    {date}
-                                    {place}
-                                    {type}
-                                    {img}
-                       </Typography>
+                            {infoInCard
+                            }
+                        </Typography>
                     </CardContent>
                 </div>
             </Card>
@@ -60,9 +75,9 @@ function MediaControlCard(props) {
     );
 }
 
-MediaControlCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+HistoryCard.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MediaControlCard);
+export default withStyles(styles, { withTheme: true })(HistoryCard);

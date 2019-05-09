@@ -1,2 +1,4 @@
 {"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-09T16:33:34.125Z"}
 {"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-09T16:33:35.268Z"}
+{"level":"info","message":"Listening on port 4000...","timestamp":"2019-05-09T17:11:15.254Z"}
+{"level":"info","message":"Connected to mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true...","timestamp":"2019-05-09T17:11:16.010Z"}
