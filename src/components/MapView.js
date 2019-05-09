@@ -12,7 +12,7 @@ import Typography from "@material-ui/core/Typography";
 const styles = {
   card: {
     width: "100%",
-    display:"flex",
+    display: "flex",
     alignItems: "center",
     justifyContent: "center",
     margin: 2,
@@ -26,8 +26,7 @@ const styles = {
     position: "relative"
   },
   map: {
-    position: "relative",
-    
+    position: "relative"
   }
 };
 
@@ -37,7 +36,12 @@ class MapView extends React.Component {
       if (nextProps.location.length > 1 && this.props.location.length > 1) {
         var difLat = nextProps.location[0] !== this.props.location[0];
         var difLong = nextProps.location[1] !== this.props.location[1];
-        return difLat || difLong || !this.marker || (this.props.disconnected!==nextProps.disconnected);
+        return (
+          difLat ||
+          difLong ||
+          !this.marker ||
+          this.props.disconnected !== nextProps.disconnected
+        );
       } else {
         return true;
       }
@@ -53,22 +57,25 @@ class MapView extends React.Component {
         zoom: 15,
         zoomControl: false
       });
-      
+
       this.layerGroup = L.layerGroup().addTo(this.map);
       L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-            attribution:false
-          }).addTo(this.layerGroup);
+        attribution: false
+      }).addTo(this.layerGroup);
       L.polygon(MC2, { color: "purple", stroke: false }).addTo(this.layerGroup);
-      L.polygon(Aceria, { color: "blue", stroke: false }).addTo(this.layerGroup);
-      L.polygon(REDI, { color: "orange", stroke: false }).addTo(this.layerGroup);
+      L.polygon(Aceria, { color: "blue", stroke: false }).addTo(
+        this.layerGroup
+      );
+      L.polygon(REDI, { color: "orange", stroke: false }).addTo(
+        this.layerGroup
+      );
       //var myIcon = L.divIcon();
     }
   }
   componentWillUnmount() {
-    if(this.map){
+    if (this.map) {
       this.map.remove();
     }
-    
   }
 
   determineZone = location => {
@@ -84,11 +91,30 @@ class MapView extends React.Component {
     }
   };
 
+  componentDidUpdate(nextProps) {
+    if (this.props.disconnected && !nextProps.disconnected) {
+      this.map = L.map(ReactDOM.findDOMNode(this), {
+        center: this.props.location || [25.7217, -100.3008],
+        zoom: 15,
+        zoomControl: false
+      });
+      L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+        attribution: false
+      }).addTo(this.layerGroup);
+      L.polygon(MC2, { color: "purple", stroke: false }).addTo(this.layerGroup);
+      L.polygon(Aceria, { color: "blue", stroke: false }).addTo(
+        this.layerGroup
+      );
+      L.polygon(REDI, { color: "orange", stroke: false }).addTo(
+        this.layerGroup
+      );
+    }
+  }
   render() {
-    if(this.map && this.props.disconnected){
+    if (this.map && this.props.disconnected) {
       console.log("remove map");
       //this.layerGroup.clearLayers();
-     // this.map.off();
+      this.map.remove();
     }
     const { location } = this.props;
     if (this.map && !this.props.disconnected) {
@@ -101,18 +127,16 @@ class MapView extends React.Component {
     return (
       <Card style={styles.card}>
         <CardContent style={{ position: "relative" }}>
-          {!this.props.disconnected && (
-            <div id="map" style={{ position: "relative" }} height={250} />
-          )}
+          {<div id="map" style={{ position: "relative" }} height={250} />}
           {this.props.disconnected && (
             <div style={{ position: "relative" }} height={250}>
               <Typography
                 variant="h6"
                 component="h2"
-                style={{ color: "black", }}
+                style={{ color: "black" }}
                 align="center"
               >
-               Mapa no disponible en desconexion
+                Mapa no disponible en desconexion
               </Typography>
             </div>
           )}

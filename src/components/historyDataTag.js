@@ -102,7 +102,6 @@ class HistoryDataTag extends React.Component {
             } else {
                 lower = "boton de panico"
             }
-
             return (
                 <span style={spanStyle}>
                     <Typography variant="subtitle1" color="textSecondary">
