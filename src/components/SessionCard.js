@@ -54,17 +54,18 @@ function Dashboard(props) {
     const gasComponent = () =>{
        
       let gasses = []
-      let index = 0;
+      var index = 0;
         for (var property in props.gasInfo) {
-          if (props.gasInfo.hasOwnProperty(property)) {
-            index++;
+          if (props.gasInfo.hasOwnProperty(property)) {  
             if(property !== "_id"){
+              
               gasses.push(<GasTag
                 id={index}
                 name={property}
                 lectura={props.gasInfo[property]}
                 key={Math.random() }
             />)
+            index++;
             }
           
       }

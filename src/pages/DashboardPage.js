@@ -26,39 +26,40 @@ const styles = {
 class DashboardPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      GasInfo: []
-    };
+    this.stat = {};
+    this.GasInfo=[];
   }
   renderGasComponent = () => {
-    if (this.state.GasInfo.length > 0) {
-      return this.state.GasInfo.map((gas, index) => {
-        if(gas.alertaBoton  || gas.alertaCaida || gas.alertaMetrica!==""){
-          var errorMsg="";
-        if(gas.alertaBoton){
-          errorMsg = "Alerta en: " +gas.staff.name + "por boton de panico";
-          
+    if (this.GasInfo.length > 0) {
+      return this.GasInfo.map((gas, index) => {
+        if (gas.alertaBoton || gas.alertaCaida || gas.alertaMetrica !== "") {
+          var errorMsg = "";
+          if (gas.alertaBoton) {
+            errorMsg = "Alerta en: " + gas.staff.name + " por boton de panico";
+          } else if (gas.alertaCaida) {
+            errorMsg = "Alerta en " + gas.staff.name + " por caida";
+          } else {
+            errorMsg =
+              "Alerta en " + gas.staff.name + " por " + gas.alertaMetrica;
+          }
+          if (!this.stat[gas.mac]) {
+            toast.error(errorMsg, {
+              position: "bottom-right",
+              autoClose: false,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true
+            });
+            this.stat[gas.mac] = true;
+          }
+        } else {
+          this.stat[gas.mac] = false;
         }
-        else if(gas.alertaCaida){
-          errorMsg = "Alerta en" + gas.staff.name + "por caida";
-        }
-        else{
-          errorMsg = "Alerta en" + gas.staff.name + "por" + gas.alertaMetrica;
-        }
-          toast.error(errorMsg, {
-            position: "bottom-right",
-            autoClose: false,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true
-          })
-        }
-
-        var updatedSeconds = (Date.now() - Date.parse(gas.updatedAt))/1000;
+        var updatedSeconds = (Date.now() - Date.parse(gas.updatedAt)) / 1000;
         console.log(updatedSeconds);
-        var disconnected = (updatedSeconds>=60)
-        console.log(disconnected)
+        var disconnected = updatedSeconds >= 60;
+        console.log(disconnected);
         return (
           <SessionCard
             gasInfo={gas.data}
@@ -90,7 +91,8 @@ class DashboardPage extends Component {
   };
 
   onSearch = filteredList => {
-    this.setState({ GasInfo: filteredList });
+    console.log(filteredList);
+    this.GasInfo=filteredList; 
   };
   componentWillUnmount() {
     clearInterval(this.Interval);
@@ -107,11 +109,13 @@ class DashboardPage extends Component {
             {this.props.auth.rol}
           </Typography>
         </div>
-        {this.props.currentSessions.length >0 &&<Search
-          placeholder={"Buscar sesiones activas"}
-          searchList={this.props.currentSessions}
-          onSearch={this.onSearch}
-        />}
+        {this.props.currentSessions.length > 0 && (
+          <Search
+            placeholder={"Buscar sesiones activas"}
+            searchList={this.props.currentSessions}
+            onSearch={this.onSearch}
+          />
+        )}
         <br />
         <div>{this.renderGasComponent()}</div>
       </div>

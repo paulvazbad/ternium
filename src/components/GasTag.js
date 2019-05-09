@@ -26,19 +26,19 @@ function GasTag(props) {
 
     const { classes } = props;
     var sizes = [3, 3, 3, 3]
-    const limits = [500, 500, 100, 100]
-    const suffix = ["% LEL", " ppm", "%", "%", "", ""]
+    const limits = [1200, 1200, 1200, 34]
+    const suffix = ["% LEL", " ppm", "%", "C"]
 
     var safe = "#5DAE55"
     const red = "#DC4545"
     const yellow = "#FFB200"
-    var lectura = props.lectura //+ suffix[props.id]
+    var lectura = (props.lectura).toFixed(4) + suffix[props.id]
 
-   /* if (props.lectura >= limits[props.id % 4]) {
-        if (props.lectura <= limits[props.id % 4]*(1.1)) {safe = yellow}
+    if (props.lectura >= limits[props.id] * 0.9) {
+        if (props.lectura <= limits[props.id]) {safe = yellow}
         else {safe = red}
     }
-    */
+    
     var cardStyle = {
         backgroundColor: safe,
         textAlign: "center",
