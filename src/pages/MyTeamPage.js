@@ -155,8 +155,8 @@ class MyTeam extends React.Component {
     return (
       <div>
         <Typography
-          variant="h3"
-          component="h2"
+          variant="h4"
+          component="h4"
           align="center"
           style={{ color: "orange" }}
         >

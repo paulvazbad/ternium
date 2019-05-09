@@ -141,6 +141,14 @@ class HistoryPage extends React.Component {
     if(this.props.historyData.length>0){
       return (
         <div styles={{ margin: "auto" }}>
+        <Typography
+          variant="h4"
+          component="h4"
+          align="center"
+          style={{ color: "orange" }}
+        >
+          {"Historial"}
+        </Typography>
           <Search
             placeholder={"Buscar sesiones pasadas e incidentes"}
             onSearch={this.onSearch}
