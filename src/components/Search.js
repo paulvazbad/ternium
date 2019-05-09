@@ -72,6 +72,13 @@ class Search extends React.Component {
 
   render() {
     const { searchList, placeholder } = this.props;
+    var fakeE={
+      target:{
+        value:""
+      }
+    }
+
+    //this.onChange(fakeE,searchList);
     return (
       <Paper style={styles.root} elevation={1}>
         <IconButton style={styles.iconButton} color="primary" aria-label="Menu">

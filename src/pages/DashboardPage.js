@@ -10,6 +10,7 @@ import GasInfo from "../components/gasData";
 import bufferInfo from "../components/bufferInfo";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { endSession } from "../redux/actions/session";
+import SearchRealTime from '../components/SearchRealTime';
 
 const styles = {
   root: {
@@ -26,12 +27,16 @@ const styles = {
 class DashboardPage extends Component {
   constructor(props) {
     super(props);
-    this.stat = {};
-    this.GasInfo=[];
+    this.stat={};
+    this.state={
+      GasInfo:[],
+      filter:""
+    }
   }
   renderGasComponent = () => {
-    if (this.GasInfo.length > 0) {
-      return this.GasInfo.map((gas, index) => {
+    var GasInfo = this.Search();
+    if (GasInfo.length > 0) {
+      return GasInfo.map((gas, index) => {
         if (gas.alertaBoton || gas.alertaCaida || gas.alertaMetrica !== "") {
           var errorMsg = "";
           if (gas.alertaBoton) {
@@ -89,13 +94,43 @@ class DashboardPage extends Component {
       );
     }
   };
+  Search = () =>{
+    let newList = [];
+    if ( this.state.filter !== "") {
+      //checks
+      if (this.props.currentSessions) {
+        newList = this.props.currentSessions.filter(item => {
+          for (var property in item) {
+            if (item.hasOwnProperty(property)) {
+              let itemData = item[property];
+              if (typeof itemData === "string") {
+                itemData = itemData.toLowerCase();
+                let searchData =  this.state.filter.toLowerCase();
+                if (itemData.includes(searchData)) {
+                  return true;
+                }
+              } else if (
+                typeof itemData === "number" &&
+                itemData.toString().includes( this.state.filter)
+              ) {
+                return true;
+              }
+            }
+          }
+          return false;
+        });
+      }
 
-  onSearch = filteredList => {
-    console.log(filteredList);
-    this.GasInfo=filteredList; 
-  };
-  componentWillUnmount() {
-    clearInterval(this.Interval);
+      return(newList);
+      //then query to backend
+    } else {
+      return(this.props.currentSessions);
+      //set list to original one
+    }
+  }
+ 
+  onChange = (text) =>{
+    this.setState({filter:text});
   }
   render() {
     return (
@@ -110,10 +145,7 @@ class DashboardPage extends Component {
           </Typography>
         </div>
         {this.props.currentSessions.length > 0 && (
-          <Search
-            placeholder={"Buscar sesiones activas"}
-            searchList={this.props.currentSessions}
-            onSearch={this.onSearch}
+          <SearchRealTime onChange={this.onChange}
           />
         )}
         <br />
