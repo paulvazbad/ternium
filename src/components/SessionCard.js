@@ -114,7 +114,7 @@ render(){
         </div>}
         {this.gasComponent()}
         <Grid item xs={sizes[0]} >
-            <MapView location={[25.72197,-100.30275]} disconnected={props.disconnected}/>
+            <MapView location={props.location} disconnected={props.disconnected}/>
         </Grid>
         <Grid item xs={sizes[1]} >
             <GasPlotter bufferInfo={this.bufferInfo}/>

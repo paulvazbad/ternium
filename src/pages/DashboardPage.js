@@ -65,6 +65,7 @@ class DashboardPage extends Component {
         console.log(updatedSeconds);
         var disconnected = updatedSeconds >= 10;
         console.log(disconnected);
+        console.log(gas);
         return (
           <SessionCard
             gasInfo={gas.data}
@@ -74,6 +75,7 @@ class DashboardPage extends Component {
             sessionId={gas._id}
             endSession={sessionId => this.props.endSession(sessionId)}
             disconnected={disconnected}
+            location={[gas.gps.longitud, gas.gps.latitud]}
           />
         );
       });

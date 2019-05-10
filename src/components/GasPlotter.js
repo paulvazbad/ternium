@@ -65,12 +65,12 @@ class GasPlotter extends React.Component {
       position: "relative"
       //border: "3px solid " + safe,
     };
-    var graph = window.innerWidth < 800 ? 300 : 500;
+    var graph = window.innerWidth < 800 ? 300 : 450;
     console.log(graph);
     return (
       <Card className={classes.card} style={cardStyle}>
         <CardContent>
-          <XYPlot height={250} width={graph} yDomain={[0, 1000]}>
+          <XYPlot height={250} width={graph} yDomain={[0, 100]}>
             <VerticalGridLines />
             <HorizontalGridLines />
             <XAxis />

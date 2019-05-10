@@ -86,7 +86,7 @@ class MapView extends React.Component {
       } else if (pointInPolygon(Aceria, location[0], location[1])) {
         this.zone = "Aceria";
       } else {
-        this.zone = null;
+        this.zone = "Unknown";
       }
     }
   };
@@ -117,6 +117,7 @@ class MapView extends React.Component {
       this.map.remove();
     }
     const { location } = this.props;
+    console.log(location);
     if (this.map && !this.props.disconnected) {
       this.determineZone(location);
       this.marker = L.marker(location).addTo(this.layerGroup);
