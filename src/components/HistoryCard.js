@@ -73,11 +73,9 @@ function HistoryCard(props) {
             <Card className={classes.card} style={backgroudColorCard}>
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
-                        <Typography component="h5" variant="h5">
                             {infoInCard}
                             <br />
                             {gasCards}
-                        </Typography>
                     </CardContent>
                 </div>
             </Card>
