@@ -59,6 +59,7 @@ class MapView extends React.Component {
       });
 
       this.layerGroup = L.layerGroup().addTo(this.map);
+      this.markersGroup = L.layerGroup().addTo(this.map);
       L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
         attribution: false
       }).addTo(this.layerGroup);
@@ -86,7 +87,7 @@ class MapView extends React.Component {
       } else if (pointInPolygon(Aceria, location[0], location[1])) {
         this.zone = "Aceria";
       } else {
-        this.zone = "Unknown";
+        this.zone = null;
       }
     }
   };
@@ -119,8 +120,9 @@ class MapView extends React.Component {
     const { location } = this.props;
     console.log(location);
     if (this.map && !this.props.disconnected) {
+      this.markersGroup.clearLayers();
       this.determineZone(location);
-      this.marker = L.marker(location).addTo(this.layerGroup);
+      this.marker = L.marker(location).addTo(this.markersGroup);
       if (this.zone) {
         this.marker = this.marker.bindPopup(this.zone).openPopup();
       }

@@ -65,7 +65,7 @@ class GasPlotter extends React.Component {
       position: "relative"
       //border: "3px solid " + safe,
     };
-    var graph = window.innerWidth < 800 ? 300 : 450;
+    var graph = window.innerWidth < 800 ? 300 : 400;
     console.log(graph);
     return (
       <Card className={classes.card} style={cardStyle}>
