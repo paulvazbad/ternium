@@ -17,7 +17,7 @@ var spanStyle = {
 class WorkerCard extends React.Component{
 
     handleDelete = () => {
-        alert("delete function!")
+        console.log(this.props.index);
         this.props.deleteWorker(this.props.registrationId, this.props.index);
     };
 
@@ -36,12 +36,13 @@ class WorkerCard extends React.Component{
                         </Typography>
                     </Grid>
                     <Grid item xs={2} align="left" style={spanStyle}>
-                        <IconButton
+                       { /*<IconButton
                             aria-label="Delete"
                             fontSize="large"
                         >
                             <DeleteIcon onClick={this.handleDelete}/>
-                        </IconButton>
+                        </IconButton
+                        >*/}
                     </Grid>
                 </Grid>
             </div>

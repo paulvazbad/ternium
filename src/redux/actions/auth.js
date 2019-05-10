@@ -187,11 +187,11 @@ export const deleteWorker = (registrationId,index) => {
   return (dispatch, getState) => {
     //FETCH workers from the api  here
     const { x_auth_token } = getState().auth;
-    
+    var url = "/api/staffs/" + registrationId;
     axios({
       method: "DELETE",
-      url: "/api/staffs/" + registrationId,
-      proxyHeaders: false,
+      url: url,
+      proxyHeaders: true,
       credentials: false,
       headers: { "x-auth-token": x_auth_token },
     
