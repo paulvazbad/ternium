@@ -4,6 +4,7 @@ export const LOGOUT = "LOGOUT";
 export const LOAD_USER = "LOAD_USER";
 export const FAILED_LOGIN = "FAILED_LOGIN";
 export const FETCHING_USER = "FETCHING_USER";
+export const  DELETE_WORKER = "DELETE_WORKER";
 //userReducer
 export const LOADED_WORKERS = "LOADED_WORKERS";
 export const FAILED_WORKERS = "FAILED_WORKERS";
@@ -19,6 +20,7 @@ export const ERROR_NOTIFIED = "ERROR_NOTIFIED";
 export const LOADING_USERS = "LOADING_USERS";
 export const NEW_DEVICE = "NEW_DEVICE";
 export const ERROR = "ERROR";
+export const NEW_WORKER = "NEW_WORKER";
 //sessionReducer
 export const GET_ACTIVE_SESSIONS = "GET_ACTIVE_SESSIONS";
 export const FAILED_ACTIVE_SESSIONS = "FAILED_ACTIVE_SESSIONS";

@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, LOAD_USER, FAILED_LOGIN, FETCHING_USER } from "../../constants/index";
+import { LOGIN, LOGOUT, LOAD_USER, FAILED_LOGIN, FETCHING_USER,   NEW_WORKER, DELETE_WORKER } from "../../constants/index";
 import axios from "axios";
 import jwt from "jwt-simple";
 // Encrypt with jwt standard encryption
@@ -141,5 +141,69 @@ export const logOut = (/*Optional parameter*/) => {
     dispatch({
       type: LOGOUT
     });
+  };
+};
+
+//newWorker
+export const newWorker = (name, registrationId) => {
+  return (dispatch, getState) => {
+    //FETCH workers from the api  here
+    let state = getState();
+    const { username, area } = state.auth;
+    const { x_auth_token } = getState().auth;
+    console.log({
+      name: name,
+      supervisor: username,
+      area: area,
+      registrationId: registrationId
+    });
+    axios({
+      method: "post",
+      url: "/api/staffs",
+      proxyHeaders: false,
+      credentials: false,
+      headers: { "x-auth-token": x_auth_token },
+      data: {
+        name: name,
+        supervisor: username,
+        area: area,
+        registrationId: registrationId
+      }
+    })
+      .then(response => {
+        dispatch({
+          type: NEW_WORKER,
+          payload: response.data
+        });
+      })
+      .catch(error => {
+
+        console.log(error);
+      });
+  };
+};
+
+export const deleteWorker = (registrationId,index) => {
+  return (dispatch, getState) => {
+    //FETCH workers from the api  here
+    const { x_auth_token } = getState().auth;
+    
+    axios({
+      method: "DELETE",
+      url: "/api/staffs/" + registrationId,
+      proxyHeaders: false,
+      credentials: false,
+      headers: { "x-auth-token": x_auth_token },
+    
+    })
+      .then(response => {
+        dispatch({
+          type: DELETE_WORKER,
+          payload: index
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 };

@@ -18,7 +18,7 @@ class WorkerCard extends React.Component{
 
     handleDelete = () => {
         alert("delete function!")
-        //this.props.deleteUser(this.props.index);
+        this.props.deleteWorker(this.props.registrationId, this.props.index);
     };
 
     render() {

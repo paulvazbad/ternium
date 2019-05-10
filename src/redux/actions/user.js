@@ -11,7 +11,8 @@ import {
   ERROR_NOTIFIED,
   LOADING_USERS,
   NEW_DEVICE,
-  ERROR
+  ERROR,
+  NEW_WORKER
 } from "../../constants";
 import axios from "axios";
 //const linkBack = "http://terniumapp.herokuapp.com";
@@ -104,6 +105,9 @@ export const newDevice = id => {
       });
   };
 };
+
+//newWorker
+
 
 export const setSelectedWorker = id => ({
   type: SELECT_WORKER,

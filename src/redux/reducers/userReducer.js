@@ -11,7 +11,8 @@ import {
   ERROR_NOTIFIED,
   LOADING_USERS,
   NEW_DEVICE,
-  ERROR
+  ERROR,
+  NEW_WORKER
 } from "../../constants";
 
 const defaultState = {
