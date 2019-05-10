@@ -15,6 +15,8 @@ import TextField from "@material-ui/core/TextField";
 import  Save  from "@material-ui/icons/Save";
 import Button from "@material-ui/core/Button";
 
+import WorkerCard from "../components/WorkerCard"
+
 
 const styles = theme => ({
   card: {
@@ -131,18 +133,11 @@ class MyTeam extends React.Component {
     if (workerList.length > 0) {
       return workerList.map(element => {
         return (
-          <div>
+          <div style={{ minWidth: 130 }}>
             <Paper className={classes.card}>
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-                  <Typography component="h5" variant="h5">
-                    {element.name}
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    {element.registrationId}
-                  </Typography>
-                </CardContent>
-              </div>
+                <div className={classes.details} style={{ width: "100%", padding: "5%"}}>
+                    <WorkerCard nombre={element.name} registrationId={element.registrationId}/>
+                </div>
             </Paper>
             <br />
           </div>

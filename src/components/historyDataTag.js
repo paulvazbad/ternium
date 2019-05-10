@@ -8,7 +8,7 @@ var spanStyle = {
     display: "inline-block",
     textAlign: "left",
     minWidth: 180,
-    maxWidth: 180,
+    //maxWidth: 180,
     minHeight: 40,
     maxHeight: 80,
     paddingRight: 30,
@@ -26,7 +26,7 @@ const gases = [
     },
     {
         name: "Explosivo (H)",
-        prefix: " LEL"
+        prefix: " ppm"
     },
     {
         name: "Temperatura",
@@ -81,7 +81,8 @@ class HistoryDataTag extends React.Component {
             console.log(this.props.gasData)
 
             return this.props.gasData.map((cardData, key) => {
-                return SimpleCard(gases[key].name, cardData.Min + "-" + cardData.Prom + "-" + cardData.Max + gases[key].prefix)
+                //return SimpleCard(gases[key].name, cardData.Min + "-" + cardData.Prom + "-" + cardData.Max + gases[key].prefix)
+                return ComplexCard(gases[key].name, cardData.Min + gases[key].prefix, cardData.Prom + gases[key].prefix, cardData.Max + gases[key].prefix)
                 })       
         }
 
@@ -91,9 +92,27 @@ class HistoryDataTag extends React.Component {
         }
 
         //////////////////////////////////////Despliegue de type
-        /*if (this.props.type) {
-            return
-        }*/
+        if (this.props.type) {
+            var lower = "Nivel de "
+            if (this.props.type === "Metrica") {
+
+                lower += gases[this.props.gas] 
+            } else if (this.props.type === "Caida") {
+                lower = "deteccion de caida/desbalance de usuario"
+            } else {
+                lower = "boton de panico"
+            }
+            return (
+                <span style={spanStyle}>
+                    <Typography variant="subtitle1" color="textSecondary">
+                        Alerta generada por:
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                        {lower}
+                    </Typography>
+                </span>
+                );
+        }
 
         return null
     }

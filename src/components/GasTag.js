@@ -42,7 +42,6 @@ function GasTag(props) {
     var cardStyle = {
         backgroundColor: safe,
         textAlign: "center",
-        //border: "3px solid " + safe,
     }
 
     
