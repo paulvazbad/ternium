@@ -2,7 +2,6 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { getPastSessions } from "../redux/actions/session";
-import historyData from "../components/historyData";
 import HistoryCard from "../components/HistoryCard";
 import Search from "../components/Search";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -114,11 +113,11 @@ class HistoryPage extends React.Component {
                     return (
                         <HistoryCard
                             date={cardData.date}
-                            data={cardData.data}
                             type={cardData.type}
-                            sensor={cardData.sensor}
-                            place={cardData.gps}
-                            staff={cardData.staff}
+                            gases = {cardData.session.data}
+                            sensor={""}
+                            place={cardData.session.gps}
+                            staff={cardData.session.staff}
                         />)
                 } else {
                     return (

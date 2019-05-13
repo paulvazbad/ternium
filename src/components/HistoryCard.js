@@ -47,14 +47,13 @@ function HistoryCard(props) {
         if (props.type === "Metrica") {
             gasOOR = (props.data.GasNatural >= limits[0]) ? 0 : (props.data.CO >= limits[1]) ? 1 : (props.data.Hidrogeno >= limits[2]) ? 2 : 3
         }
-
         const date = <HistoryDataTag upper={props.date.substring(0, 10)} lower={props.date.substring(11, 16)} />;
         const worker = <HistoryDataTag upper={props.staff.name} lower={props.staff.registrationId} />;
         const place = <HistoryDataTag upper={"latitud: " + props.place.latitud} lower={"longitud: " + props.place.longitud} />;
-        const gasData = <HistoryDataTag data={[props.data.GasNatural, props.data.CO, props.data.Hidrogeno, props.data.Temperatura]} />
+        const gasData = <HistoryDataTag data={[props.gases.gasNatural, props.gases.co2, props.gases.hidrogeno, props.gases.temperatura]} />
         const type = <HistoryDataTag type={props.type} gas={gasOOR} />
 
-        infoInCard = { date, worker, place, type }
+        infoInCard = [ date, worker, place, type ]
         gasCards = gasData
 
     } else {                                           ///////////////Historial

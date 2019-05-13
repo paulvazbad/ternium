@@ -1,5 +1,6 @@
 const { History } = require('../models/history');
 const { Alarms } = require('../models/alarms');
+const {Alert} = require('../models/alert') ;
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
@@ -11,8 +12,8 @@ router.get('/', async (req, res) => {
 
 router.get('/:Number', auth, async (req, res) => {
     const history = await History.find().limit(req.params.Number / 2);
-    const alarms = await Alarms.find().limit(req.params.Number / 2);
-    res.json([history,alarms]);
+    const alerts = await Alert.find().limit(req.params.Number / 2);
+    res.json([history,alerts]);
 });
 
 router.get('/search/:Data', async (req, res) => {

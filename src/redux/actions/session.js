@@ -98,6 +98,7 @@ export const getPastSessions = (cant) =>{
     .then((response)=>{
        var pastSessions = response.data[0];
        var alerts = response.data[1];
+       console.log(alerts);
       var all = [...pastSessions.map(value=>({...value,type:"history"})),...alerts.map(value=>({...value,type:"alert"}))]
       dispatch({
         type:GET_PAST_SESSIONS,
