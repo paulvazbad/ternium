@@ -70,7 +70,7 @@ class GasPlotter extends React.Component {
     return (
       <Card className={classes.card} style={cardStyle}>
         <CardContent>
-          <XYPlot height={250} width={graph} yDomain={[0, 100]}>
+          <XYPlot height={250} width={graph} yDomain={[0, 50]}>
             <VerticalGridLines />
             <HorizontalGridLines />
             <XAxis />

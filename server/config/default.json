@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "PAUL_MVP",
-  "db": "mongodb+srv://jorge:Erikfaz2019@cluster0-c3ir4.mongodb.net/test?retryWrites=true"
+  "db": "mongodb://localhost:27017/ternium"
 }

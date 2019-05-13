@@ -31,7 +31,7 @@ class HistoryPage extends React.Component {
         filter: null,
         historyData: this.props.historyData,
         loading: false,
-        quantity: 10
+        quantity: 100
     };
 
     window.onscroll = () => {
