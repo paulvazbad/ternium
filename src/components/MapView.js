@@ -53,7 +53,7 @@ class MapView extends React.Component {
     // create map
     if (!this.props.disconnected) {
       this.map = L.map(ReactDOM.findDOMNode(this), {
-        center: this.props.location || [25.7217, -100.3008],
+        center: this.props.location[0]===0? [25.649930, -100.290424]: this.props.location,
         zoom: 15,
         zoomControl: false
       });
@@ -92,13 +92,18 @@ class MapView extends React.Component {
     }
   };
 
-  componentDidUpdate(nextProps) {
-    if (this.props.disconnected && !nextProps.disconnected) {
+  componentDidUpdate(prevProps) {
+    console.log(this.props);
+    console.log(prevProps);
+    if (false) {
+      console.log("reconnected");
       this.map = L.map(ReactDOM.findDOMNode(this), {
-        center: this.props.location || [25.7217, -100.3008],
+        center: this.props.location[0]===0? [25.649930, -100.290424]: this.props.location,
         zoom: 15,
         zoomControl: false
       });
+      //this.layerGroup = L.layerGroup().addTo(this.map);
+      //this.markersGroup = L.layerGroup().addTo(this.map);
       L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
         attribution: false
       }).addTo(this.layerGroup);
@@ -114,15 +119,16 @@ class MapView extends React.Component {
   render() {
     if (this.map && this.props.disconnected) {
       console.log("remove map");
-      //this.layerGroup.clearLayers();
-      this.map.remove();
+      this.layerGroup.clearLayers();
+      this.markersGroup.clearLayers();
+      //this.map.remove();
     }
     const { location } = this.props;
     console.log(location);
     if (this.map && !this.props.disconnected) {
       this.markersGroup.clearLayers();
       this.determineZone(location);
-      this.marker = L.marker(location).addTo(this.markersGroup);
+      this.marker = L.marker(location[0]===0?[25.649930, -100.290424]:location).addTo(this.markersGroup);
       if (this.zone) {
         this.marker = this.marker.bindPopup(this.zone).openPopup();
       }

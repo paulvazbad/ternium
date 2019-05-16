@@ -40,7 +40,7 @@ const styles = theme => ({
     bottom: "0",
     right: "0",
     width: "100%",
-    height: "87%",
+    height: "87.5%",
     justifyContent:"center",
     alignItems:"center",
     zIndex:1

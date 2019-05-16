@@ -72,7 +72,7 @@ class HistoryDataTag extends React.Component {
         //////////////////////////////////////Despliegue de SS de gases en alerta
         if (this.props.data) {
             return this.props.data.map((cardData, key) => {
-                return SimpleCard(gases[key].name, cardData + gases[key].prefix)
+                return SimpleCard(gases[key].name, cardData.toFixed(3) + gases[key].prefix)
             }) 
         }
 
@@ -82,7 +82,7 @@ class HistoryDataTag extends React.Component {
 
             return this.props.gasData.map((cardData, key) => {
                 //return SimpleCard(gases[key].name, cardData.Min + "-" + cardData.Prom + "-" + cardData.Max + gases[key].prefix)
-                return ComplexCard(gases[key].name, cardData.Min + gases[key].prefix, cardData.Prom + gases[key].prefix, cardData.Max + gases[key].prefix)
+                return ComplexCard(gases[key].name, cardData.Min.toFixed(3) + gases[key].prefix, cardData.Prom.toFixed(3) + gases[key].prefix, cardData.Max.toFixed(3) + gases[key].prefix)
                 })       
         }
 

@@ -26,13 +26,13 @@ function GasTag(props) {
 
     const { classes } = props;
     var sizes = [3, 3, 3, 3]
-    const limits = [100, 100, 100, 34]
+    const limits = [100, 100, 1000, 34]
     const suffix = [" ppm", " ppm", " ppm", "C"]
 
     var safe = "#5DAE55"
     const red = "#DC4545"
     const yellow = "#FFB200"
-    var lectura = (props.lectura).toFixed(4) + suffix[props.id]
+    var lectura = (props.lectura).toFixed(3) + suffix[props.id]
 
     if (props.lectura >= limits[props.id] * 0.9) {
         if (props.lectura <= limits[props.id]) {safe = yellow}
