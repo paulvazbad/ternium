@@ -10,11 +10,11 @@
     "install": "^0.12.2",
     "jwt-simple": "^0.5.5",
     "react": "^16.8.4",
-    "react-dev-utils": "^8.0.0",
+    "react-dev-utils": "^9.0.0",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^4.0.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
