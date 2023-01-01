@@ -16,7 +16,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "compression": "^1.7.4",
-    "config": "^1.29.4",
+    "config": "^3.3.8",
     "cors": "^2.8.5",
     "express": "^4.16.2",
     "express-async-errors": "^2.1.0",
@@ -32,7 +32,7 @@
     "winston-mongodb": "^3.0.0"
   },
   "devDependencies": {
-    "jest": "^22.2.2",
+    "jest": "^29.3.1",
     "supertest": "^3.0.0"
   }
 }
